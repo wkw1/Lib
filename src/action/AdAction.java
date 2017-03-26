@@ -22,8 +22,9 @@ public class AdAction {
 	}
 	
 	//Â¼ÈëÍ¼Êé
-	public void inputBook(BookModel book){
+	public boolean inputBook(BookModel book){
 		FileTest.inputBook(book);
+		return true;
 	}
 	
 	//É¾³ıÍ¼Êé

@@ -111,7 +111,6 @@ public class MyOrderView {
 				    	myTableModel.updateData(selectedRowIndex);
 				    	selectedRowIndex =-1;
 				    }
-					
 				}
 			}
 		});

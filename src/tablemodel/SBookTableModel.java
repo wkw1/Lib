@@ -22,7 +22,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	private List<BookModel> list=null;
 	
 	private int tablewight =140;
-	
 
 	private int lastLine = 0;// 当前表的最后一行
 	private int firstLine = 0;// 当前表的第一行
@@ -31,7 +30,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	private int chooseLine;
 	
 	private SBookTableModel myTableModel;
-	
 	
 	public SBookTableModel(){
 		

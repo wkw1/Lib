@@ -136,20 +136,25 @@ public class InputBookView {
 					//录入图书
 					if(what==1){
 						// 将图书信息存入文件
-						
-						ad.inputBook(bookModel);
-						int i = JOptionPane.showConfirmDialog(null, "录入成功，继续录入？？", " 提示信息!",
-								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-						// 不继续录入
-						if (i == 1 || i == -1) {
-							frame.dispose();
-						} else {
-							bookName.setText("");
-							bookAuthor.setText("");
-							bookPress.setText("");
-							introduction.setText("");
-							bookNumber.setText("");
+						if(ad.inputBook(bookModel)){
+							int i = JOptionPane.showConfirmDialog(null, "录入成功，继续录入？？", " 提示信息!",
+									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+							// 不继续录入
+							if (i == 1 || i == -1) {
+								frame.dispose();
+							} else {
+								bookName.setText("");
+								bookAuthor.setText("");
+								bookPress.setText("");
+								introduction.setText("");
+								bookNumber.setText("");
+							}
 						}
+						else{
+							JOptionPane.showConfirmDialog(null, "录入失败？", 
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
+						}
+						
 					}
 					//更改图书
 					else{//更新成功失败？？？
@@ -157,6 +162,11 @@ public class InputBookView {
 							SearchResultView view = SearchResultView.getInstance("", "", 2);
 							//更新表格
 							view.updateData(bookModel);
+							frame.dispose();
+						}
+						else{
+							JOptionPane.showConfirmDialog(null, "更新信息失败？", 
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
 							frame.dispose();
 						}
 					}

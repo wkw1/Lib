@@ -14,7 +14,7 @@ public class UserModel {
 	private String name;//姓名
 	private String ID;//学号
 	private String school;//学院
-	private int power;//借书权限
+	private int power;//借书权限 用户种类 1代表学生，2代表老师
 	private int ANBooks;//允许借书数量
 	private int BNBooks;//已经借书数量
 	private float balance;//余额信息
@@ -92,6 +92,4 @@ public class UserModel {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	
-	
 }

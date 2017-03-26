@@ -24,8 +24,6 @@ import java.awt.Color;
 public class MyBorrowView {
 	private UserAction userAction=null;
 	
-
-
 	private JFrame frame;
 
 	private JTable table=null;
@@ -111,6 +109,7 @@ public class MyBorrowView {
 				else{
 					System.out.println("选择了第"+ selectedRowIndex+ "行");
 					String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
+					//归还图书操作，用户归还成功之后进行表的刷新
 					if(userAction.returnBook(ISBN)){
 						//刷新表格
 						myTableModel.updateData(selectedRowIndex);
