@@ -26,10 +26,16 @@ public class AfterAdSignInView {
 	private JButton searchBook;
 	private JButton seeOrderTable;
 	private JButton seeBorrowTable;
+	private JButton exit;//退出
 
-	/**
-	 * Create the application.
-	 */
+	public static AfterAdSignInView afterAdSignInView=null;
+	public static AfterAdSignInView getInstance(){
+		if(afterAdSignInView==null){
+			afterAdSignInView = new AfterAdSignInView();
+		}
+		return afterAdSignInView;
+	}
+	
 	public AfterAdSignInView() {
 		initialize();
 		action();
@@ -72,8 +78,18 @@ public class AfterAdSignInView {
 				allBrderView.getFrame().setVisible(true);
 			}
 		});
+		
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SignInView signInView = new SignInView();
+				signInView.getFrame().setVisible(true);
+				frame.dispose();
+				afterAdSignInView=null;
+			}
+		});
 	}
-	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -189,6 +205,12 @@ public class AfterAdSignInView {
 		seeBorrowTable.setBackground(new Color(135, 206, 250));
 		seeBorrowTable.setBounds(334, 374, 200, 78);
 		panel.add(seeBorrowTable);
+		
+		exit = new JButton("\u9000\u51FA\u767B\u5F55");
+		exit.setBackground(new Color(255, 0, 0));
+		exit.setFont(new Font("宋体", Font.PLAIN, 15));
+		exit.setBounds(1063, 13, 105, 35);
+		panel.add(exit);
 		
 		whichTypeForBook.addItem("ISBN");
 		whichTypeForBook.addItem("书名");

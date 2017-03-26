@@ -93,7 +93,7 @@ public class SignInView {
 				int result=signInAciton.SignIn(IDString, passwordString,userType);
 				if(result==3){
 					if(userType==3){
-						AfterAdSignInView window = new AfterAdSignInView();
+						AfterAdSignInView window =AfterAdSignInView.getInstance();
 						window.getFrame().setVisible(true);
 					}
 					else{
