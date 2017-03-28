@@ -214,6 +214,8 @@ public class AfterAdSignInView {
 		
 		whichTypeForBook.addItem("ISBN");
 		whichTypeForBook.addItem("书名");
+		whichTypeForBook.addItem("作者");
+		whichTypeForBook.addItem("出版社");
 		
 	}
 
