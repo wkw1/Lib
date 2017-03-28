@@ -99,5 +99,4 @@ public class UserAction {
 	public List<InfoModel> getInfo(){
 		return null;
 	}
-	
 }

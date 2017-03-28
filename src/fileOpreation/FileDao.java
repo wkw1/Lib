@@ -117,14 +117,76 @@ public class FileDao {
 	}
 	
 	
+	/**
+	 * 借书表各种操作
+	 * 从文件中读取所有的借书数据存放到borrowBookList中  --setBorrowBookList()
+	 * 增加借书记录（用户借书，向借书表增加一条借书记录）--addBorrowInfo(BorrowBookModel borrowBookModel)
+	 * 删除借书记录（用户归还一本书删除此条记录） --delBorrowRecord(BorrowBookModel borrowBookModel)
+	 * 更改借书时间（系统随着时间的变化，每过一天增加每一条借书记录的已借书时间和产生的费用，系统线程更改）
+	 *       --alterBorrowRecord()
+	 * 查询特定用户的所借图书（用户查看自己的结束记录，根据用户的ID准确查询） --searchUserRecord(String ID)
+	 */
 	
 	public List<BorrowBookModel> getBorrowBookList() {
 		return borrowBookList;
 	}
 	
 	public void setBorrowBookList() {
+		//TODO 从文件中将所有借书信息存到borrowBookList列表中
 		
 	}
+	public boolean addBorrowInfo(BorrowBookModel borrowBookModel){
+		borrowBookList.add(borrowBookModel);
+		return true;
+	}
+	public boolean delBorrowRecord(BorrowBookModel borrowBookModel){
+		int listSize = borrowBookList.size();
+		int i=0;
+		for(i=0;i<listSize;i++){
+			if(borrowBookList.get(i).getID()==borrowBookModel.getID()
+					&&borrowBookList.get(i).getBookISBN()==borrowBookModel.getBookISBN()){
+				borrowBookList.remove(i);
+				break;
+			}
+		}
+		return true;
+	}
+	
+	public boolean alterBorrowRecord(){
+		int listSize = borrowBookList.size();
+		int i=0;
+		for(i=0;i<listSize;i++){
+			int rTime;
+			rTime =borrowBookList.get(i).getRTBook();
+			borrowBookList.get(i).setRTBook(rTime--);
+			if(rTime>=0){
+				borrowBookList.get(i).setAIBook((float) (-rTime*0.2));
+			}
+		}
+		return true;
+	}
+	
+	public List<BorrowBookModel> searchUserRecord(String ID){
+		List<BorrowBookModel>list = new ArrayList<>();
+		int listSize = borrowBookList.size();
+		int i=0;
+		for(i=0;i<listSize;i++){
+			if(borrowBookList.get(i).getID()==ID)
+				list.add(borrowBookList.get(i));
+		}
+		return list;
+	}
+	
+	
+	
+	/**
+	 * TODO ...
+	 * 
+	 * 预约表类似上面两个表
+	 * 
+	 * 
+	 */
+	
 	
 	public List<OrderBookModel> getOrderBookList() {
 		return orderBookList;
@@ -132,6 +194,9 @@ public class FileDao {
 	
 	public void setOrderBookList() {
 	}
+	/**
+	 * 
+	 */
 	
 	public List<BBHModel> getBBHList() {
 		return BBHList;

@@ -10,7 +10,7 @@ public class BorrowBookModel {
 	private String bookAuthor;
 	private Date borrowDate;//借书时间
 	private int RTBook;//剩余借书时间
-	private int AIBook;//借此本书产生的欠费信息
+	private float AIBook;//借此本书产生的欠费信息
 	
 	
 	public String getBookAuthor() {
@@ -55,10 +55,10 @@ public class BorrowBookModel {
 	public void setRTBook(int rTBook) {
 		RTBook = rTBook;
 	}
-	public int getAIBook() {
+	public float getAIBook() {
 		return AIBook;
 	}
-	public void setAIBook(int aIBook) {
+	public void setAIBook(float aIBook) {
 		AIBook = aIBook;
 	}
 	
