@@ -33,7 +33,7 @@ public class FileDao {
 	/**
 	 * 图书表系列操作
 	 * 增删改查
-	 * 增加一本图书 （管理员发出命令） --addBookList(BookModel bookModel)
+	 * 增加一本图书 （管理员发出命令） --addBookToBookList(BookModel bookModel)
 	 * 删除一本图书 （管理员发出命令） --delBookFromBooklist(BookModel bookModel)
 	 * 更改一本图书的部分属性 （管理员发出直接更改命令，用户借书还书间接导致图书在架数目发生改动）
 	 *       --alterBookInBookList(BookModel bookModel)
@@ -116,7 +116,6 @@ public class FileDao {
 		return list;
 	}
 	
-	
 	/**
 	 * 借书表各种操作
 	 * 从文件中读取所有的借书数据存放到borrowBookList中  --setBorrowBookList()
@@ -136,6 +135,7 @@ public class FileDao {
 		
 	}
 	public boolean addBorrowInfo(BorrowBookModel borrowBookModel){
+		//TODO 排序，文件中的表是不是按照区域进行划分？？
 		borrowBookList.add(borrowBookModel);
 		return true;
 	}
@@ -183,10 +183,12 @@ public class FileDao {
 	 * TODO ...
 	 * 
 	 * 预约表类似上面两个表
-	 * 
+	 * 得到所有的用户信息
+	 * 增加预约信息（当有用户预约图书时，增加一条预约信息）
+	 * 删除预约信息（用户预约的图书到达之后提醒用户并删除此预约信息）
+	 * 查询预约信息（用户的到预约表）
 	 * 
 	 */
-	
 	
 	public List<OrderBookModel> getOrderBookList() {
 		return orderBookList;
@@ -194,17 +196,20 @@ public class FileDao {
 	
 	public void setOrderBookList() {
 	}
-	/**
-	 * 
-	 */
 	
+	
+	
+	/**
+	 * TODO 
+	 * 借书历史操作函数
+	 * 主要实现得到单个用户的所有借书信息
+	 */
 	public List<BBHModel> getBBHList() {
 		return BBHList;
 	}
 	
 	public void setBBHList() {
 	}
-	
 	
 
 }

@@ -21,7 +21,6 @@ import java.awt.Font;
  * @author ¿íÎ°
  *
  */
-
 public class AfterUserSignInView {
 
 	private JFrame frame;

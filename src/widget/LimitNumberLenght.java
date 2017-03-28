@@ -8,7 +8,6 @@ import javax.swing.text.PlainDocument;
  * 限制文本输入框只能输入数字
  * 
  * @author 宽伟
- *
  */
 
 public class LimitNumberLenght extends PlainDocument {
@@ -31,7 +30,7 @@ public class LimitNumberLenght extends PlainDocument {
 			char[] chars = string.toCharArray();
 			int length=0;
 			for(int i=0;i<chars.length;i++){
-				if(chars[i]>'0'&&chars[i]<'9')
+				if(chars[i]>='0'&&chars[i]<='9')
 					chars[length++] = chars[i];
 				}
 			
