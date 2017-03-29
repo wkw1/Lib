@@ -20,6 +20,12 @@ import tablemodel.OBookTableModel;
 import widget.InitWindow;
 import java.awt.Font;
 import java.awt.Color;
+/**
+ * 我的预约视图
+ * 用户页面
+ * @author 宽伟
+ *
+ */
 
 public class MyOrderView {
 	

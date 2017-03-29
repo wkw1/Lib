@@ -20,6 +20,11 @@ import tablemodel.BBookTableModel;
 import widget.InitWindow;
 import java.awt.Font;
 import java.awt.Color;
+/**
+ * 我的借阅视图（用户）
+ * @author 宽伟
+ *
+ */
 
 public class MyBorrowView {
 	private UserAction userAction=null;

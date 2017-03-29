@@ -14,6 +14,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
+/**
+ * 管理员登录后页面
+ * @author 宽伟
+ *
+ */
 
 public class AfterAdSignInView {
 

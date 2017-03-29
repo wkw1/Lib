@@ -23,6 +23,7 @@ import java.awt.Color;
 import javax.swing.JPasswordField;
 /**
  * µÇÂ¼Ò³Ãæ
+ * @author ¿íÎ°
  */
 
 public class SignInView {

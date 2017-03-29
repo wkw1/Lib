@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import model.OrderBookModel;
 /**
  * 管理员查询的预约表表模型
+ * 配合AllOrderView 使用
  * @author 宽伟
  *
  */

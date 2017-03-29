@@ -10,10 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-/**
- * 管理员得到借书表
- * 显示截至目前所有被借出的图书信息
- */
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +22,11 @@ import action.AdAction;
 import model.BorrowBookModel;
 import tablemodel.AllBBTableModel;
 import widget.InitWindow;
-
+/**
+ * 管理员得到借书表
+ * 显示截至目前所有被借出的图书信息
+ * @author 宽伟
+ */
 public class AllBorrowView{
 	
 	private JFrame frame;

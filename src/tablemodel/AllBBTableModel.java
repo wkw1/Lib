@@ -7,6 +7,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import model.BorrowBookModel;
+/**
+ * 所有用户借书表模型
+ * 配合AllBrrowView使用
+ * @author 宽伟
+ *
+ */
 
 public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 	private static final long serialVersionUID = 1L;
