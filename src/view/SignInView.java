@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -47,22 +46,15 @@ public class SignInView {
 	private JRadioButton ad;
 	
 	private int userType=0;//表示用户选择的登录种类1代表学生 2代表老师 3代表管理员
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignInView window = new SignInView();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public static SignInView signInView=null;
+	public static SignInView getInstance(){
+		if(signInView==null){
+			signInView=new SignInView();
+		}
+		return signInView;
 	}
+
 
 	/**
 	 * Create the application.
@@ -90,7 +82,7 @@ public class SignInView {
 				IDString = ID.getText().replaceAll("\\s", "");
 				passwordString = password.getText().replaceAll("\\s", "");
 				//先判断是否满足登录条件
-				int result=signInAciton.SignIn(IDString, passwordString,userType);
+				int result=signInAciton.SignIn(IDString, passwordString, userType);
 				if(result==3){
 					if(userType==3){
 						AfterAdSignInView window =AfterAdSignInView.getInstance();
