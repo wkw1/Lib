@@ -35,6 +35,7 @@ public class SignInView {
 	private JButton signIn;
 	private JButton register;
 	private JButton help;
+	private JButton cancel;//取消登录
 	
 	private String IDString=null;
 	private String passwordString=null;
@@ -123,6 +124,14 @@ public class SignInView {
 				// TODO Auto-generated method stub
 				JOptionPane.showConfirmDialog(null, "此系统仅限北邮学生和教师使用\n"
 						+ "若你已经在此平台注册可直接登录，未注册可以注册后登录", "帮助", JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		//退出登录
+		cancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SystemEntry.getInstance();
 			}
 		});
 	}
@@ -231,6 +240,10 @@ public class SignInView {
 		help.setFont(new Font("宋体", Font.PLAIN, 15));
 		help.setBounds(1004, 13, 73, 27);
 		panel.add(help);
+		
+		cancel = new JButton("\u53D6\u6D88");
+		cancel.setBounds(1097, 13, 73, 27);
+		panel.add(cancel);
 	}
 
 	public JFrame getFrame() {

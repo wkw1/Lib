@@ -9,6 +9,8 @@ import model.OrderBookModel;
 
 /**
  * 预约图书表模型
+ * @author 宽伟
+ * 用户得到
  */
 public class OBookTableModel extends Table<OBookTableModel, OrderBookModel>{
 	
