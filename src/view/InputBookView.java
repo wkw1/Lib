@@ -58,11 +58,13 @@ public class InputBookView {
 	private int powerForBorrowInt=1;
 	private JButton close;
 	
-	
-	public InputBookView(){
-		initialize();
-		action();
+	public static InputBookView inputBookView;
+	public static InputBookView getInstance(BookModel bookModel,int what){
+		if(inputBookView==null)
+			inputBookView=new InputBookView(bookModel,what);
+		return inputBookView;
 	}
+	
 	
 	//传入2 表示更改信息，传入1表示录入图书
 	public InputBookView(BookModel bookModel,int what) {
@@ -98,6 +100,20 @@ public class InputBookView {
 		else if(introductionString.equals(""))
 			return false;
 		
+		bookISBNString =ISBNCreate.getISBN((String)BookType.getSelectedItem());
+		powerForBorrowInt = powerForBorrow.getSelectedIndex();
+		bookModel = new BookModel();
+		bookModel.setAuthor(bookAuthorString);
+		bookModel.setBookType((String)BookType.getSelectedItem());
+		bookModel.setIntroduction(introductionString);
+		bookModel.setISBN(bookISBNString);
+		bookModel.setName(bookNameString);
+		bookModel.setPowerNeed(powerForBorrowInt);
+		bookModel.setPress(bookPressString);
+		bookModel.setRN(bookNumberInt);
+		bookModel.setStorageTime(new Date(System.currentTimeMillis()));
+		bookModel.setTN(bookNumberInt);
+		
 		return true;
 	}
 	
@@ -118,20 +134,6 @@ public class InputBookView {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(infoIsOk()){
-					bookISBNString =ISBNCreate.getISBN((String)BookType.getSelectedItem());
-					powerForBorrowInt = powerForBorrow.getSelectedIndex();
-					bookModel = new BookModel();
-					bookModel.setAuthor(bookAuthorString);
-					bookModel.setBookType((String)BookType.getSelectedItem());
-					bookModel.setIntroduction(introductionString);
-					bookModel.setISBN(bookISBNString);
-					bookModel.setName(bookNameString);
-					bookModel.setPowerNeed(powerForBorrowInt);
-					bookModel.setPress(bookPressString);
-					bookModel.setRN(bookNumberInt);
-					bookModel.setStorageTime(new Date(System.currentTimeMillis()));
-					bookModel.setTN(bookNumberInt);
-					
 					ad = AdAction.getInstance();
 					//录入图书
 					if(what==1){

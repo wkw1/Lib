@@ -65,6 +65,10 @@ public class FileTest {
 			obm.setName("Îº¿íÎ°");
 			//bbm.setRTBook(i);
 			lists.add(obm);
+			
+			System.out.println(obm.hashCode());
+			
+			
 		}
 
 		return lists;

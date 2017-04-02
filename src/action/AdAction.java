@@ -6,6 +6,7 @@ import fileOpreation.FileTest;
 import model.BookModel;
 import model.BorrowBookModel;
 import model.OrderBookModel;
+import model.UserModel;
 
 public class AdAction {
 	
@@ -56,6 +57,15 @@ public class AdAction {
 	//提醒用户归还图书
 	public boolean remindUser(String ID,String ISBN){
 		return true;
+	}
+	
+	//录入用户
+	public boolean inputUser(UserModel userModel){
+		return true;
+	}
+	//搜索用户
+	public List<UserModel> searchUser(String keyWord, String searchType){
+		return null;
 	}
 
 }

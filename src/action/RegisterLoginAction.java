@@ -19,7 +19,6 @@ public class RegisterLoginAction {
 		else{
 			//TODO 验证登录者 操作文件
 			
-			
 			System.out.println(ID);
 			System.out.println(password);
 			System.out.println("登录成功！");

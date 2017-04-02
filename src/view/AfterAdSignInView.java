@@ -31,6 +31,8 @@ public class AfterAdSignInView {
 	private JButton searchBook;
 	private JButton seeOrderTable;
 	private JButton seeBorrowTable;
+	private JButton inputUser ;
+	private JButton searchUser;
 	private JButton exit;//退出
 
 	public static AfterAdSignInView afterAdSignInView=null;
@@ -83,6 +85,24 @@ public class AfterAdSignInView {
 				allBrderView.getFrame().setVisible(true);
 			}
 		});
+		//录入用户
+		inputUser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				InputUserView inputUserView =InputUserView.getInstance();
+				inputUserView.getFrame().setVisible(true);
+				
+			}
+		});
+		
+		searchUser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SearchUserResultView view = SearchUserResultView.getInstance("", "");
+				view.getFrame().setVisible(true);
+			}
+		});
+		
 		
 		exit.addActionListener(new ActionListener() {
 			
@@ -151,7 +171,7 @@ public class AfterAdSignInView {
 		label_4.setBounds(720, 87, 215, 51);
 		panel.add(label_4);
 		
-		JButton inputUser = new JButton("\u5F55\u5165\u7528\u6237");
+		inputUser = new JButton("\u5F55\u5165\u7528\u6237");
 		inputUser.setBackground(new Color(255, 0, 204));
 		inputUser.setFont(new Font("华文行楷", Font.PLAIN, 25));
 		inputUser.setBounds(645, 246, 171, 78);
@@ -193,7 +213,7 @@ public class AfterAdSignInView {
 		panel.add(KeyWordForUser);
 		KeyWordForUser.setColumns(10);
 		
-		JButton searchUser = new JButton("\u641C\u7D22");
+		searchUser = new JButton("\u641C\u7D22");
 		searchUser.setFont(new Font("华文楷体", Font.PLAIN, 25));
 		searchUser.setBounds(799, 668, 113, 48);
 		panel.add(searchUser);
