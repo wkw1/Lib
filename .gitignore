@@ -44,4 +44,14 @@ $RECYCLE.BIN/
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-
+.apdisk
+*.class
+*.class
+bin/action/AdAction.class
+*.class
+bin/view/SignInView$3.class
+*.class
+*.class
+src/view/SignInView.java
+*.java
+src/view/SignInView.java

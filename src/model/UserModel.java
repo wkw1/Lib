@@ -7,7 +7,6 @@ import java.sql.Date;
  * 存放用户的所有属性
  * 
  * @author 宽伟
- *
  */
 
 public class UserModel {

@@ -7,16 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+import action.AdAction;
 import model.UserModel;
 import tablemodel.SUserTableModel;
 import widget.InitWindow;
+import widget.MyButton;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class SearchUserResultView {
 
@@ -27,11 +33,15 @@ public class SearchUserResultView {
 	private JTable table;
 	private int selectedRowIndex=-1;//用户鼠标选中的行
 	
+	private JButton formerPage;
+	private JButton nextPage;
+	private JButton sendMessage;
+	private JButton delTheUser;
+	private JButton cancel;
+	
+	private AdAction adAction;
+	
 	public static SearchUserResultView searchUserResultView;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JButton button;
 	public static SearchUserResultView getInstance(String keyWord,String searchType){
 		if(searchUserResultView==null)
 			searchUserResultView = new SearchUserResultView(keyWord, searchType);
@@ -40,6 +50,7 @@ public class SearchUserResultView {
 	
 	
 	public SearchUserResultView(String keyWord,String searchType) {
+		adAction =  new AdAction();
 		initialize();
 		initData(keyWord,searchType);
 		action();
@@ -49,12 +60,63 @@ public class SearchUserResultView {
 	private void initData(String keyWord,String searchType){
 		lists = new ArrayList<>();
 		System.out.println("关键字："+keyWord+"搜索类型："+searchType);
-		
+		lists = adAction.searchUser(keyWord, searchType);
 		myTableModel =  new SUserTableModel(table,lists);
 		myTableModel.initData();
 	}
 	
 	private void action(){
+		
+		formerPage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myTableModel.formerPage();
+				selectedRowIndex =-1;
+			}
+		});
+		
+		nextPage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			    myTableModel.nextPage();
+			    selectedRowIndex=-1;
+			}
+		});
+		
+		//删除用户
+		delTheUser.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(selectedRowIndex==-1)
+					JOptionPane.showConfirmDialog(null, "请选择用户！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				else{
+					//删除此用户
+				}
+			}
+		});
+		
+		//给用户发送消息
+		sendMessage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(selectedRowIndex==-1)
+					JOptionPane.showConfirmDialog(null, "请选择用户！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				else{
+					
+				}
+			}
+		});
+		
+		
+		cancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				searchUserResultView = null;
+			}
+		});
+		
 		table.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -98,9 +160,6 @@ public class SearchUserResultView {
 		});
 	}
 	
-	
-	
-
 	private void initialize() {
 		frame = new JFrame();
 		BorderLayout borderLayout = (BorderLayout) frame.getContentPane().getLayout();
@@ -114,7 +173,7 @@ public class SearchUserResultView {
 		frame.getContentPane().add(panel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(92, 61, 889, 561);
+		scrollPane.setBounds(92, 61, 900, 600);
 		panel.add(scrollPane);
 		
 		table = new JTable();
@@ -123,36 +182,46 @@ public class SearchUserResultView {
 	    table.setRowHeight(70);
 		scrollPane.setViewportView(table);
 		
-		btnNewButton = new JButton("\u4E0A\u4E00\u9875");
-		btnNewButton.setBounds(327, 682, 113, 27);
-		panel.add(btnNewButton);
+		formerPage = new JButton("\u4E0A\u4E00\u9875");
+		formerPage.setBackground(new Color(0, 128, 128));
+		formerPage.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		formerPage.setBounds(327, 682, 113, 45);
+		panel.add(formerPage);
 		
-		btnNewButton_1 = new JButton("\u4E0B\u4E00\u9875");
-		btnNewButton_1.setBounds(552, 682, 113, 27);
-		panel.add(btnNewButton_1);
+		nextPage = new JButton("\u4E0B\u4E00\u9875");
+		nextPage.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		nextPage.setBackground(new Color(0, 128, 128));
+		nextPage.setBounds(621, 682, 113, 45);
+		panel.add(nextPage);
 		
-		btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(1042, 223, 113, 27);
-		panel.add(btnNewButton_2);
+		sendMessage = new JButton("\u53D1\u9001\u6D88\u606F");
+		sendMessage.setBackground(new Color(102, 205, 170));
+		sendMessage.setBounds(1042, 223, 113, 45);
+		panel.add(sendMessage);
 		
-		button = new JButton("\u5220\u9664 \u6B64\u7528\u6237");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		button.setBounds(1042, 336, 113, 27);
-		panel.add(button);
+		delTheUser = new JButton("\u5220\u9664\u6B64\u7528\u6237");
+		delTheUser.setBackground(new Color(240, 128, 128));
+		delTheUser.setBounds(1042, 336, 113, 45);
+		panel.add(delTheUser);
+		
+		MyButton myButton = new MyButton("haha");
+		myButton.setBackground(new Color(240, 128, 128));
+		myButton.setBounds(1042, 600, 113, 45);
+		panel.add(myButton);
+		
+		
+		cancel = new JButton("\u9000\u51FA");
+		cancel.setBackground(Color.RED);
+		cancel.setBounds(1093, 0, 89, 27);
+		panel.add(cancel);
 	}
-
 
 	public JFrame getFrame() {
 		return frame;
 	}
 
-
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
 	
 }

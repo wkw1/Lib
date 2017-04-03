@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import widget.InitWindow;
+import widget.MyButton;
+
 import javax.swing.JTextField;
 
 import action.RegisterLoginAction;
@@ -32,7 +34,7 @@ public class SignInView {
 
 	private JFrame frame;
 	private JTextField ID;
-	private JButton signIn;
+	private MyButton signIn;
 	private JButton register;
 	private JButton help;
 	private JButton cancel;//取消登录
@@ -186,9 +188,9 @@ public class SignInView {
 		label.setBounds(381, 451, 53, 41);
 		panel.add(label);
 		
-		signIn = new JButton("\u767B\u5F55");
+		signIn = new MyButton("\u767B\u5F55");
 		signIn.setFont(new Font("华文楷体", Font.PLAIN, 30));
-		signIn.setBackground(new Color(51, 204, 153));
+		signIn.setBackground(new Color(188, 143, 143));
 		signIn.setForeground(new Color(0, 0, 0));
 		signIn.setBounds(460, 553, 161, 57);
 		panel.add(signIn);

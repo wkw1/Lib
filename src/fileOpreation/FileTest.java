@@ -14,6 +14,7 @@ import model.BBHModel;
 import model.BookModel;
 import model.BorrowBookModel;
 import model.OrderBookModel;
+import model.UserModel;
 
 public class FileTest {
 	
@@ -44,6 +45,30 @@ public class FileTest {
 			lists.add(param);
 		}
 		
+		return lists;
+	}
+	
+	
+	public static List<UserModel> getListUM() {
+
+		List<UserModel> lists = new ArrayList<>();
+		UserModel um = new UserModel();
+		Date date = new Date(System.currentTimeMillis());
+
+		for (int i = 0; i < 25; i++) {
+			um = new UserModel();
+			//bbm.setAIBook(i + 1);
+			um.setBalance(25);
+			um.setJoinDate(date);
+			um.setSchool("计算机学院");
+			um.setID("2015211383");
+			um.setName("魏宽伟");
+			um.setPower(1);
+			//bbm.setRTBook(i);
+			lists.add(um);
+			
+		}
+
 		return lists;
 	}
 	

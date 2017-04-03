@@ -59,12 +59,16 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 
 		for (int i = 0; i < lists.size() && i < 8; i++) {
 			um = lists.get(i);
-			mObjects[i][7] = i;// 序号
+			mObjects[i][5] = i;// 序号
 			mObjects[i][0] = um.getName();
+			mObjects[i][1] = um.getID();
+			mObjects[i][2] = um.getJoinDate();
+			mObjects[i][3] = um.getSchool();
+			mObjects[i][4] = um.getBalance();
 
 		}
 		// 标头数据
-		String[] strings = { "ID", "姓名", "借书数目", "注册时间", "欠费", "职称"};
+		String[] strings = { "ID", "姓名","职称", "借书数目", "注册时间", "欠费" };
 
 		SUserTableModel model = new SUserTableModel(mObjects, strings);
 
@@ -73,7 +77,6 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 
 	@Override
 	public boolean nextPage() {
-		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		System.out.println("点击下一页SearchView");
 		if(rowListAll-lastLine>0){
@@ -120,7 +123,7 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 	private void updateTable() {
 		myTableModel = get(list.subList(firstLine, lastLine));
 		table.setModel(myTableModel);
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 6; i++) {
 			table.getColumnModel().getColumn(i).setPreferredWidth(tablewight);
 			table.getColumnModel().getColumn(i).setMaxWidth(200);
 		}

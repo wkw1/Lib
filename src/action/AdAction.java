@@ -65,7 +65,7 @@ public class AdAction {
 	}
 	//ËÑË÷ÓÃ»§
 	public List<UserModel> searchUser(String keyWord, String searchType){
-		return null;
+		return FileTest.getListUM();
 	}
 
 }
