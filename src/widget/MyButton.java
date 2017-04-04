@@ -20,8 +20,8 @@ import java.awt.geom.RoundRectangle2D;
 
 public class MyButton extends JButton {
     private static final long serialVersionUID = 39082560987930759L;
-    public static final Color BUTTON_COLOR1 = new Color(188, 143, 143);
-    public static final Color BUTTON_COLOR2 = new Color(51, 154, 47);
+    public Color BUTTON_COLOR1 = new Color(188, 143, 143);
+    public Color BUTTON_COLOR2 = new Color(51, 154, 47);
     // public static final Color BUTTON_COLOR1 = new Color(125, 161, 237);
     // public static final Color BUTTON_COLOR2 = new Color(91, 118, 173);
     public static final Color BUTTON_FOREGROUND_COLOR = Color.WHITE;

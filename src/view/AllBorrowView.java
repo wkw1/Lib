@@ -77,7 +77,7 @@ public class AllBorrowView{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(selectedRowIndex==-1){
-					JOptionPane.showConfirmDialog(null, "请选择预约的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "请选择用户", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					String ID = (String) table.getValueAt(selectedRowIndex, 1);

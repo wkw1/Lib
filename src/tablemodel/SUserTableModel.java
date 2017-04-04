@@ -46,6 +46,17 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 		}
 	}
 	
+	//删除用户后的操作
+	public boolean updateDelData(int index) {
+		if (lastLine - firstLine != 8 || lastLine == rowListAll) {
+			lastLine--;
+		}
+		list.remove(index + firstLine);
+		rowListAll--;
+		updateTable();
+		return true;
+	}
+	
 	@Override
 	public SUserTableModel get(List<UserModel> lists) {
 
@@ -68,7 +79,7 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 
 		}
 		// 标头数据
-		String[] strings = { "ID", "姓名","职称", "借书数目", "注册时间", "欠费" };
+		String[] strings = {"姓名" ,"ID","职称", "借书数目", "注册时间", "欠费" };
 
 		SUserTableModel model = new SUserTableModel(mObjects, strings);
 

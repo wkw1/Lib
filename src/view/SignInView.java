@@ -28,6 +28,8 @@ import javax.swing.JPasswordField;
  * @author 宽伟
  */
 
+
+
 public class SignInView {
 	
 	private RegisterLoginAction signInAciton=null;
@@ -58,18 +60,11 @@ public class SignInView {
 		}
 		return signInView;
 	}
-
-
-	/**
-	 * Create the application.
-	 */
 	public SignInView() {
 		initialize();
-		
 		action();
 	}
-	
-	//界面操作函数 
+	//界面操作函数
 	public void action(){
 		
 		//登录
@@ -189,8 +184,10 @@ public class SignInView {
 		panel.add(label);
 		
 		signIn = new MyButton("\u767B\u5F55");
+		signIn.BUTTON_COLOR2 = new Color(175, 238, 238);
+		signIn.BUTTON_COLOR1 = new Color(128, 0, 128);
 		signIn.setFont(new Font("华文楷体", Font.PLAIN, 30));
-		signIn.setBackground(new Color(188, 143, 143));
+		signIn.setBackground(new Color(128, 0, 128));
 		signIn.setForeground(new Color(0, 0, 0));
 		signIn.setBounds(460, 553, 161, 57);
 		panel.add(signIn);

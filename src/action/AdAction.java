@@ -67,5 +67,12 @@ public class AdAction {
 	public List<UserModel> searchUser(String keyWord, String searchType){
 		return FileTest.getListUM();
 	}
-
+	//删除用户
+	public boolean delUser(String ID){
+		return true;
+	}
+	//发送消息提醒
+	public boolean sendMessage(String message,String ID){
+		return true;
+	}
 }

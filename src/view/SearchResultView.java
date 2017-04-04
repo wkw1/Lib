@@ -67,7 +67,7 @@ public class SearchResultView{
 	 * 
 	 * @param keyWord
 	 * @param searchType
-	 * @param who表示用户还是管理员为1表示用户，为2表示管理员
+	 * @param who 表示用户还是管理员为1表示用户，为2表示管理员
 	 */
 	public SearchResultView(String keyWord,String searchType,int who){
 		this.keyWord=keyWord;
@@ -202,8 +202,6 @@ public class SearchResultView{
 						String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
 						if (adAction.delBook(ISBN)) {
 							// TODO 删除成功
-							
-							
 							myTableModel.updateDelData(selectedRowIndex);
 							//无选中行
 							selectedRowIndex=-1;

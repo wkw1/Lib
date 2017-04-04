@@ -23,7 +23,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
-
+/**
+ * 搜索得到用户结果视图
+ * @author 宽伟
+ *
+ */
 public class SearchUserResultView {
 
 	private JFrame frame;
@@ -92,6 +96,17 @@ public class SearchUserResultView {
 					JOptionPane.showConfirmDialog(null, "请选择用户！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				else{
 					//删除此用户
+					int i = JOptionPane.showConfirmDialog(null, "是否删除用户？？", " 提示信息!",
+							JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(i==0){//删除
+						String ID = (String)table.getValueAt(selectedRowIndex, 0);
+						 if(adAction.delUser(ID)){
+							 myTableModel.updateDelData(selectedRowIndex);
+							 JOptionPane.showConfirmDialog(null, "删除成功！！", "提示信息", 
+									 JOptionPane.PLAIN_MESSAGE);
+							 selectedRowIndex=-1;
+						 }
+					}
 				}
 			}
 		});
@@ -103,7 +118,15 @@ public class SearchUserResultView {
 				if(selectedRowIndex==-1)
 					JOptionPane.showConfirmDialog(null, "请选择用户！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				else{
-					
+					String str= JOptionPane.showInputDialog(null, "输入消息","消息框", 
+							JOptionPane.PLAIN_MESSAGE);
+					String ID = (String)table.getValueAt(selectedRowIndex, 0);
+					System.out.println(str);
+					if(!str.equals(null)){
+						adAction.sendMessage(str, ID);
+						JOptionPane.showConfirmDialog(null, "发送成功！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+					}
+					 
 				}
 			}
 		});
@@ -121,28 +144,16 @@ public class SearchUserResultView {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 对用户选取的单行数据操作
@@ -209,7 +220,6 @@ public class SearchUserResultView {
 		myButton.setBounds(1042, 600, 113, 45);
 		panel.add(myButton);
 		
-		
 		cancel = new JButton("\u9000\u51FA");
 		cancel.setBackground(Color.RED);
 		cancel.setBounds(1093, 0, 89, 27);
@@ -219,9 +229,7 @@ public class SearchUserResultView {
 	public JFrame getFrame() {
 		return frame;
 	}
-
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
 }
