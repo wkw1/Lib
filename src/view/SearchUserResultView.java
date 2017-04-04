@@ -51,8 +51,7 @@ public class SearchUserResultView {
 			searchUserResultView = new SearchUserResultView(keyWord, searchType);
 		return searchUserResultView;
 	}
-	
-	
+
 	public SearchUserResultView(String keyWord,String searchType) {
 		adAction =  new AdAction();
 		initialize();

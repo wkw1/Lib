@@ -76,7 +76,6 @@ public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 	@Override
 	public boolean nextPage() {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		System.out.println("µã»÷ÏÂÒ»Ò³SearchView");
 		if(rowListAll-lastLine>0){
 			if(rowListAll-lastLine>=7){
