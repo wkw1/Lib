@@ -28,10 +28,10 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
 /**
- * æœæœç»“æœé¡µé¢
- * åŒ…æ‹¬ç®¡ç†å‘˜å’Œç”¨æˆ·çš„æœæœç»“æœ
- * æ ¹æ®ä¼ å…¥çš„å€¼çš„ä¸åŒåˆ¤æ–­ç‚¹å‡»æ“ä½œå’Œæ§ä»¶åå­—
- * @author å®½ä¼Ÿ
+ * ËÑËÑ½á¹ûÒ³Ãæ
+ * °üÀ¨¹ÜÀíÔ±ºÍÓÃ»§µÄËÑËÑ½á¹û
+ * ¸ù¾İ´«ÈëµÄÖµµÄ²»Í¬ÅĞ¶Ïµã»÷²Ù×÷ºÍ¿Ø¼şÃû×Ö
+ * @author ¿íÎ°
  *
  */
 
@@ -39,34 +39,34 @@ public class SearchResultView{
 
 	private JFrame frame;
 	private JTable table=null;
-	private List<BookModel> lists=null;//æœç´¢ç»“æœåˆ—è¡¨ï¼Œä¿å­˜æ‰€æœ‰æœç´¢ç»“æœ
+	private List<BookModel> lists=null;//ËÑË÷½á¹ûÁĞ±í£¬±£´æËùÓĞËÑË÷½á¹û
 	private SBookTableModel myTableModel =null;
 	private UserAction userAction;
 	private AdAction adAction;
-	private int who=0;//whoè¡¨ç¤ºç”¨æˆ·è¿˜æ˜¯ç®¡ç†å‘˜ä¸º1è¡¨ç¤ºç”¨æˆ·ï¼Œä¸º2è¡¨ç¤ºç®¡ç†å‘˜
+	private int who=0;//who±íÊ¾ÓÃ»§»¹ÊÇ¹ÜÀíÔ±Îª1±íÊ¾ÓÃ»§£¬Îª2±íÊ¾¹ÜÀíÔ±
 	
 	private JButton formerPage;
 	private JButton nextPage;
 	private JButton borrow;
 	private JButton order;
-	private JButton Gopage;//å‰å¾€è¾“å…¥çš„é¡µæ•°
+	private JButton Gopage;//Ç°ÍùÊäÈëµÄÒ³Êı
 	
-	private int selectedRowIndex=-1;//ç”¨æˆ·é¼ æ ‡é€‰ä¸­çš„è¡Œ
+	private int selectedRowIndex=-1;//ÓÃ»§Êó±êÑ¡ÖĞµÄĞĞ
     
     private String keyWord;
     private String searchType;
     private JButton back;
     private JLabel pages;
-    //æ˜¾ç¤ºå½“å‰é¡µæ•°ï¼Œå’Œæ€»é¡µæ•°
+    //ÏÔÊ¾µ±Ç°Ò³Êı£¬ºÍ×ÜÒ³Êı
     private int pageNow=1;
     private int pageAll=1;
-    private JTextField pageGo;//è¾“å…¥é¡µæ•°æ¡†
+    private JTextField pageGo;//ÊäÈëÒ³Êı¿ò
     private int pageInput;
 	/**
 	 * 
 	 * @param keyWord
 	 * @param searchType
-	 * @param who è¡¨ç¤ºç”¨æˆ·è¿˜æ˜¯ç®¡ç†å‘˜ä¸º1è¡¨ç¤ºç”¨æˆ·ï¼Œä¸º2è¡¨ç¤ºç®¡ç†å‘˜
+	 * @param who ±íÊ¾ÓÃ»§»¹ÊÇ¹ÜÀíÔ±Îª1±íÊ¾ÓÃ»§£¬Îª2±íÊ¾¹ÜÀíÔ±
 	 */
 	public SearchResultView(String keyWord,String searchType,int who){
 		this.keyWord=keyWord;
@@ -78,18 +78,18 @@ public class SearchResultView{
 		}
 		else{
 			adAction=new AdAction();
-			//æ ¹æ®ç”¨æˆ·ä¸åŒæ›´æ–°é¡µé¢æŒ‰é’®åç§°
-			borrow.setText("åˆ é™¤");
-			order.setText("ä¿®æ”¹");
+			//¸ù¾İÓÃ»§²»Í¬¸üĞÂÒ³Ãæ°´Å¥Ãû³Æ
+			borrow.setText("É¾³ı");
+			order.setText("ĞŞ¸Ä");
 		}
 		frame.setVisible(true);
 		getData();
 		action();
 	}
-	//æ ¹æ®ç”¨æˆ·ä¸åŒæ›´æ–°é¡µé¢æŒ‰é’®åç§°
+	//¸ù¾İÓÃ»§²»Í¬¸üĞÂÒ³Ãæ°´Å¥Ãû³Æ
 	public static SearchResultView searchResultView=null;
 
-	// å•ä¾‹æ¨¡å¼ï¼Œå¾—åˆ°ç›®å‰çš„æ­¤é¡µé¢
+	// µ¥ÀıÄ£Ê½£¬µÃµ½Ä¿Ç°µÄ´ËÒ³Ãæ
 	public static SearchResultView getInstance(String keyWord,String searchType,int who) {
 		if (searchResultView == null) {
 			searchResultView = new SearchResultView(keyWord, searchType, who);
@@ -97,15 +97,15 @@ public class SearchResultView{
 		return searchResultView;
 	}
 	
-	//ç®¡ç†å‘˜ä¿®æ”¹ä¿¡æ¯åæ›´æ”¹å›¾ä¹¦è¡¨å›¾ä¹¦è¡¨
+	//¹ÜÀíÔ±ĞŞ¸ÄĞÅÏ¢ºó¸ü¸ÄÍ¼Êé±íÍ¼Êé±í
 	public void updateData(BookModel bm){
 		myTableModel.setUpdateData(bm);
 	}
 	
-	//æŸ¥æ‰¾åˆ°æ•°æ®
+	//²éÕÒµ½Êı¾İ
 	public void getData(){
 		lists = new ArrayList<>();
-		System.out.println("å…³é”®å­—ï¼š"+keyWord+"æœç´¢ç±»å‹ï¼š"+searchType);
+		System.out.println("¹Ø¼ü×Ö£º"+keyWord+"ËÑË÷ÀàĞÍ£º"+searchType);
 		if(who==1){
 			lists = userAction.searchBook(keyWord, searchType);
 		}
@@ -117,99 +117,99 @@ public class SearchResultView{
 		myTableModel.initData();
 		
 		pageAll = myTableModel.getRowListAll()/8+1;
-		pages.setText("ç¬¬"+ pageNow +"é¡µ å…±"+  pageAll +"é¡µ");
+		pages.setText("µÚ"+ pageNow +"Ò³ ¹²"+  pageAll +"Ò³");
 	}
 	
-	//å„ç§ç‚¹å‡»æ“ä½œ
+	//¸÷ÖÖµã»÷²Ù×÷
 	public void action() {
 		
-		//å»å¾€æŒ‡å®šé¡µ
+		//È¥ÍùÖ¸¶¨Ò³
 		Gopage.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//å°†å­—ç¬¦ä¸²è½¬åŒ–ä¸ºæ•´å½¢
+				//½«×Ö·û´®×ª»¯ÎªÕûĞÎ
 				if(pageGo.getText().equals(""))
 				{
-					JOptionPane.showConfirmDialog(null, "è¯·è¾“å…¥åˆé€‚çš„é¡µæ•°ï¼ï¼", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "ÇëÊäÈëºÏÊÊµÄÒ³Êı£¡£¡", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					pageInput = Integer.parseInt(pageGo.getText());
 					if (pageInput <= pageAll)
 						myTableModel.goPage(pageInput);
 					else
-						JOptionPane.showConfirmDialog(null, "è¯·è¾“å…¥åˆé€‚çš„é¡µæ•°ï¼ï¼", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showConfirmDialog(null, "ÇëÊäÈëºÏÊÊµÄÒ³Êı£¡£¡", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 				}
 				
 			}
 		});
 		
-		//ç‚¹å‡»ä¸Šä¸€é¡µ
+		//µã»÷ÉÏÒ»Ò³
 		formerPage.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(myTableModel.formerPage()){
-					selectedRowIndex=-1;//ä½¿é€‰ä¸­çš„è¡Œæ•°å½’é›¶
+					selectedRowIndex=-1;//Ê¹Ñ¡ÖĞµÄĞĞÊı¹éÁã
 					pageNow--;
-					pages.setText("ç¬¬"+ pageNow +"é¡µ å…±"+  pageAll +"é¡µ");
+					pages.setText("µÚ"+ pageNow +"Ò³ ¹²"+  pageAll +"Ò³");
 				}
 			}
 		});
 		
-		// ç‚¹å‡»ä¸‹ä¸€é¡µï¼Œåˆ·æ–°è¡¨æ ¼
+		// µã»÷ÏÂÒ»Ò³£¬Ë¢ĞÂ±í¸ñ
 		nextPage.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(myTableModel.nextPage()){
-					selectedRowIndex=-1;//ä½¿é€‰ä¸­çš„è¡Œæ•°å½’é›¶
+					selectedRowIndex=-1;//Ê¹Ñ¡ÖĞµÄĞĞÊı¹éÁã
 					pageNow++;
-					pages.setText("ç¬¬"+ pageNow +"é¡µ å…±"+  pageAll +"é¡µ");
+					pages.setText("µÚ"+ pageNow +"Ò³ ¹²"+  pageAll +"Ò³");
 				}
 				    
 			}
 		});
 
-		// ç‚¹å‡»å€Ÿé˜…/åˆ é™¤
+		// µã»÷½èÔÄ/É¾³ı
 		borrow.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//ç”¨æˆ· å€Ÿé˜…
+				//ÓÃ»§ ½èÔÄ
 				if(who==1){
 					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
-						System.out.println("è¯·é€‰æ‹©è¦å€Ÿé˜…çš„å›¾ä¹¦");
-						JOptionPane.showConfirmDialog(null, "è¯·é€‰æ‹©è¦å€Ÿé˜…çš„å›¾ä¹¦", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+						System.out.println("ÇëÑ¡ÔñÒª½èÔÄµÄÍ¼Êé");
+						JOptionPane.showConfirmDialog(null, "ÇëÑ¡ÔñÒª½èÔÄµÄÍ¼Êé", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 					} else {
-						// å€Ÿä¹¦æ“ä½œ,åˆ¤æ–­å€Ÿä¹¦æƒé™ TODO
+						// ½èÊé²Ù×÷,ÅĞ¶Ï½èÊéÈ¨ÏŞ TODO
 						String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
 						if (userAction.borrowBook(ISBN)) {
-							// TODO å€Ÿä¹¦æˆåŠŸï¼Œåˆ·æ–°è¡¨æ ¼
+							// TODO ½èÊé³É¹¦£¬Ë¢ĞÂ±í¸ñ
 							myTableModel.updateData(selectedRowIndex);
 
-							JOptionPane.showConfirmDialog(null, "å€Ÿä¹¦æˆåŠŸ", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showConfirmDialog(null, "½èÊé³É¹¦", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 						} else {
-							JOptionPane.showConfirmDialog(null, "å€Ÿä¹¦å¤±è´¥ï¼Ÿï¼Ÿï¼Ÿ", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showConfirmDialog(null, "½èÊéÊ§°Ü£¿£¿£¿", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 						}
 					}
 				}
-				else{//ç®¡ç†å‘˜åˆ é™¤
+				else{//¹ÜÀíÔ±É¾³ı
 					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
-						JOptionPane.showConfirmDialog(null, "è¯·é€‰æ‹©è¦åˆ é™¤çš„å›¾ä¹¦", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showConfirmDialog(null, "ÇëÑ¡ÔñÒªÉ¾³ıµÄÍ¼Êé", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 					} else {
 						String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
 						if (adAction.delBook(ISBN)) {
-							// TODO åˆ é™¤æˆåŠŸ
+							// TODO É¾³ı³É¹¦
 							myTableModel.updateDelData(selectedRowIndex);
-							//æ— é€‰ä¸­è¡Œ
+							//ÎŞÑ¡ÖĞĞĞ
 							selectedRowIndex=-1;
-							//é‡æ–°è®¡ç®—å½“å‰é¡µæ•°
+							//ÖØĞÂ¼ÆËãµ±Ç°Ò³Êı
 							pageAll = myTableModel.getRowListAll()/8+1;
-							pages.setText("ç¬¬"+ pageNow +"é¡µ å…±"+  pageAll +"é¡µ");
-							JOptionPane.showConfirmDialog(null, "åˆ é™¤æˆåŠŸ", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+							pages.setText("µÚ"+ pageNow +"Ò³ ¹²"+  pageAll +"Ò³");
+							JOptionPane.showConfirmDialog(null, "É¾³ı³É¹¦", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 						} else {
-							JOptionPane.showConfirmDialog(null, "åˆ é™¤å¤±è´¥ï¼Ÿï¼Ÿï¼Ÿ", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showConfirmDialog(null, "É¾³ıÊ§°Ü£¿£¿£¿", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 						}
 					}
 				}
@@ -217,34 +217,34 @@ public class SearchResultView{
 			}
 		});
 
-		// ç‚¹å‡»é¢„çº¦/æ›´æ”¹
+		// µã»÷Ô¤Ô¼/¸ü¸Ä
 		order.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (who == 1) {//ç”¨æˆ·é¢„çº¦
+				if (who == 1) {//ÓÃ»§Ô¤Ô¼
 					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
-						System.out.println("è¯·é€‰æ‹©è¦é¢„çº¦çš„å›¾ä¹¦");
-						JOptionPane.showConfirmDialog(null, "è¯·é€‰æ‹©è¦é¢„çº¦çš„å›¾ä¹¦", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+						System.out.println("ÇëÑ¡ÔñÒªÔ¤Ô¼µÄÍ¼Êé");
+						JOptionPane.showConfirmDialog(null, "ÇëÑ¡ÔñÒªÔ¤Ô¼µÄÍ¼Êé", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 					} else {
 						int RN = (int) table.getValueAt(selectedRowIndex, 6);
 						if (RN > 0) {
-							System.out.println("æ­¤ä¹¦å¯ç›´æ¥å€Ÿé˜…ï¼Œä¸ç”¨é¢„çº¦");
-							JOptionPane.showConfirmDialog(null, "æ­¤ä¹¦å¯ç›´æ¥å€Ÿé˜…ï¼Œä¸ç”¨é¢„çº¦", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+							System.out.println("´ËÊé¿ÉÖ±½Ó½èÔÄ£¬²»ÓÃÔ¤Ô¼");
+							JOptionPane.showConfirmDialog(null, "´ËÊé¿ÉÖ±½Ó½èÔÄ£¬²»ÓÃÔ¤Ô¼", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 						} else {
-							// é¢„çº¦æ“ä½œ
+							// Ô¤Ô¼²Ù×÷
 							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
 							if (userAction.orderBook(ISBN)) {
-								JOptionPane.showConfirmDialog(null, "é¢„çº¦æˆåŠŸ", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+								JOptionPane.showConfirmDialog(null, "Ô¤Ô¼³É¹¦", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 							} else {
-								JOptionPane.showConfirmDialog(null, "é¢„çº¦å¤±è´¥ï¼Ÿï¼Ÿï¼Ÿ", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+								JOptionPane.showConfirmDialog(null, "Ô¤Ô¼Ê§°Ü£¿£¿£¿", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 							}
 						}
 					}
 				}
-				else{//ç®¡ç†å‘˜æ›´æ”¹
+				else{//¹ÜÀíÔ±¸ü¸Ä
 					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
-						JOptionPane.showConfirmDialog(null, "è¯·é€‰æ‹©è¦æ›´æ”¹çš„å›¾ä¹¦", "æç¤ºä¿¡æ¯", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showConfirmDialog(null, "ÇëÑ¡ÔñÒª¸ü¸ÄµÄÍ¼Êé", "ÌáÊ¾ĞÅÏ¢", JOptionPane.PLAIN_MESSAGE);
 					} else {
 						InputBookView inputBookView = new InputBookView(myTableModel.getChoose(selectedRowIndex), 2);
 						inputBookView.getFrame().setVisible(true);
@@ -253,7 +253,7 @@ public class SearchResultView{
 			}
 		});
 
-		// ç‚¹å‡»è¡¨æ ¼äº‹ä»¶
+		// µã»÷±í¸ñÊÂ¼ş
 		table.addMouseListener(new MouseListener() {
 
 			@Override
@@ -274,10 +274,10 @@ public class SearchResultView{
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// å¯¹ç”¨æˆ·é€‰å–çš„å•è¡Œæ•°æ®æ“ä½œ
-				int selectRows = table.getSelectedRows().length;// å–å¾—ç”¨æˆ·æ‰€é€‰è¡Œçš„è¡Œæ•°
+				// ¶ÔÓÃ»§Ñ¡È¡µÄµ¥ĞĞÊı¾İ²Ù×÷
+				int selectRows = table.getSelectedRows().length;// È¡µÃÓÃ»§ËùÑ¡ĞĞµÄĞĞÊı
 				if (selectRows == 1) {
-					selectedRowIndex = table.getSelectedRow();// å–å¾—ç”¨æˆ·æ‰€é€‰å•è¡Œ
+					selectedRowIndex = table.getSelectedRow();// È¡µÃÓÃ»§ËùÑ¡µ¥ĞĞ
 					// System.out.print(list.get(selectedRowIndex).get("i"));
 					System.out.print(selectedRowIndex);
 
@@ -305,17 +305,17 @@ public class SearchResultView{
 		frame = new JFrame();
 		
 		InitWindow.init(frame);
-		// è®¾ç½®panelä½œä¸ºå®¹å™¨,æ§ä»¶åŠ å…¥å…¶ä¸­
+		// ÉèÖÃpanel×÷ÎªÈİÆ÷,¿Ø¼ş¼ÓÈëÆäÖĞ
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1200, 800);
 		panel.setLayout(null);
-		panel.setOpaque(false);// è®¾ç½®ä¸ºé€æ˜ï¼Œå¯ä»¥çœ‹åˆ°å›¾ç‰‡
+		panel.setOpaque(false);// ÉèÖÃÎªÍ¸Ã÷£¬¿ÉÒÔ¿´µ½Í¼Æ¬
 		
 		
 		frame.getContentPane().add(panel);
 		
 		JLabel label = new JLabel("\u641C\u7D22\u7ED3\u679C");
-		label.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 20));
+		label.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 20));
 		label.setBounds(471, 13, 113, 31);
 		panel.add(label);
 		
@@ -324,48 +324,48 @@ public class SearchResultView{
 		panel.add(scrollPane);
 		
 		table = new JTable();
-		//è®¾ç½®ç±»ä¸å¯éšæ•°æ®å¤§å°æ”¹å˜
+		//ÉèÖÃÀà²»¿ÉËæÊı¾İ´óĞ¡¸Ä±ä
 	    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	    table.setRowHeight(70);
 		scrollPane.setViewportView(table);
 		
 		
-	    nextPage = new JButton("ä¸‹ä¸€é¡µ");
-	    nextPage.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 25));
+	    nextPage = new JButton("ÏÂÒ»Ò³");
+	    nextPage.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 25));
 	    nextPage.setBackground(new Color(102, 204, 204));
 		nextPage.setBounds(503, 676, 113, 44);
 		panel.add(nextPage);
 		
-	    formerPage = new JButton("ä¸Šä¸€é¡µ");
+	    formerPage = new JButton("ÉÏÒ»Ò³");
 	    formerPage.setBackground(new Color(102, 204, 204));
-	    formerPage.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 25));
+	    formerPage.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 25));
 		formerPage.setBounds(280, 676, 113, 44);
 		panel.add(formerPage);
 		
-		borrow = new JButton("å€Ÿé˜…");
-		borrow.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 25));
+		borrow = new JButton("½èÔÄ");
+		borrow.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 25));
 		borrow.setBackground(new Color(153, 204, 153));
 		borrow.setBounds(1038, 284, 130, 44);
 		panel.add(borrow);
 		
-		order = new JButton("é¢„çº¦");
+		order = new JButton("Ô¤Ô¼");
 		order.setBackground(new Color(153, 102, 255));
-		order.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 25));
+		order.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 25));
 		order.setBounds(1038, 398, 130, 44);
 		panel.add(order);
 		
-		back = new JButton("é€€å‡º");
-		back.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 15));
+		back = new JButton("ÍË³ö");
+		back.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 15));
 		back.setBounds(1079, 17, 89, 27);
 		panel.add(back);
 		
-	    pages = new JLabel("ç¬¬ i é¡µ å…± n é¡µ");
-		pages.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 20));
+	    pages = new JLabel("µÚ i Ò³ ¹² n Ò³");
+		pages.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 20));
 		pages.setBounds(897, 683, 119, 35);
 		panel.add(pages);
 		
-		JLabel label_1 = new JLabel("ç¬¬          é¡µ");
-		label_1.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 20));
+		JLabel label_1 = new JLabel("µÚ          Ò³");
+		label_1.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 20));
 		label_1.setBounds(661, 685, 102, 31);
 		panel.add(label_1);
 		
@@ -375,9 +375,9 @@ public class SearchResultView{
 		pageGo.setColumns(10);
 		pageGo.setDocument(new LimitNumberLenght(3));
 		
-		Gopage = new JButton("å‰å¾€");
+		Gopage = new JButton("Ç°Íù");
 		Gopage.setBackground(new Color(220, 20, 60));
-		Gopage.setFont(new Font("åæ–‡æ¥·ä½“", Font.PLAIN, 20));
+		Gopage.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 20));
 		Gopage.setBounds(776, 689, 77, 31);
 		panel.add(Gopage);
 		
