@@ -18,7 +18,6 @@ import java.awt.Color;
  * @author ¿íÎ°
  *
  */
-
 public class AfterAdSignInView {
 
 	private JFrame frame;
