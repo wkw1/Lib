@@ -2,7 +2,8 @@ package action;
 
 import java.util.List;
 
-
+import db.SearchTypeFeedback;
+import fileOpreation.BookFormOp;
 import fileOpreation.FileTest;
 import model.BBHModel;
 import model.BookModel;
@@ -23,19 +24,15 @@ import model.UserModel;
 
 public class UserAction {
 
-    private static UserModel user; 
+    public UserModel user;
 	/**
 	 * 用户登录方法 View层调用
 	 * 查询文件看是否有此用户
 	 * 返回整数表示登录成功或失败TODO
-	 * @param ID
-	 * @param password
-	 * @return
-	 * 
 	 */	
     
     public UserAction(){
-    	user = UserModel.getIstance();
+    	user = UserModel.userModel;
     }
     
     public static UserAction userAction=null;
@@ -48,14 +45,11 @@ public class UserAction {
     }
 	
 	/**
-	 * 向借书表中插入数据
-	 * 修改图书表
-	 * @return
+	 * 更改列表中的数据
 	 */
-	//借书
 	public boolean borrowBook(String bookISBN){
-		
-		return true;
+		BookFormOp bookFormOp =  BookFormOp.getInstance();
+		return bookFormOp.borrowBook(bookISBN);//更改内存中的图书表
 	}
 	
 	//预约图书
@@ -74,8 +68,29 @@ public class UserAction {
 	
 	//搜索图书
 	public List<BookModel> searchBook(String keyWord,String Type){
-		
-		return FileTest.getListBM();
+		BookFormOp bookFormOp =  BookFormOp.getInstance();
+		int type=0;
+		switch (Type){
+			case "ISBN":
+				type = SearchTypeFeedback.BOOK_ISBN;
+				break;
+			case "书名":
+				type = SearchTypeFeedback.BOOK_NAME;
+				break;
+			case "出版社":
+				type = SearchTypeFeedback.BOOK_PRESS;
+				break;
+			case "作者":
+				type = SearchTypeFeedback.BOOK_AUTHOR;
+				break;
+			case "书类型":
+				type = SearchTypeFeedback.BOOK_TYPE;
+				break;
+		}
+		List<BookModel> lists = bookFormOp.searchBookForm(keyWord ,type);
+		if(lists==null)
+			System.out.println("未找到图书");
+		return lists;
 	}
 	
 	//得到借书表

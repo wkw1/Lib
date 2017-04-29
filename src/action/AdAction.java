@@ -2,7 +2,10 @@ package action;
 
 import java.util.List;
 
+import db.SearchTypeFeedback;
+import fileOpreation.BookFormOp;
 import fileOpreation.FileTest;
+import fileOpreation.UserFormOp;
 import model.BookModel;
 import model.BorrowBookModel;
 import model.OrderBookModel;
@@ -41,8 +44,29 @@ public class AdAction {
 	
 	//搜索图书
 	public List<BookModel> searchBook(String keyWord, String searchType) {
-		// TODO Auto-generated method stub
-		return FileTest.getListBM();
+		BookFormOp bookFormOp =  BookFormOp.getInstance();
+		int type=0;
+		switch (searchType){
+			case "ISBN":
+				type = SearchTypeFeedback.BOOK_ISBN;
+				break;
+			case "书名":
+				type = SearchTypeFeedback.BOOK_NAME;
+				break;
+			case "出版社":
+				type = SearchTypeFeedback.BOOK_PRESS;
+				break;
+			case "作者":
+				type = SearchTypeFeedback.BOOK_AUTHOR;
+				break;
+			case "书类型":
+				type = SearchTypeFeedback.BOOK_TYPE;
+				break;
+		}
+		List<BookModel> lists = bookFormOp.searchBookForm(keyWord ,type);
+		if(lists==null)
+			System.out.println("未找到图书");
+		return lists;
 	}
 	
 	//得到预约表 
@@ -65,8 +89,31 @@ public class AdAction {
 	}
 	//搜索用户
 	public List<UserModel> searchUser(String keyWord, String searchType){
-		return FileTest.getListUM();
+		UserFormOp userFormOp =  UserFormOp.getInstance();
+		int type=0;
+		switch (searchType){
+			case "ID":
+				type = SearchTypeFeedback.USER_ID;
+				break;
+			case "姓名":
+				type = SearchTypeFeedback.USER_NMAE;
+				break;
+			case "学院":
+				type = SearchTypeFeedback.USER_SCHOOL;
+			    break;
+		}
+		List<UserModel> lists = userFormOp.searchUserList(keyWord ,type);
+		if(lists==null)
+			System.out.println("未找到图书");
+		return lists;
 	}
+	
+	//查看近期用户
+	public List<UserModel> recentUser(){
+		return null;
+	}
+	
+	
 	//删除用户
 	public boolean delUser(String ID){
 		return true;

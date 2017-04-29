@@ -1,31 +1,27 @@
 package action;
 
-import model.UserModel;
+import db.SignInFeedback;
+import fileOpreation.UserFormOp;
 
 public class RegisterLoginAction {
 	@SuppressWarnings("unused")
-	private static UserModel user; 
-	
+
 	public int SignIn(String ID,String password,int userType){
 		if(ID.equals("")){
 			System.out.println("请输入用户ID");
-			return 1;
+			return SignInFeedback.NO_ID;
 		}
 		
 		else if(password.equals("")){
 			System.out.println("请输入密码");
-			return 2;
+			return SignInFeedback.NO_PASSWORD;
 		}
 		else{
 			//TODO 验证登录者 操作文件
-			
 			System.out.println(ID);
 			System.out.println(password);
-			System.out.println("登录成功！");
-			
-		    user = new UserModel(ID);
-			
-			return 3;
+			UserFormOp userFormOp = UserFormOp.getInstance();
+			return userFormOp.signIn(ID,password);
 		}
 	}
 	
