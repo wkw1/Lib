@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.UserDao;
+import db.SignInFeedback;
+import fileOpreation.UserFormOp;
+import model.UserModel;
 import widget.InitWindow;
 import widget.MyButton;
 
@@ -81,8 +85,9 @@ public class SignInView {
 				IDString = ID.getText().replaceAll("\\s", "");
 				passwordString = password.getText().replaceAll("\\s", "");
 				//先判断是否满足登录条件
+
 				int result=signInAciton.SignIn(IDString, passwordString, userType);
-				if(result==3){
+				if(result==SignInFeedback.SUCCESSFUL){
 					if(userType==3){
 						AfterAdSignInView window =AfterAdSignInView.getInstance();
 						window.getFrame().setVisible(true);
@@ -94,11 +99,23 @@ public class SignInView {
 					//得到选择的登录种类
 					frame.dispose();
 				}
-				else if(result==2){
+				else if(result== SignInFeedback.NO_ID){
+					JOptionPane.showConfirmDialog(null, "请输入ID?", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.NO_PASSWORD){
 				    JOptionPane.showConfirmDialog(null, "请输入密码?", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
-				else if(result==1){
-					JOptionPane.showConfirmDialog(null, "请输入ID?", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				else if(result==SignInFeedback.NO_INFO){
+					JOptionPane.showConfirmDialog(null, "不是本校学生不能使用系统", "提示信息",
+							JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.NOT_REGISTER){
+					JOptionPane.showConfirmDialog(null, "还未注册，请注册", "提示信息",
+							JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.WRONG_PASSWORD){
+					JOptionPane.showConfirmDialog(null, "密码错误！！", "提示信息",
+							JOptionPane.PLAIN_MESSAGE);
 				}
 			}
 		});

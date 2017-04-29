@@ -5,17 +5,28 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.BookDao;
+import dao.UserDao;
+import fileOpreation.FileSearch;
 import widget.InitWindow;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
+import java.nio.file.FileStore;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.awt.Color;
 import javax.swing.JLabel;
+
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+
 /**
  * 系统进入类
  * 系统开始的唯一接口
@@ -26,7 +37,6 @@ import javax.swing.JLabel;
  * 
  * 执行文件copy操作（备份文件操作）
  * @author 宽伟
- *
  */
 
 public class SystemEntry {
@@ -40,7 +50,7 @@ public class SystemEntry {
 	private static Thread thread;
 	private JButton cancel;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ParseException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,8 +61,17 @@ public class SystemEntry {
 				}
 			}
 		});
+		readFile();
 	}
-	
+
+
+	private static void readFile() throws IOException, ParseException {
+		BookDao bookDao = BookDao.getInstance();
+		bookDao.readBookForm();
+		UserDao userDao = UserDao.getInstance();
+		userDao.readUserForm();
+	}
+
 	//其它类调用 
 	public static void getInstance(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,6 +96,7 @@ public class SystemEntry {
 
 		thread.start();
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 
 	/**
@@ -87,6 +107,7 @@ public class SystemEntry {
 		date = new Date(System.currentTimeMillis());
 		initialize();
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		timeAdvance();//模拟时间推进
 		action();
 	}
@@ -137,7 +158,7 @@ public class SystemEntry {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				// TODO 将信息重新写入文件
 				frame.dispose();
 				thread.stop();
 			}

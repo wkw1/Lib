@@ -15,7 +15,6 @@ import action.AdAction;
 import model.UserModel;
 import tablemodel.SUserTableModel;
 import widget.InitWindow;
-import widget.MyButton;
 
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -25,6 +24,8 @@ import java.awt.Font;
 import java.awt.Color;
 /**
  * 搜索得到用户结果视图
+ * 近期用用户视图
+ * 根据构造函数传入的参数判断那个视图
  * @author 宽伟
  *
  */
@@ -213,11 +214,6 @@ public class SearchUserResultView {
 		delTheUser.setBackground(new Color(240, 128, 128));
 		delTheUser.setBounds(1042, 336, 113, 45);
 		panel.add(delTheUser);
-		
-		MyButton myButton = new MyButton("haha");
-		myButton.setBackground(new Color(240, 128, 128));
-		myButton.setBounds(1042, 600, 113, 45);
-		panel.add(myButton);
 		
 		cancel = new JButton("\u9000\u51FA");
 		cancel.setBackground(Color.RED);

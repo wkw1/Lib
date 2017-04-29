@@ -34,7 +34,6 @@ import javax.swing.JTextField;
  * @author 宽伟
  *
  */
-
 public class SearchResultView{
 
 	private JFrame frame;
@@ -104,7 +103,7 @@ public class SearchResultView{
 	
 	//查找到数据
 	public void getData(){
-		lists = new ArrayList<>();
+		lists = new ArrayList<BookModel>();
 		System.out.println("关键字："+keyWord+"搜索类型："+searchType);
 		if(who==1){
 			lists = userAction.searchBook(keyWord, searchType);
@@ -112,7 +111,14 @@ public class SearchResultView{
 		else{
 			lists = adAction.searchBook(keyWord, searchType);
 		}
-		
+		//未搜索到数据时给lists添加提示信息
+		if(lists==null){
+			BookModel info = new BookModel();
+			info.setISBN("未找到图书！");
+			lists = new ArrayList<>();
+			lists.add(info);
+		}
+			
 		myTableModel =  new SBookTableModel(table, frame, lists);
 		myTableModel.initData();
 		
@@ -130,7 +136,8 @@ public class SearchResultView{
 				//将字符串转化为整形
 				if(pageGo.getText().equals(""))
 				{
-					JOptionPane.showConfirmDialog(null, "请输入合适的页数！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "请输入合适的页数！！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					pageInput = Integer.parseInt(pageGo.getText());
@@ -182,16 +189,20 @@ public class SearchResultView{
 						System.out.println("请选择要借阅的图书");
 						JOptionPane.showConfirmDialog(null, "请选择要借阅的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
+						if(userAction.user.getBalance()<=-20)
+							JOptionPane.showConfirmDialog(null, "欠费过多。。联系管理员充值",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
 						// 借书操作,判断借书权限 TODO
-						String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
-						if (userAction.borrowBook(ISBN)) {
-							// TODO 借书成功，刷新表格
-							myTableModel.updateData(selectedRowIndex);
-
-							JOptionPane.showConfirmDialog(null, "借书成功", "提示信息", JOptionPane.PLAIN_MESSAGE);
-						} else {
-							JOptionPane.showConfirmDialog(null, "借书失败？？？", "提示信息", JOptionPane.PLAIN_MESSAGE);
+						else{
+							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
+							if (userAction.borrowBook(ISBN)) {
+								//刷新表格
+								myTableModel.updateData(selectedRowIndex);
+								JOptionPane.showConfirmDialog(null, "借书成功", "提示信息", JOptionPane.PLAIN_MESSAGE);
+							} else
+								JOptionPane.showConfirmDialog(null, "借书失败？？？", "提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
+
 					}
 				}
 				else{//管理员删除
@@ -292,8 +303,8 @@ public class SearchResultView{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				searchResultView =null;
 				frame.dispose();
+				searchResultView =null;
 			}
 		});
 	}

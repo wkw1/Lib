@@ -21,10 +21,11 @@ import java.awt.Color;
 public class AfterAdSignInView {
 
 	private JFrame frame;
-	private JTextField keyWord;
+	private JTextField keyWordForBook;
 	private JComboBox<String> whichTypeForBook;
 	private JTextField KeyWordForUser;
-	
+	private JComboBox<String> whichTypeForUser;
+
 	private JButton InputBook ;
 	private JButton searchBook;
 	private JButton seeOrderTable;
@@ -62,7 +63,9 @@ public class AfterAdSignInView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SearchResultView view =SearchResultView.getInstance("", "", 2);
+				SearchResultView view =SearchResultView.getInstance(
+						keyWordForBook.getText().replaceAll("\\s", ""),
+						(String) whichTypeForBook.getSelectedItem(),2);
 				view.getFrame().setVisible(true);
 			}
 		});
@@ -96,7 +99,9 @@ public class AfterAdSignInView {
 		searchUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SearchUserResultView view = SearchUserResultView.getInstance("", "");
+				SearchUserResultView view = SearchUserResultView.getInstance(
+						KeyWordForUser.getText().replaceAll("\\s", ""),
+						(String)whichTypeForUser.getSelectedItem());
 				view.getFrame().setVisible(true);
 			}
 		});
@@ -143,11 +148,11 @@ public class AfterAdSignInView {
 		searchBook.setBounds(224, 664, 113, 52);
 		panel.add(searchBook);
 		
-		keyWord = new JTextField();
-		keyWord.setFont(new Font("宋体", Font.PLAIN, 20));
-		keyWord.setBounds(262, 590, 113, 35);
-		panel.add(keyWord);
-		keyWord.setColumns(10);
+		keyWordForBook = new JTextField();
+		keyWordForBook.setFont(new Font("宋体", Font.PLAIN, 20));
+		keyWordForBook.setBounds(262, 590, 113, 35);
+		panel.add(keyWordForBook);
+		keyWordForBook.setColumns(10);
 		
 		JLabel label_1 = new JLabel("\u5173\u952E\u5B57");
 		label_1.setFont(new Font("华文楷体", Font.PLAIN, 20));
@@ -216,7 +221,7 @@ public class AfterAdSignInView {
 		searchUser.setBounds(799, 668, 113, 48);
 		panel.add(searchUser);
 		
-		JComboBox<String> whichTypeForUser = new JComboBox<String>();
+		whichTypeForUser = new JComboBox<String>();
 		whichTypeForUser.setBounds(823, 492, 112, 35);
 		panel.add(whichTypeForUser);
 		whichTypeForUser.addItem("姓名");
@@ -239,6 +244,7 @@ public class AfterAdSignInView {
 		whichTypeForBook.addItem("书名");
 		whichTypeForBook.addItem("作者");
 		whichTypeForBook.addItem("出版社");
+		whichTypeForBook.addItem("书类型");
 		
 	}
 

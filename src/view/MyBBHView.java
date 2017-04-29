@@ -46,12 +46,12 @@ public class MyBBHView {
 	public MyBBHView() {
 		userAction = new UserAction();
 		initialize();
-		getdata();
+		geData();
 		action();
 		
 	}
 	
-	public void getdata() {
+	public void geData() {
 		list = new ArrayList<>();
 
 		// 得到总的表
