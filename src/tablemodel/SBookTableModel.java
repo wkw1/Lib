@@ -49,7 +49,10 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	public void initData(){
 		rowListAll = list.size();
 		 //填充一部分
-		lastLine+=8;
+		if(rowListAll>=8)
+		    lastLine+=8;
+		else
+			lastLine = rowListAll;
 		myTableModel = get(list);
 		// 向表格中填充数据
 		table.setModel(myTableModel);

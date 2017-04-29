@@ -42,7 +42,10 @@ public class AllOBTableModel extends Table<AllOBTableModel, OrderBookModel>{
 	public void initData(){
 		rowListAll = list.size();
 		 //Ìî³äÒ»²¿·Ö
-		lastLine+=8;
+		if(rowListAll>=8)
+			lastLine+=8;
+		else
+			lastLine = rowListAll;
 		updateTable();
 	}
 
