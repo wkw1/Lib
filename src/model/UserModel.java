@@ -17,29 +17,34 @@ public class UserModel {
 	private int ANBooks;//允许借书数量
 	private int BNBooks;//已经借书数量
 	private float balance;//余额信息
-	private Date joinDate;//注册时间
+	private Date joinDate;//注册时间 注册时间为0000-00-00表示未注册
+	private String password;//密码 未注册密码为空
 	
-	//用户单例模式
-	private static volatile UserModel instance;
-	
-	//必须在登录时创建一个用户
-		public UserModel() {
-			super();
-		}
-	
-	//必须在登录时创建一个用户
-	public UserModel(String ID) {
-		// TODO Auto-generated constructor stub
-		if(instance ==null)
-			instance =  new UserModel();
-		instance.ID =ID;
+	//用户单例模式,登录后只有一个用户
+	public static UserModel userModel;
+	public UserModel(){
+
 	}
-	
-	
-	public static UserModel getIstance(){
-		if(instance==null)
-			System.out.println("未登录！！！");
-		return instance;
+
+	//必须在登录时创建一个用户
+	public UserModel(UserModel user) {
+		userModel.setANBooks(user.getANBooks());
+		userModel.setBalance(user.getBalance());
+		userModel.setBNBooks(user.getBNBooks());
+		userModel.setID(user.getID());
+		userModel.setJoinDate(user.getJoinDate());
+		userModel.setName(user.getName());
+		userModel.setPassword(user.getPassword());
+		userModel.setPower(user.getPower());
+		userModel.setSchool(user.getSchool());
+
+	}
+
+	public static UserModel getInstance(UserModel user){
+		if(userModel==null){
+			userModel= new UserModel(user);
+		}
+		return  userModel;
 	}
 	
 
@@ -90,5 +95,28 @@ public class UserModel {
 	}
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "UserModel{" +
+				"name='" + name + '\'' +
+				", ID='" + ID + '\'' +
+				", school='" + school + '\'' +
+				", power=" + power +
+				", ANBooks=" + ANBooks +
+				", BNBooks=" + BNBooks +
+				", balance=" + balance +
+				", joinDate=" + joinDate +
+				", password='" + password + '\'' +
+				'}';
 	}
 }
