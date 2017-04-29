@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/action/AdAction.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/view/AllBorrowView.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/view/SearchResultView.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/view/SearchUserResultView.java" charset="GBK" />
   </component>
 </project>

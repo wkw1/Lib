@@ -1,10 +1,10 @@
 package widget;
 
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 /**
  * 
  * 初始化窗口函数
@@ -33,7 +33,9 @@ public class InitWindow {
 		// 获取frame的顶层容器,并设置为透明
 		JPanel j = (JPanel) frame.getContentPane();
 		j.setOpaque(false);
-		
+
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
 	}
 
 }

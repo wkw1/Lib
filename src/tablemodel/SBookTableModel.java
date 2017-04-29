@@ -64,7 +64,7 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	
 	//借书操作后更改内容
 	public boolean updateData(int index){
-		list.get(index+firstLine).setRN(list.get(index+firstLine).getRN()-1);
+		//list.get(index+firstLine).setRN(list.get(index+firstLine).getRN()-1);
 		updateTable();
 		return true;
 	}
