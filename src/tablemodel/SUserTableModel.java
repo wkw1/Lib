@@ -8,7 +8,6 @@ import model.UserModel;
 /**
  * 管理员搜索用户表模型
  * @author 宽伟
- *
  */
 public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 	private static final long serialVersionUID = 1L;

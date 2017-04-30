@@ -150,6 +150,4 @@ public class OBookTableModel extends Table<OBookTableModel, OrderBookModel>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
 }

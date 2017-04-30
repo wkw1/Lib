@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class UserFormOp {
 
-    public List<UserModel> userLists = new ArrayList<>();
+    public List<UserModel> userLists = new ArrayList<>();//用户
 
     public static UserFormOp userFormOp=null;
     public static UserFormOp getInstance(){
@@ -60,10 +60,25 @@ public class UserFormOp {
         }
         return false;
     }
-    //登录验证
+
+    //注册 TODO 判断是否注册过，未注册则新加入用户
+    public int register(String ID,String password){
+        for(UserModel user :userLists){
+            if(user.getID().equals(ID)){
+                if(user.getPassword()==null||user.getPassword().equals("")){
+                    user.setPassword(password);
+                    return SignInFeedback.SUCCESSFUL;
+                }
+                else{
+                    return SignInFeedback.DO_REGISTER;//已经注册
+                }
+            }
+        }
+        return SignInFeedback.NO_INFO;//不是本校成员
+    }
+
+    //登录验证 用户
     public int signIn(String ID,String password){
-        System.out.println(ID.toString());
-        System.out.println(password.toString());
         for(UserModel user :userLists){
             if(user.getID().equals(ID)){
 

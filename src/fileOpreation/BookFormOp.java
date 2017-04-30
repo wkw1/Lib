@@ -30,15 +30,24 @@ public class BookFormOp {
 
 
     //借书操作找到相应的书返回
-    public BookModel borrowBook(String ISBN){
+    public BookModel getOneBook(String ISBN){
         for(int i=0;i<bookLists.size();i++){
             if(ISBN.equals(bookLists.get(i).getISBN())){
-                bookLists.get(i).setRN(bookLists.get(i).getRN()-1);
+                bookLists.get(i).setRN(bookLists.get(i).getRN());
                 return bookLists.get(i);
-
             }
         }
         return null;
+    }
+
+    public boolean borrowBook(String ISBN){
+        for(int i=0;i<bookLists.size();i++){
+            if(ISBN.equals(bookLists.get(i).getISBN())){
+                bookLists.get(i).setRN(bookLists.get(i).getRN()-1);
+                return true;
+            }
+        }
+        return false;
     }
 
     //还书

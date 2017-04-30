@@ -8,42 +8,58 @@ import java.sql.Date;
  */
 
 public class InfoModel {
-	private String infromer;//通知人
-	private String infromeder;//被通知人
-	private String infromederId;//被通知人ID
-	private String infromThing;//通知事件
-	private Date infromDate;//通知时间
-	public String getInfromer() {
-		return infromer;
-	}
-	public void setInfromer(String infromer) {
-		this.infromer = infromer;
-	}
-	public String getInfromeder() {
-		return infromeder;
-	}
-	public void setInfromeder(String infromeder) {
-		this.infromeder = infromeder;
-	}
-	public String getInfromederId() {
-		return infromederId;
-	}
-	public void setInfromederId(String infromederId) {
-		this.infromederId = infromederId;
-	}
-	public String getInfromThing() {
-		return infromThing;
-	}
-	public void setInfromThing(String infromThing) {
-		this.infromThing = infromThing;
-	}
-	public Date getInfromDate() {
-		return infromDate;
-	}
-	public void setInfromDate(Date infromDate) {
-		this.infromDate = infromDate;
-	}
-	
-	
+	private String informer;//通知人
+	private String informerID;//通知人ID
+	private String informeder;//被通知人
+	private String informederID;//被通知人ID
+	private String informThing;//通知事件
+	private Date informDate;//通知时间
 
+	public String getInformerID() {
+		return informerID;
+	}
+
+	public void setInformerID(String informerID) {
+		this.informerID = informerID;
+	}
+
+	public String getInformer() {
+		return informer;
+	}
+
+	public void setInformer(String informer) {
+		this.informer = informer;
+	}
+
+	public String getInformeder() {
+		return informeder;
+	}
+
+	public void setInformeder(String informeder) {
+		this.informeder = informeder;
+	}
+
+	public String getInformederID() {
+		return informederID;
+	}
+
+	public void setInformederID(String informederId) {
+		this.informederID = informederId;
+	}
+
+	public String getInformThing() {
+		return informThing;
+	}
+
+	public void setInformThing(String informThing) {
+		this.informThing = informThing;
+	}
+
+	public Date getInformDate() {
+		return informDate;
+	}
+
+	public void setInformDate(Date informDate) {
+		this.informDate = informDate;
+	}
 }
