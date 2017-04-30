@@ -1,12 +1,16 @@
 package action;
 
+import dao.AdDao;
 import db.SignInFeedback;
 import fileOpreation.UserFormOp;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 public class RegisterLoginAction {
 	@SuppressWarnings("unused")
 
-	public int SignIn(String ID,String password,int userType){
+	public int SignIn(String ID,String password,int userType) throws IOException, ParseException {
 		if(ID.equals("")){
 			System.out.println("请输入用户ID");
 			return SignInFeedback.NO_ID;
@@ -17,11 +21,18 @@ public class RegisterLoginAction {
 			return SignInFeedback.NO_PASSWORD;
 		}
 		else{
-			//TODO 验证登录者 操作文件
 			System.out.println(ID);
 			System.out.println(password);
-			UserFormOp userFormOp = UserFormOp.getInstance();
-			return userFormOp.signIn(ID,password);
+			//管理员登录
+			if(userType==3){//TODO
+				AdDao adDao = AdDao.getInstance();
+				adDao.readUserForm();
+				return adDao.signIn(ID,password);
+			}
+			else{//用户登录
+				UserFormOp userFormOp = UserFormOp.getInstance();
+				return userFormOp.signIn(ID,password);
+			}
 		}
 	}
 	
@@ -45,10 +56,5 @@ public class RegisterLoginAction {
 			System.out.println("注册成功");
 			return 4;
 		}
-		
-		
 	}
-	
-	
-	
 }
