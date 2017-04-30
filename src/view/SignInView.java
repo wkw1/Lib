@@ -26,6 +26,8 @@ import java.awt.Font;
 import java.awt.BorderLayout;
 import javax.swing.JRadioButton;
 import java.awt.Color;
+import java.io.IOException;
+import java.text.ParseException;
 import javax.swing.JPasswordField;
 /**
  * 登录页面
@@ -86,7 +88,14 @@ public class SignInView {
 				passwordString = password.getText().replaceAll("\\s", "");
 				//先判断是否满足登录条件
 
-				int result=signInAciton.SignIn(IDString, passwordString, userType);
+				int result= 0;
+				try {
+					result = signInAciton.SignIn(IDString, passwordString, userType);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
 				if(result==SignInFeedback.SUCCESSFUL){
 					if(userType==3){
 						AfterAdSignInView window =AfterAdSignInView.getInstance();
@@ -106,8 +115,12 @@ public class SignInView {
 				    JOptionPane.showConfirmDialog(null, "请输入密码?", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else if(result==SignInFeedback.NO_INFO){
-					JOptionPane.showConfirmDialog(null, "不是本校学生不能使用系统", "提示信息",
-							JOptionPane.PLAIN_MESSAGE);
+					if(userType==3)
+						JOptionPane.showConfirmDialog(null, "不存在此管理员", "提示信息",
+								JOptionPane.PLAIN_MESSAGE);
+					else
+						JOptionPane.showConfirmDialog(null, "不是本校学生不能使用系统", "提示信息",
+							     JOptionPane.PLAIN_MESSAGE);
 				}
 				else if(result==SignInFeedback.NOT_REGISTER){
 					JOptionPane.showConfirmDialog(null, "还未注册，请注册", "提示信息",

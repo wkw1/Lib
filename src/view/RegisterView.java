@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import db.SignInFeedback;
 import widget.InitWindow;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -55,7 +56,6 @@ public class RegisterView {
 	}
 	
 	public void action(){
-		
 		//注册
 		register.addActionListener(new ActionListener() {
 			
@@ -68,25 +68,29 @@ public class RegisterView {
 				passwordOKString = passwordOK.getText();
 				
 				registerAction = new RegisterLoginAction();
-				int result =registerAction.Register(IDString, passwordString, passwordOKString);
-				if(result==1){
-					JOptionPane.showConfirmDialog(null, "请输入ID", "提示信息", JOptionPane.PLAIN_MESSAGE);
-				}
-				else if(result==2){
-					JOptionPane.showConfirmDialog(null, "请输入密码", "提示信息", JOptionPane.PLAIN_MESSAGE);
-				}
-				else if(result==3){
-					JOptionPane.showConfirmDialog(null, "请确认两次密码输入一致", "提示信息", JOptionPane.PLAIN_MESSAGE);
-				}
-				else{
+				int result =registerAction.register(IDString, passwordString, passwordOKString);
+				if(result==SignInFeedback.SUCCESSFUL){
 					JOptionPane.showConfirmDialog(null, "注册成功，请登录！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					frame.dispose();
 				}
+				else if(result== SignInFeedback.NO_ID){
+					JOptionPane.showConfirmDialog(null, "请输入ID", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.NO_PASSWORD){
+					JOptionPane.showConfirmDialog(null, "请输入密码", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.NOT_EQUAL){
+					JOptionPane.showConfirmDialog(null, "请确认两次密码输入一致", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.DO_REGISTER){
+					JOptionPane.showConfirmDialog(null, "已经注册，请登录", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else if(result==SignInFeedback.NO_INFO){
+					JOptionPane.showConfirmDialog(null, "不是本校学生不能注册", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		});
-		
-		
-		
+
 		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

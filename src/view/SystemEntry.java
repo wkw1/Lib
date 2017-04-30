@@ -5,9 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import dao.BookDao;
-import dao.BorrowBookDao;
-import dao.UserDao;
+import dao.*;
 import fileOpreation.BorrowBookFormOp;
 import fileOpreation.UserFormOp;
 import model.Balance;
@@ -79,6 +77,10 @@ public class SystemEntry {
 		userDao.readUserForm();
 		BorrowBookDao borrowBookDao = BorrowBookDao.getInstance();
 		borrowBookDao.readBookForm();
+		OrderBookDao orderBookDao = OrderBookDao.getInstance();
+		orderBookDao.readBookForm();
+		InfoDao infoDao = InfoDao.getInstance();
+		infoDao.readInfoForm();
 	}
 
 	//其它类调用 

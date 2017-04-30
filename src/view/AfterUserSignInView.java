@@ -7,15 +7,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Color;
 
+import action.UserAction;
+import model.InfoModel;
 import model.UserModel;
 import widget.InitWindow;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.util.List;
+import javax.swing.JScrollPane;
+
 /**
  * 用户登录后页面
  * @author 宽伟
@@ -33,12 +37,13 @@ public class AfterUserSignInView {
 	private JButton myOrder;
 	private JButton signOut;
 	private JButton myBorrowHistory;
-	private JButton infoMore ;
 	private JButton update;//刷新按钮更新首页数据
 
 	private JTextArea myInfo ;
 	private JTextArea searchRanking;
 	private JTextArea info;
+
+	private UserAction userAction;
 
 	/**
 	 * Create the application.
@@ -51,11 +56,12 @@ public class AfterUserSignInView {
 
 	public void updateData(){
 		//我的资料区信息更改
-		myInfo.setText("ID:"+UserModel.userModel.getID()+"\n"
-		              +"姓名:"+UserModel.userModel.getName()+"\n"
-				      +"学院:"+UserModel.userModel.getSchool()+"\n"
-				      +"借书数量:"+UserModel.userModel.getBNBooks()+"\n"
-				      +"余额信息:"+UserModel.userModel.getBalance()+"\n");
+		myInfo.setText("\n          我的资料\n\n"
+				      +"      ID:"+UserModel.userModel.getID()+"\n"
+		              +"      姓名:"+UserModel.userModel.getName()+"\n"
+				      +"      学院:"+UserModel.userModel.getSchool()+"\n"
+				      +"      借书数量:"+UserModel.userModel.getBNBooks()+"\n"
+				      +"      余额信息:"+UserModel.userModel.getBalance()+"\n");
 		//搜索排名资料更改
 		searchRanking.setText("\n  计算机 \n  Java\n  C++ \n  "
 				+ "Python\n  计算机网络 \n  数据库\n  操作系统");
@@ -63,16 +69,23 @@ public class AfterUserSignInView {
 
 	private void getData(){
 		//我的资料区信息更改
-		myInfo.setText("ID:"+UserModel.userModel.getID()+"\n"
-		              +"姓名:"+UserModel.userModel.getName()+"\n"
-				      +"学院:"+UserModel.userModel.getSchool()+"\n"
-				      +"借书数量:"+UserModel.userModel.getBNBooks()+"\n"
-				      +"余额信息:"+UserModel.userModel.getBalance()+"\n");
-		//搜索排名资料更改
-		searchRanking.setText("\n  计算机 \n  Java\n  C++ \n  "
-				+ "Python\n  计算机网络 \n  数据库\n  操作系统");
+		userAction = UserAction.getInstance();
 		//消息通知
-		info.setText("这是消息提醒栏");
+		List<InfoModel> lists = userAction.getInfo();
+		String infoString = "";
+		if(lists!=null){
+			for(int i=0;i<lists.size();i++){
+				infoString+="    事件："+lists.get(i).getInformThing() + "\n"+
+						"发送人：" +lists.get(i).getInformer() + " "+
+						"时间：" +lists.get(i).getInformDate() + "\n";
+			}
+		}
+		else{
+			infoString+= "    无通知消息消息";
+		}
+
+		info.setText(infoString);
+		updateData();
 	}
 
 	private void action(){
@@ -137,14 +150,6 @@ public class AfterUserSignInView {
 			}
 		});
 
-		//更多消息
-		infoMore.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showConfirmDialog(null,
-						"没\nr\nr\ne\ne\n\n\nrer", "帮助", JOptionPane.PLAIN_MESSAGE);
-			}
-		});
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -170,24 +175,26 @@ public class AfterUserSignInView {
 
 
 		myBorrow = new JButton("\u6211\u7684\u501F\u9605");
+		myBorrow.setBackground(new Color(0, 128, 128));
 		myBorrow.setFont(new Font("华文楷体", Font.PLAIN, 25));
-		myBorrow.setBounds(0, 46, 203, 57);
+		myBorrow.setBounds(30, 52, 203, 57);
 		panel.add(myBorrow);
 
 		myOrder = new JButton(" \u6211\u7684\u9884\u7EA6");
 		myOrder.setFont(new Font("华文楷体", Font.PLAIN, 25));
 		myOrder.setForeground(new Color(0, 0, 0));
-		myOrder.setBackground(new Color(204, 153, 0));
+		myOrder.setBackground(new Color(0, 128, 128));
 		myOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		myOrder.setBounds(0, 122, 203, 57);
+		myOrder.setBounds(30, 122, 203, 57);
 		panel.add(myOrder);
 
 		myBorrowHistory = new JButton("\u501F\u4E66\u5386\u53F2");
+		myBorrowHistory.setBackground(new Color(0, 128, 128));
 		myBorrowHistory.setFont(new Font("华文楷体", Font.PLAIN, 25));
-		myBorrowHistory.setBounds(0, 192, 203, 52);
+		myBorrowHistory.setBounds(30, 192, 203, 52);
 		panel.add(myBorrowHistory);
 
 		myInfo = new JTextArea();
@@ -195,24 +202,25 @@ public class AfterUserSignInView {
 		myInfo.setFont(new Font("华文楷体", Font.PLAIN, 20));
 		myInfo.setBackground(new Color(60, 179, 113));
 		myInfo.setText("\u6211\u7684\u8D44\u6599");
-		myInfo.setBounds(0, 257, 203, 498);
+		myInfo.setBounds(0, 257, 273, 498);
+		myInfo.setLineWrap(true);
 		panel.add(myInfo);
 
 
 		keyWord = new JTextField();
 		keyWord.setFont(new Font("华文宋体", Font.PLAIN, 20));
-		keyWord.setBounds(393, 102, 166, 44);
+		keyWord.setBounds(482, 102, 166, 44);
 		keyWord.setColumns(10);
 		panel.add(keyWord);
 
 		JLabel label1 = new JLabel("\u641C\u7D22\u7C7B\u578B");
 		label1.setFont(new Font("华文楷体", Font.PLAIN, 18));
-		label1.setBounds(284, 55, 104, 34);
+		label1.setBounds(364, 52, 104, 34);
 		panel.add(label1);
 
 		JLabel label2 = new JLabel("\u5173\u952E\u5B57");
 		label2.setFont(new Font("华文楷体", Font.PLAIN, 18));
-		label2.setBounds(284, 102, 104, 44);
+		label2.setBounds(374, 102, 104, 44);
 		panel.add(label2);
 
 		searchRanking= new JTextArea();
@@ -221,46 +229,41 @@ public class AfterUserSignInView {
 		searchRanking.setEditable(false);
 		searchRanking.setBackground(new Color(188, 143, 143));
 		searchRanking.setText("\u641C\u7D22\u6392\u540D");
-		searchRanking.setBounds(284, 257, 377, 498);
+		searchRanking.setBounds(348, 252, 377, 498);
 		panel.add(searchRanking);
-
-		info = new JTextArea();
-		info.setFont(new Font("华文行楷", Font.PLAIN, 25));
-		info.setEditable(false);
-		info.setBackground(new Color(153, 153, 255));
-		info.setBounds(795, 70, 385, 260);
-		panel.add(info);
 
 		JTextArea systemInfo = new JTextArea();
 		systemInfo.setFont(new Font("华文新魏", Font.PLAIN, 25));
 		systemInfo.setEditable(false);
 		systemInfo.setBackground(new Color(173, 216, 230));
 		systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
-		systemInfo.setBounds(795, 376, 385, 379);
+		systemInfo.setBounds(795, 389, 385, 366);
 		panel.add(systemInfo);
 
 		signOut = new JButton("\u9000\u51FA\u767B\u5F55");
+		signOut.setBackground(new Color(189, 183, 107));
 		signOut.setFont(new Font("华文楷体", Font.PLAIN, 15));
-		signOut.setBounds(1041, 30, 125, 27);
+		signOut.setBounds(1062, 38, 104, 34);
 		panel.add(signOut);
 
 	    search = new JButton("\u641C\u7D22");
+	    search.setBackground(new Color(32, 178, 170));
 	    search.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		search.setBounds(384, 173, 125, 34);
+		search.setBounds(457, 183, 125, 44);
 		panel.add(search);
 
 		JLabel label_2 = new JLabel("\u6211\u7684\u56FE\u4E66\u9986");
 		label_2.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		label_2.setBounds(0, 0, 125, 33);
+		label_2.setBounds(14, 6, 125, 33);
 		panel.add(label_2);
 
 		welcome = new JLabel("\u6B22\u8FCE");
 		welcome.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		welcome.setBounds(1041, 7, 125, 18);
+		welcome.setBounds(979, 7, 201, 25);
 		panel.add(welcome);
 
 	    searchType = new JComboBox<String>();
-		searchType.setBounds(393, 55, 166, 34);
+		searchType.setBounds(482, 47, 166, 34);
 		panel.add(searchType);
 		searchType.addItem("ISBN");
 		searchType.addItem("书名");
@@ -269,21 +272,26 @@ public class AfterUserSignInView {
 		searchType.addItem("书类型");
 
 		JLabel label = new JLabel("\u6D88\u606F\u901A\u77E5");
-		label.setFont(new Font("华文楷体", Font.PLAIN, 15));
-		label.setBounds(939, 49, 72, 18);
+		label.setFont(new Font("华文楷体", Font.PLAIN, 18));
+		label.setBounds(955, 39, 87, 31);
 		panel.add(label);
 
-		infoMore = new JButton("\u66F4\u591A");
-		infoMore.setFont(new Font("华文楷体", Font.PLAIN, 15));
-		infoMore.setBackground(new Color(70, 130, 180));
-		infoMore.setBounds(1096, 336, 84, 27);
-		panel.add(infoMore);
-		
 		update = new JButton("\u5237\u65B0");
 		update.setBackground(new Color(153, 153, 204));
 		update.setFont(new Font("华文楷体", Font.PLAIN, 18));
 		update.setBounds(123, 5, 78, 34);
 		panel.add(update);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(795, 74, 385, 312);
+		panel.add(scrollPane);
+		
+		info = new JTextArea();
+		scrollPane.setViewportView(info);
+		info.setFont(new Font("华文楷体", Font.PLAIN, 18));
+		info.setEditable(false);
+		info.setBackground(new Color(153, 153, 255));
+		myInfo.setLineWrap(true);
 
 	}
 

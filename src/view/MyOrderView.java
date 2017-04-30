@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import action.UserAction;
+import model.BorrowBookModel;
 import model.OrderBookModel;
 import tablemodel.OBookTableModel;
 import widget.InitWindow;
@@ -24,7 +25,6 @@ import java.awt.Color;
  * 我的预约视图
  * 用户页面
  * @author 宽伟
- *
  */
 
 public class MyOrderView {
@@ -70,6 +70,13 @@ public class MyOrderView {
 		list = new ArrayList<>();
 		// 得到总的表
 		list = userAction.getOrderBook();
+
+		if(list==null){
+			OrderBookModel info = new OrderBookModel();
+			info.setName("未找到图书！");
+			list = new ArrayList<>();
+			list.add(info);
+		}
 		myTableModel = new OBookTableModel(table, frame, list);
 		myTableModel.initData();
 	}
@@ -94,10 +101,10 @@ public class MyOrderView {
 		});
 		//关闭此窗口
 		close.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				myOrderView=null;
 			}
 		});
 		
@@ -111,7 +118,7 @@ public class MyOrderView {
 				}
 				else{
 					System.out.println("选择了第 " + selectedRowIndex+ " 行");
-					String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
+					String ISBN = (String) table.getValueAt(selectedRowIndex, 2);
 					System.out.println("选择了第 " + ISBN+ " 行");
 				    if(userAction.cancelOrder(ISBN)){
 				    	myTableModel.updateData(selectedRowIndex);
