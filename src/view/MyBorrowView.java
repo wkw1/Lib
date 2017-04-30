@@ -46,7 +46,7 @@ public class MyBorrowView {
 	 * Create the application.
 	 */
 	public MyBorrowView() {
-		userAction = new UserAction();
+		userAction = UserAction.getInstance();
 		initialize();
 		getDate();
 		action();

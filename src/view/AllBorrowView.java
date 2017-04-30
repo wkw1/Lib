@@ -53,7 +53,7 @@ public class AllBorrowView{
 
 
 	public AllBorrowView() {
-		adAction = new AdAction();
+		adAction = AdAction.getInstance();
 		initialize();
 		getData();
 		action();

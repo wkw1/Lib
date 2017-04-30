@@ -44,7 +44,7 @@ public class MyBBHView {
 	 * Create the application.
 	 */
 	public MyBBHView() {
-		userAction = new UserAction();
+		userAction = UserAction.getInstance();;
 		initialize();
 		geData();
 		action();

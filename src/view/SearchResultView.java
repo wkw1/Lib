@@ -73,10 +73,10 @@ public class SearchResultView{
 		this.who=who;
 		initialize();
 		if(who==1){
-			userAction = new UserAction();
+			userAction = UserAction.getInstance();
 		}
 		else{
-			adAction=new AdAction();
+			adAction=AdAction.getInstance();
 			//根据用户不同更新页面按钮名称
 			borrow.setText("删除");
 			order.setText("修改");
@@ -192,6 +192,10 @@ public class SearchResultView{
 						if(userAction.user.getBalance()<=-20)
 							JOptionPane.showConfirmDialog(null, "欠费过多。。联系管理员充值",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
+						else if((int)table.getValueAt(selectedRowIndex, 6)==0){
+							JOptionPane.showConfirmDialog(null, "此书无库存。。",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
+						}
 						// 借书操作,判断借书权限 TODO
 						else{
 							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);

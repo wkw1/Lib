@@ -47,7 +47,7 @@ public class MyOrderView {
 	 * Create the application.
 	 */
 	public MyOrderView() {
-		userAction = new UserAction();
+		userAction = UserAction.getInstance();
 		initialize();
 		getData();
 		action();
