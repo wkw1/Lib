@@ -27,12 +27,25 @@ public class BookFormOp {
     public BookFormOp() {
         bookLists = BookDao.bookLists;
     }
-    //借书操作找到相应的书
-    // 并将在架数量减一
-    public boolean borrowBook(String ISBN){
+
+
+    //借书操作找到相应的书返回
+    public BookModel borrowBook(String ISBN){
         for(int i=0;i<bookLists.size();i++){
             if(ISBN.equals(bookLists.get(i).getISBN())){
                 bookLists.get(i).setRN(bookLists.get(i).getRN()-1);
+                return bookLists.get(i);
+
+            }
+        }
+        return null;
+    }
+
+    //还书
+    public boolean returnBook(String ISBN){
+        for(int i=0;i<bookLists.size();i++){
+            if(bookLists.get(i).getISBN().equals(ISBN)){
+                bookLists.get(i).setRN(bookLists.get(i).getRN()+1);
                 return true;
             }
         }

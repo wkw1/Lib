@@ -36,6 +36,7 @@ import javax.swing.JTextField;
  */
 public class SearchResultView{
 
+
 	private JFrame frame;
 	private JTable table=null;
 	private List<BookModel> lists=null;//搜索结果列表，保存所有搜索结果
@@ -200,9 +201,9 @@ public class SearchResultView{
 						else{
 							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
 							if (userAction.borrowBook(ISBN)) {
-								//刷新表格
-								myTableModel.updateData(selectedRowIndex);
-								JOptionPane.showConfirmDialog(null, "借书成功", "提示信息", JOptionPane.PLAIN_MESSAGE);
+								myTableModel.updateData(selectedRowIndex);//刷新表格
+								JOptionPane.showConfirmDialog(null, "借书成功",
+                                        "提示信息", JOptionPane.PLAIN_MESSAGE);
 							} else
 								JOptionPane.showConfirmDialog(null, "借书失败？？？", "提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
@@ -270,7 +271,6 @@ public class SearchResultView{
 
 		// 点击表格事件
 		table.addMouseListener(new MouseListener() {
-
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub

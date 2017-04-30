@@ -61,7 +61,8 @@ public class BorrowBookModel {
 	public void setAIBook(float aIBook) {
 		AIBook = aIBook;
 	}
-	
-	
 
+	public boolean equals(BorrowBookModel obj) {
+		return obj.ID==this.ID&&obj.bookISBN==this.bookISBN;
+	}
 }

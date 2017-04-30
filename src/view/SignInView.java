@@ -145,6 +145,7 @@ public class SignInView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				signInView=null;
 				SystemEntry.getInstance();
 			}
 		});

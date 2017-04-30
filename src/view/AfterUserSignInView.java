@@ -21,6 +21,7 @@ import java.awt.Font;
  * @author 宽伟
  *
  */
+
 public class AfterUserSignInView {
 
 	private JFrame frame;
@@ -33,6 +34,7 @@ public class AfterUserSignInView {
 	private JButton signOut;
 	private JButton myBorrowHistory;
 	private JButton infoMore ;
+	private JButton update;//刷新按钮更新首页数据
 
 	private JTextArea myInfo ;
 	private JTextArea searchRanking;
@@ -47,6 +49,18 @@ public class AfterUserSignInView {
 		action();
 	}
 
+	public void updateData(){
+		//我的资料区信息更改
+		myInfo.setText("ID:"+UserModel.userModel.getID()+"\n"
+		              +"姓名:"+UserModel.userModel.getName()+"\n"
+				      +"学院:"+UserModel.userModel.getSchool()+"\n"
+				      +"借书数量:"+UserModel.userModel.getBNBooks()+"\n"
+				      +"余额信息:"+UserModel.userModel.getBalance()+"\n");
+		//搜索排名资料更改
+		searchRanking.setText("\n  计算机 \n  Java\n  C++ \n  "
+				+ "Python\n  计算机网络 \n  数据库\n  操作系统");
+	}
+
 	private void getData(){
 		//我的资料区信息更改
 		myInfo.setText("ID:"+UserModel.userModel.getID()+"\n"
@@ -59,7 +73,6 @@ public class AfterUserSignInView {
 				+ "Python\n  计算机网络 \n  数据库\n  操作系统");
 		//消息通知
 		info.setText("这是消息提醒栏");
-
 	}
 
 	private void action(){
@@ -84,17 +97,11 @@ public class AfterUserSignInView {
 			}
 		});
 
-		/**
-		 * 点击我的借阅按钮
-		 * 查询借书表得到我的借阅情况
-		 * 跳转到另一个页面
-		 *
-		 */
+		//我的借阅
 		myBorrow.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				MyBorrowView myBorrowView = MyBorrowView.getInstance();
 				myBorrowView.getFrame().setVisible(true);
 			}
@@ -104,7 +111,6 @@ public class AfterUserSignInView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				MyOrderView myOrderView = MyOrderView.getInstance();
 				myOrderView.getFrame().setVisible(true);
 			}
@@ -125,7 +131,6 @@ public class AfterUserSignInView {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				frame.dispose();
 				SignInView signInView = new SignInView();
 				signInView.getFrame().setVisible(true);
@@ -134,12 +139,16 @@ public class AfterUserSignInView {
 
 		//更多消息
 		infoMore.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				JOptionPane.showConfirmDialog(null,
 						"没\nr\nr\ne\ne\n\n\nrer", "帮助", JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		update.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateData();
 			}
 		});
 
@@ -269,6 +278,12 @@ public class AfterUserSignInView {
 		infoMore.setBackground(new Color(70, 130, 180));
 		infoMore.setBounds(1096, 336, 84, 27);
 		panel.add(infoMore);
+		
+		update = new JButton("\u5237\u65B0");
+		update.setBackground(new Color(153, 153, 204));
+		update.setFont(new Font("华文楷体", Font.PLAIN, 18));
+		update.setBounds(123, 5, 78, 34);
+		panel.add(update);
 
 	}
 

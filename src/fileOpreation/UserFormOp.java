@@ -3,6 +3,7 @@ package fileOpreation;
 import dao.UserDao;
 import db.SearchTypeFeedback;
 import db.SignInFeedback;
+import model.Balance;
 import model.UserModel;
 
 import java.util.ArrayList;
@@ -25,6 +26,39 @@ public class UserFormOp {
     }
     public UserFormOp() {
         userLists = UserDao.userLists;
+    }
+
+    //更新所有用户的余额信息
+    public void updateBalance(List<Balance> list1,List<Balance> list2){
+        for(int i=0;i<list2.size();i++){
+            float money=0;
+            int j;
+            for(j=0;j<=i&&j<list1.size();j++){
+                if(list2.get(i).ID.equals(list1.get(i).ID)){
+                    money = list2.get(i).balance - list1.get(i).balance;
+                    break;
+                }
+            }
+            if(j>i||j>=list1.size())
+                money = list2.get(i).balance;
+            for(int k=0;k<userLists.size();k++){
+                if(userLists.get(k).getID().equals(list1.get(i).ID)){
+                    userLists.get(k).setBalance(userLists.get(k).getBalance()
+                            -money);
+                }
+            }
+        }
+    }
+
+    //借书或还书，n=1借书 n =-1 还书
+    public boolean borrowBook(int n){
+        for(int i=0;i<userLists.size();i++){
+            if(userLists.get(i).getID().equals(UserModel.userModel.getID())){
+                userLists.get(i).setBNBooks(userLists.get(i).getBNBooks()+n);
+                return true;
+            }
+        }
+        return false;
     }
     //登录验证
     public int signIn(String ID,String password){
@@ -59,7 +93,7 @@ public class UserFormOp {
         {
             String target;
             switch(keyType){
-                case SearchTypeFeedback.USER_NMAE:
+                case SearchTypeFeedback.USER_NAME:
                     target=userLists.get(i).getName();
                     if(target.equals(keyWords))
                     {

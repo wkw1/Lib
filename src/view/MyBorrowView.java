@@ -7,12 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 
 import action.UserAction;
 import model.BorrowBookModel;
@@ -64,10 +59,15 @@ public class MyBorrowView {
 	public void getDate(){
 		
 		list = new ArrayList<>();
-		
 		// 得到总的表
 		list = userAction.getBorrowBook();
 		myTableModel = new BBookTableModel(table, frame, list);
+		if(list==null){
+			BorrowBookModel info = new BorrowBookModel();
+			info.setName("未找到图书！");
+			list = new ArrayList<>();
+			list.add(info);
+		}
 		myTableModel.initData();
 	}
 	
@@ -113,12 +113,18 @@ public class MyBorrowView {
 				}
 				else{
 					System.out.println("选择了第"+ selectedRowIndex+ "行");
-					String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
+					String ISBN = (String) table.getValueAt(selectedRowIndex, 2);
 					//归还图书操作，用户归还成功之后进行表的刷新
 					if(userAction.returnBook(ISBN)){
 						//刷新表格
+						JOptionPane.showConfirmDialog(null, "还书成功",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
 						myTableModel.updateData(selectedRowIndex);
 						selectedRowIndex =-1;
+					}
+					else{
+						JOptionPane.showConfirmDialog(null, "还书失败",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
 					}
 				}
 			}

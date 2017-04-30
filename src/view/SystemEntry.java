@@ -6,23 +6,24 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import dao.BookDao;
+import dao.BorrowBookDao;
 import dao.UserDao;
-import fileOpreation.FileSearch;
+import fileOpreation.BorrowBookFormOp;
+import fileOpreation.UserFormOp;
+import model.Balance;
 import widget.InitWindow;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.nio.file.FileStore;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JLabel;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -46,7 +47,14 @@ public class SystemEntry {
 	private static JLabel time;
 
 	public static Date date;//系统时间
-	
+	public static int days=0;
+
+	//为更新余额信息
+	//统计借书表中的所有用户系统开始时因借书产生的费用，再统计结束运行时的费用
+	//两者相减得到此次产生的费用，相减加到用户的余额信息上
+	public static List<Balance> balanceList1;
+	public static List<Balance> balanceList2;
+
 	private static Thread thread;
 	private JButton cancel;
 	
@@ -64,25 +72,27 @@ public class SystemEntry {
 		readFile();
 	}
 
-
 	private static void readFile() throws IOException, ParseException {
 		BookDao bookDao = BookDao.getInstance();
 		bookDao.readBookForm();
 		UserDao userDao = UserDao.getInstance();
 		userDao.readUserForm();
+		BorrowBookDao borrowBookDao = BorrowBookDao.getInstance();
+		borrowBookDao.readBookForm();
 	}
 
 	//其它类调用 
 	public static void getInstance(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		balanceList1 = borrowBookFormOp.getBalanceList();
 		thread = new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				for (int i = 0; i < 100; i++) {
 					// 日期增加一天
 					date = getPreDoneScore(date);
-					//System.out.println(date);
+					days++;
 					time.setText(sdf.format(date));
 					try {
 						Thread.sleep(2000);
@@ -98,7 +108,6 @@ public class SystemEntry {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
-
 	/**
 	 * Create the application.
 	 */
@@ -111,6 +120,16 @@ public class SystemEntry {
 		timeAdvance();//模拟时间推进
 		action();
 	}
+
+	//退出系统或者进入系统时更新各项数据，借书表，用户余额
+	private void updateDate(){
+		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		borrowBookFormOp.dateGrowth(days);//更新借书表中的数据
+		balanceList2 = borrowBookFormOp.getBalanceList();
+		UserFormOp userFormOp = UserFormOp.getInstance();
+		userFormOp.updateBalance(balanceList1,balanceList2);
+		days=0;
+	}
 	
 	/**
 	 * 模拟时间推进，
@@ -119,18 +138,20 @@ public class SystemEntry {
 	 */
 	public void timeAdvance(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		balanceList1 = borrowBookFormOp.getBalanceList();
 		thread= new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < 1000; i++) {
 					//日期增加一天
+					days++;
 					date = getPreDoneScore(date);
-					//System.out.println(date);
 					time.setText(sdf.format(date));
+					// TODO 更改借书表数据
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -149,6 +170,8 @@ public class SystemEntry {
 				signInView.getFrame().setVisible(true);
 				frame.setVisible(false);
 				thread.stop();
+				// TODO 将信息重新写入文件,更新借书表的信息，和用户的余额信息
+				updateDate();
 			}
 		});
 		
@@ -161,6 +184,7 @@ public class SystemEntry {
 				// TODO 将信息重新写入文件
 				frame.dispose();
 				thread.stop();
+				updateDate();
 			}
 		});
 	}

@@ -107,10 +107,6 @@ public class BookDao {
         return true;
     }
 
-     public boolean updateList(List<BookModel> bookLists){
-        return true;
-     }
-
      //将图书表重新写入文件
      public boolean writeListFile(){
          return true;
