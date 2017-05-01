@@ -17,7 +17,7 @@ public class BookModel {
 	private String press;//出版社
 	private int TN;//图书总数量
 	private int RN;//图书剩余数量
-	private int powerNeed;//借书所需权限
+	private int powerNeed;//借书所需权限,也表示用户种类 1表示学生，2表示老师
 	private Date storageTime;//图书入库时间
 	private String bookType;
 	
@@ -87,6 +87,4 @@ public class BookModel {
 				+ ", press=" + press + ", TN=" + TN + ", RN=" + RN + ", powerNeed=" + powerNeed + ", storageTime="
 				+ storageTime + ", bookType=" + bookType + "]";
 	}
-	
-
 }

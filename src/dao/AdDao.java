@@ -62,7 +62,8 @@ public class AdDao {
                     return SignInFeedback.WRONG_PASSWORD;
                 }
                 else{
-                    //成功登录
+                    //成功登录 TODO 标志管理员
+
                     return SignInFeedback.SUCCESSFUL;
                 }
             }

@@ -17,6 +17,4 @@ public class Event {
 	public static String addUser="增加用户";
 	public static String delUser="删除用户";
 	public static String sendNewsToUser="给用户发送消息";
-	
-	
 }

@@ -3,6 +3,7 @@ package action;
 import dao.AdDao;
 import db.SignInFeedback;
 import fileOpreation.UserFormOp;
+import model.UserModel;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,7 +25,7 @@ public class RegisterLoginAction {
 			System.out.println(ID);
 			System.out.println(password);
 			//管理员登录
-			if(userType==3){//TODO
+			if(userType==3){
 				AdDao adDao = AdDao.getInstance();
 				adDao.readUserForm();
 				return adDao.signIn(ID,password);
@@ -36,25 +37,29 @@ public class RegisterLoginAction {
 		}
 	}
 	
-	public int Register(String ID,String password,String passwordOK){
+	public int register(String ID,String password,String passwordOK){
 		if(ID.equals("")){
 			System.out.println("请输入用户ID");
-			return 1;
+			return SignInFeedback.NO_ID;
 		}
 		else if(password==null||password.equals("")){
 			System.out.println("请输入密码");
-			return 2;
+			return SignInFeedback.NO_PASSWORD;
 		}
 		else if(!password.equals(passwordOK)){
 			System.out.println("p:"+password +"po:"+ passwordOK);
-			return 3;
+			return SignInFeedback.NOT_EQUAL;
 		}
 		else{
 			//TODO 验证是否已存入信息，将注册这信息存入注册文件
-			
-			
-			System.out.println("注册成功");
-			return 4;
+            UserFormOp userFormOp = UserFormOp.getInstance();
+            return userFormOp.register(ID,password);
 		}
+	}
+
+	public static boolean signOut(){
+		UserModel.userModel=null;
+		UserAction.userAction=null;
+		return true;
 	}
 }

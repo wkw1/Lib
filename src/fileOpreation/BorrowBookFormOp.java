@@ -2,10 +2,7 @@ package fileOpreation;
 
 import dao.BorrowBookDao;
 import db.SearchTypeFeedback;
-import model.Balance;
-import model.BookModel;
-import model.BorrowBookModel;
-import model.UserModel;
+import model.*;
 import view.SystemEntry;
 
 import java.util.ArrayList;
@@ -53,10 +50,25 @@ public class BorrowBookFormOp {
         borrowBookModel.setRTBook(30);
         borrowBookModel.setName(userModel.getName());
         borrowBookModel.setBorrowDate(SystemEntry.date);
-        borrowBookModel.setBookAuthor(bookModel.getBookType());
+        borrowBookModel.setBookAuthor(bookModel.getAuthor());
         borrowBookModel.setBookName(bookModel.getName());
         borrowBookModel.setID(userModel.getID());
         borrowBookModel.setBookISBN(bookModel.getISBN());
+
+        return bbLists.add(borrowBookModel);
+    }
+
+    //预约借书，借书表增加一条记录
+    public boolean borrowForOrder(OrderBookModel model) {
+        BorrowBookModel borrowBookModel = new BorrowBookModel();
+        borrowBookModel.setAIBook(0);
+        borrowBookModel.setRTBook(30);
+        borrowBookModel.setName(model.getName());
+        borrowBookModel.setBorrowDate(SystemEntry.date);
+        borrowBookModel.setBookAuthor(model.getBookAuthor());
+        borrowBookModel.setBookName(model.getBookName());
+        borrowBookModel.setID(model.getID());
+        borrowBookModel.setBookISBN(model.getBookISBN());
 
         return bbLists.add(borrowBookModel);
     }

@@ -38,6 +38,7 @@ $RECYCLE.BIN/
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+*.class
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -46,4 +47,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.class
+*.txt
+bin/view/SearchResultView$5.class
+bin/view/AfterAdSignInView$5.class
+bin/model/BorrowBookModel.class
+bin/view/MyOrderView.class
 
+*.class

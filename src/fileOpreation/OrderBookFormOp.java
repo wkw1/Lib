@@ -28,6 +28,16 @@ public class OrderBookFormOp {
         obLists = OrderBookDao.obLists;
     }
 
+    //查询预约表是否有人有人预约某图书
+    public OrderBookModel searchForOrder(String ISBN){
+        for(OrderBookModel model:obLists){
+            if(model.getBookISBN().equals(ISBN)){
+                return model;
+            }
+        }
+        return null;
+    }
+
     //预约图书,预约列表增加信息 TODO 判断重复预约
     public boolean orderBook(BookModel bookModel, UserModel userModel){
         OrderBookModel orderBookModel = new OrderBookModel();
@@ -42,15 +52,13 @@ public class OrderBookFormOp {
     //取消预约
     public boolean cancelOrder(String ISBN,String ID){
         for(int i=0;i<obLists.size();i++){
-            if(obLists.get(i).getBookISBN().equals(ISBN)&&obLists.get(i).getID().equals(ID));{
+            if(obLists.get(i).getBookISBN().equals(ISBN)&&obLists.get(i).getID().equals(ID)){
                 obLists.remove(i);
                 return true;
             }
         }
         return false;
     }
-
-
 
     //搜索函数，搜索列表
     public List<OrderBookModel> searchBookForm(String keyWords, int keyType) {

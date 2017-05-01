@@ -51,9 +51,9 @@ public class UserFormOp {
     }
 
     //借书或还书，n=1借书 n =-1 还书
-    public boolean borrowBook(int n){
+    public boolean borrowBook(String ID,int n){
         for(int i=0;i<userLists.size();i++){
-            if(userLists.get(i).getID().equals(UserModel.userModel.getID())){
+            if(userLists.get(i).getID().equals(ID)){
                 userLists.get(i).setBNBooks(userLists.get(i).getBNBooks()+n);
                 return true;
             }

@@ -1,10 +1,8 @@
 package fileOpreation;
 
 import dao.InfoDao;
-import dao.OrderBookDao;
-import db.SearchTypeFeedback;
 import model.InfoModel;
-import model.OrderBookModel;
+import view.SystemEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.List;
  * Created by 宽伟 on 2017/4/30.
  */
 public class InfoFormOp {
-    public List<InfoModel> obLists= new ArrayList<>();
+    public List<InfoModel> infoLists = new ArrayList<>();
 
     public static InfoFormOp orderBookFormOp;
 
@@ -24,18 +22,30 @@ public class InfoFormOp {
     }
 
     public InfoFormOp() {
-        obLists = InfoDao.infoLists;
+        infoLists = InfoDao.infoLists;
+    }
+
+    //给用户发送消息提醒归还图书
+    public boolean addReturnInfo(String ID,String ISBN){
+        InfoModel infoModel= new InfoModel();
+        infoModel.setInformerID("管理员");
+        infoModel.setInformer("管理员");
+        infoModel.setInformThing("归还图书ISBN:"+ISBN);
+        infoModel.setInformDate(SystemEntry.date);
+        infoModel.setInformederID(ID);
+
+        return infoLists.add(infoModel);
     }
 
     //用户得到消息，得到立马删除 TODO
     public List<InfoModel> getInfoList(String ID){
         List<InfoModel> lists= new ArrayList<>();
         int whetherExist = 0;
-        for (int i = 0; i < obLists.size(); i++) {
+        for (int i = 0; i < infoLists.size(); i++) {
             String target;
-            target = obLists.get(i).getInformederID();
+            target = infoLists.get(i).getInformederID();
             if (target.equals(ID)) {
-                lists.add(obLists.get(i));
+                lists.add(infoLists.get(i));
                 whetherExist = 1;
             }
         }

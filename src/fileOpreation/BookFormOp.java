@@ -61,6 +61,34 @@ public class BookFormOp {
         return false;
     }
 
+    //删除一本图书
+    public boolean delOne(String ISBN){
+        for(int i=0;i<bookLists.size();i++){
+            if(bookLists.get(i).getISBN().equals(ISBN)){
+                bookLists.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //录入图书
+    public boolean inputOne(BookModel bookModel){
+        System.out.println(bookModel.toString());
+        return bookLists.add(bookModel);
+    }
+
+    //更新一本图书
+    public boolean updateOne(BookModel bookModel){
+        for(int i=0;i<bookLists.size();i++){
+            if(bookLists.get(i).getISBN().equals(bookModel.getISBN())){
+                bookLists.set(i,bookModel);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //搜索函数，搜索列表
     public List<BookModel> searchBookForm(String keyWords, int keyType){
         List<BookModel> searchedList=new ArrayList<BookModel>();

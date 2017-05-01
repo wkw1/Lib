@@ -3,9 +3,7 @@ package action;
 import java.util.List;
 
 import db.SearchTypeFeedback;
-import fileOpreation.BookFormOp;
-import fileOpreation.FileTest;
-import fileOpreation.UserFormOp;
+import fileOpreation.*;
 import model.BookModel;
 import model.BorrowBookModel;
 import model.OrderBookModel;
@@ -24,22 +22,23 @@ public class AdAction {
 		}
 		return adAction;
 	}
-	
+
 	//录入图书
 	public boolean inputBook(BookModel book){
-		FileTest.inputBook(book);
-		return true;
+		BookFormOp bookFormOp = BookFormOp.getInstance();
+		return bookFormOp.inputOne(book);
 	}
 	
 	//删除图书
 	public boolean delBook(String ISBN){
-		return true;
+		BookFormOp bookFormOp = BookFormOp.getInstance();
+		return bookFormOp.delOne(ISBN);
 	}
 	
 	//更新一本图书
 	public boolean updateBook(BookModel book){
-		
-		return true;
+		BookFormOp bookFormOp = BookFormOp.getInstance();
+		return bookFormOp.updateOne(book);
 	}
 	
 	//搜索图书
@@ -71,16 +70,19 @@ public class AdAction {
 	
 	//得到预约表 
 	public List<OrderBookModel> getAllOrderBook(){
-		return FileTest.getListAllOB();
+		OrderBookFormOp orderBookFormOp = OrderBookFormOp.getInstance();
+		return orderBookFormOp.obLists;// 测试数据
 	}
 	//得到借书表
 	public List<BorrowBookModel> getAllBorrowBook(){
-		return FileTest.getListBBM();
+		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		return borrowBookFormOp.bbLists;
 	}
 	
-	//提醒用户归还图书
+	//提醒用户归还图书 TODO
 	public boolean remindUser(String ID,String ISBN){
-		return true;
+		InfoFormOp infoFormOp = InfoFormOp.getInstance();
+		return infoFormOp.addReturnInfo(ID,ISBN);
 	}
 	
 	//录入用户
@@ -96,7 +98,7 @@ public class AdAction {
 				type = SearchTypeFeedback.USER_ID;
 				break;
 			case "姓名":
-				type = SearchTypeFeedback.USER_NMAE;
+				type = SearchTypeFeedback.USER_NAME;
 				break;
 			case "学院":
 				type = SearchTypeFeedback.USER_SCHOOL;
@@ -112,7 +114,6 @@ public class AdAction {
 	public List<UserModel> recentUser(){
 		return null;
 	}
-	
 	
 	//删除用户
 	public boolean delUser(String ID){

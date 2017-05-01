@@ -11,6 +11,6 @@ public class SearchTypeFeedback {
     public static final int BOOK_AUTHOR = 4;
     public static final int BOOK_PRESS = 5;
     public static final int USER_ID = 6;
-    public static final int USER_NMAE = 7;
+    public static final int USER_NAME = 7;
     public static final int USER_SCHOOL = 8;
 }
