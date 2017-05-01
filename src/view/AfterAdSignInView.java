@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import db.ArrayDB;
 import widget.InitWindow;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -187,7 +188,7 @@ public class AfterAdSignInView {
 		panel.add(btnNewButton_4);
 		
 		
-		whichTypeForBook = new JComboBox<String>();
+		whichTypeForBook = new JComboBox<String>(ArrayDB.searchBookTypes);
 		whichTypeForBook.setBounds(262, 534, 113, 32);
 		panel.add(whichTypeForBook);
 		
@@ -221,12 +222,9 @@ public class AfterAdSignInView {
 		searchUser.setBounds(799, 668, 113, 48);
 		panel.add(searchUser);
 		
-		whichTypeForUser = new JComboBox<String>();
+		whichTypeForUser = new JComboBox<String>(ArrayDB.searchUserTypes);
 		whichTypeForUser.setBounds(823, 492, 112, 35);
 		panel.add(whichTypeForUser);
-		whichTypeForUser.addItem("姓名");
-		whichTypeForUser.addItem("ID");
-		whichTypeForUser.addItem("学院");
 		
 		seeBorrowTable = new JButton("\u67E5\u770B\u501F\u4E66\u8868");
 		seeBorrowTable.setFont(new Font("华文行楷", Font.PLAIN, 30));
@@ -239,13 +237,7 @@ public class AfterAdSignInView {
 		exit.setFont(new Font("宋体", Font.PLAIN, 15));
 		exit.setBounds(1063, 13, 105, 35);
 		panel.add(exit);
-		
-		whichTypeForBook.addItem("ISBN");
-		whichTypeForBook.addItem("书名");
-		whichTypeForBook.addItem("作者");
-		whichTypeForBook.addItem("出版社");
-		whichTypeForBook.addItem("书类型");
-		
+
 	}
 
 	public JFrame getFrame() {

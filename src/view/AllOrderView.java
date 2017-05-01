@@ -66,6 +66,12 @@ public class AllOrderView {
 		list = new ArrayList<>();
 		// 得到总的表
 		list = adAction.getAllOrderBook();
+		if(list==null){
+			OrderBookModel info = new OrderBookModel();
+			info.setName("未找到图书！");
+			list = new ArrayList<>();
+			list.add(info);
+		}
 		myTableModel = new AllOBTableModel(table, frame, list);
 		myTableModel.initData();
 	}
@@ -93,6 +99,7 @@ public class AllOrderView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				allOrderView =null;
 				frame.dispose();
 			}
 		});

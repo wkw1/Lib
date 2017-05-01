@@ -7,12 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 
 import action.UserAction;
 import model.BorrowBookModel;
@@ -89,6 +84,9 @@ public class MyOrderView {
 			public void actionPerformed(ActionEvent e) {
 				if (myTableModel.formerPage())
 					selectedRowIndex=-1;
+				else
+					JOptionPane.showConfirmDialog(null, "已经是第一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		//点击下一页
@@ -97,6 +95,9 @@ public class MyOrderView {
 			public void actionPerformed(ActionEvent e) {
 				if (myTableModel.nextPage())
 					selectedRowIndex = -1;
+				else
+					JOptionPane.showConfirmDialog(null, "已经是最后一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		//关闭此窗口
@@ -115,11 +116,12 @@ public class MyOrderView {
 			public void actionPerformed(ActionEvent e) {
 				if(selectedRowIndex==-1||table.getValueAt(selectedRowIndex, 1)==null){
 					System.out.println("请选中要操作的图书");
+					JOptionPane.showConfirmDialog(null, "请选中要操作的图书？？？",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					System.out.println("选择了第 " + selectedRowIndex+ " 行");
 					String ISBN = (String) table.getValueAt(selectedRowIndex, 2);
-					System.out.println("选择了第 " + ISBN+ " 行");
 				    if(userAction.cancelOrder(ISBN)){
 				    	myTableModel.updateData(selectedRowIndex);
 				    	selectedRowIndex =-1;

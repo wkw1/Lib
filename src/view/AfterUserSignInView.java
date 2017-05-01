@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 
+import action.RegisterLoginAction;
 import action.UserAction;
 import model.InfoModel;
 import model.UserModel;
@@ -139,12 +140,13 @@ public class AfterUserSignInView {
 			}
 		});
 
-		//退出登录
+		//退出登录 TODO 销毁UserAction数据
 		signOut.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
+				RegisterLoginAction.signOut();
 				SignInView signInView = new SignInView();
 				signInView.getFrame().setVisible(true);
 			}

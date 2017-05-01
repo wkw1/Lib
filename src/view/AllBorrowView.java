@@ -20,6 +20,7 @@ import javax.swing.JTable;
 
 import action.AdAction;
 import model.BorrowBookModel;
+import model.OrderBookModel;
 import tablemodel.AllBBTableModel;
 import widget.InitWindow;
 /**
@@ -66,6 +67,12 @@ public class AllBorrowView{
 
 		// 得到总的表
 		list = adAction.getAllBorrowBook();
+		if(list==null){
+			BorrowBookModel info = new BorrowBookModel();
+			info.setName("未找到图书！");
+			list = new ArrayList<>();
+			list.add(info);
+		}
 		myTableModel = new AllBBTableModel(table, frame, list);
 		myTableModel.initData();
 	}
@@ -77,12 +84,19 @@ public class AllBorrowView{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(selectedRowIndex==-1){
-					JOptionPane.showConfirmDialog(null, "请选择用户", "提示信息", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "请选择用户",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					String ID = (String) table.getValueAt(selectedRowIndex, 1);
 					String ISBN = (String) table.getValueAt(selectedRowIndex, 3);
-					adAction.remindUser(ID, ISBN);
+					if(adAction.remindUser(ID, ISBN))
+						JOptionPane.showConfirmDialog(null, "提醒成功",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
+					else
+						JOptionPane.showConfirmDialog(null, "提醒失败",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
+
 				}
 			}
 		});
@@ -117,19 +131,15 @@ public class AllBorrowView{
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 			}
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
-
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

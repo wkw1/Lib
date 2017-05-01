@@ -79,6 +79,9 @@ public class MyBorrowView {
 			public void actionPerformed(ActionEvent e) {
 				if(myTableModel.formerPage())
 					selectedRowIndex=-1;
+				else
+					JOptionPane.showConfirmDialog(null, "已经是第一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 
@@ -89,6 +92,9 @@ public class MyBorrowView {
 			public void actionPerformed(ActionEvent e) {
 				if(myTableModel.nextPage())
 					selectedRowIndex=-1;
+				else
+					JOptionPane.showConfirmDialog(null, "已经是最后一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		//关闭此窗口
@@ -110,6 +116,8 @@ public class MyBorrowView {
 				// TODO Auto-generated method stub
 				if(selectedRowIndex==-1||table.getValueAt(selectedRowIndex, 1)==null){
 					System.out.println("请选中要操作的图书");
+					JOptionPane.showConfirmDialog(null, "请选中要操作的图书",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
 					System.out.println("选择了第"+ selectedRowIndex+ "行");

@@ -8,8 +8,10 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
 import action.AdAction;
+import db.ArrayDB;
 import model.BookModel;
 import widget.ISBNCreate;
+import widget.InitWindow;
 import widget.LimitNumberLenght;
 
 import javax.swing.JTextArea;
@@ -65,7 +67,6 @@ public class InputBookView {
 		return inputBookView;
 	}
 	
-	
 	//传入2 表示更改信息，传入1表示录入图书
 	public InputBookView(BookModel bookModel,int what) {
 		initialize();
@@ -77,8 +78,11 @@ public class InputBookView {
 			bookAuthor.setText(bookModel.getAuthor());
 			bookName.setText(bookModel.getName());
 			bookPress.setText(bookModel.getPress());
-			BookType.setSelectedIndex(2);
+			BookType.setSelectedItem(bookModel.getBookType());
 			introduction.setText(bookModel.getIntroduction());
+			bookNumber.setText(String.valueOf(bookModel.getTN()));
+			bookISBNString = bookModel.getISBN();
+			powerForBorrow.setSelectedItem(bookModel.getPowerNeed());
 		}
 		action();
 	}
@@ -99,9 +103,9 @@ public class InputBookView {
 			return false;
 		else if(introductionString.equals(""))
 			return false;
-		
-		bookISBNString =ISBNCreate.getISBN((String)BookType.getSelectedItem());
-		powerForBorrowInt = powerForBorrow.getSelectedIndex();
+		if(what==1)//录入图书时产生新的ISBN，更新时则不变
+			bookISBNString =ISBNCreate.getISBN((String)BookType.getSelectedItem());
+		powerForBorrowInt = (Integer)powerForBorrow.getSelectedItem();
 		bookModel = new BookModel();
 		bookModel.setAuthor(bookAuthorString);
 		bookModel.setBookType((String)BookType.getSelectedItem());
@@ -111,7 +115,7 @@ public class InputBookView {
 		bookModel.setPowerNeed(powerForBorrowInt);
 		bookModel.setPress(bookPressString);
 		bookModel.setRN(bookNumberInt);
-		bookModel.setStorageTime(new Date(System.currentTimeMillis()));
+		bookModel.setStorageTime(SystemEntry.date);
 		bookModel.setTN(bookNumberInt);
 		
 		return true;
@@ -162,8 +166,7 @@ public class InputBookView {
 					else{//更新成功失败？？？
 						if(ad.updateBook(bookModel)){
 							SearchResultView view = SearchResultView.getInstance("", "", 2);
-							//更新表格
-							view.updateData(bookModel);
+							view.updateData(bookModel);//更新表格
 							frame.dispose();
 						}
 						else{
@@ -174,7 +177,8 @@ public class InputBookView {
 					}
 				}
 				else{
-					JOptionPane.showConfirmDialog(null, "请完整输入每个信息！！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "请完整输入每个信息！！！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 			}
 		});
@@ -207,9 +211,8 @@ public class InputBookView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 800);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		InitWindow.init(frame);
+
 		// 设置panel作为容器,控件加入其中
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1200, 800);
@@ -287,27 +290,19 @@ public class InputBookView {
 		label_5.setBounds(282, 514, 89, 30);
 		panel.add(label_5);
 		
-		BookType = new JComboBox<String>();
+		BookType = new JComboBox<String>(ArrayDB.bookTypes);
 		BookType.setBounds(375, 514, 116, 33);
 		panel.add(BookType);
-		BookType.addItem("计算机");
-		BookType.addItem("通信");
-		BookType.addItem("文学");
-		BookType.addItem("旅游");
-		BookType.addItem("常识");
 		
 		JLabel label_6 = new JLabel("\u56FE\u4E66\u5F55\u5165");
 		label_6.setFont(new Font("华文楷体", Font.PLAIN, 40));
 		label_6.setBounds(476, 52, 215, 61);
 		panel.add(label_6);
 		
-		powerForBorrow = new JComboBox<Integer>();
+		powerForBorrow = new JComboBox<Integer>(ArrayDB.powerTypes);
 		powerForBorrow.setBounds(745, 299, 98, 31);
 		panel.add(powerForBorrow);
-		powerForBorrow.addItem(1);
-		powerForBorrow.addItem(2);
-		powerForBorrow.addItem(3);
-		
+
 		inputFromFile = new JButton("\u6279\u91CF\u5BFC\u5165");
 		inputFromFile.setBackground(new Color(0, 139, 139));
 		inputFromFile.setFont(new Font("华文楷体", Font.PLAIN, 20));

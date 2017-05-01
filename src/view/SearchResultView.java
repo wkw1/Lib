@@ -36,7 +36,6 @@ import javax.swing.JTextField;
  */
 public class SearchResultView{
 
-
 	private JFrame frame;
 	private JTable table=null;
 	private List<BookModel> lists=null;//搜索结果列表，保存所有搜索结果
@@ -123,7 +122,7 @@ public class SearchResultView{
 		myTableModel =  new SBookTableModel(table, frame, lists);
 		myTableModel.initData();
 		
-		pageAll = myTableModel.getRowListAll()/8+1;
+		pageAll = (myTableModel.getRowListAll()-1)/8+1;
 		pages.setText("第"+ pageNow +"页 共"+  pageAll +"页");
 	}
 	
@@ -162,6 +161,9 @@ public class SearchResultView{
 					pageNow--;
 					pages.setText("第"+ pageNow +"页 共"+  pageAll +"页");
 				}
+				else
+					JOptionPane.showConfirmDialog(null, "已经是第一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		
@@ -175,6 +177,9 @@ public class SearchResultView{
 					pageNow++;
 					pages.setText("第"+ pageNow +"页 共"+  pageAll +"页");
 				}
+				else
+					JOptionPane.showConfirmDialog(null, "已经是最后一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 				    
 			}
 		});
@@ -193,7 +198,7 @@ public class SearchResultView{
 						if(userAction.user.getBalance()<=-20)
 							JOptionPane.showConfirmDialog(null, "欠费过多。。联系管理员充值",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
-						else if((int)table.getValueAt(selectedRowIndex, 6)==0){
+						else if((int)table.getValueAt(selectedRowIndex, 5)==0){
 							JOptionPane.showConfirmDialog(null, "此书无库存。。",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
@@ -221,7 +226,7 @@ public class SearchResultView{
 					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
 						JOptionPane.showConfirmDialog(null, "请选择要删除的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
-						String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
+						String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
 						if (adAction.delBook(ISBN)) {
 							// TODO 删除成功
 							myTableModel.updateDelData(selectedRowIndex);
@@ -276,7 +281,8 @@ public class SearchResultView{
 				}
 				else{//管理员更改
 					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
-						JOptionPane.showConfirmDialog(null, "请选择要更改的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showConfirmDialog(null, "请选择要更改的图书",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
 						InputBookView inputBookView = new InputBookView(myTableModel.getChoose(selectedRowIndex), 2);
 						inputBookView.getFrame().setVisible(true);
