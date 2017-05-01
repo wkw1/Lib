@@ -197,15 +197,22 @@ public class SearchResultView{
 							JOptionPane.showConfirmDialog(null, "此书无库存。。",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
-						// 借书操作,判断借书权限 TODO
+						// 借书操作,判断借书权限
 						else{
 							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
-							if (userAction.borrowBook(ISBN)) {
-								myTableModel.updateData(selectedRowIndex);//刷新表格
-								JOptionPane.showConfirmDialog(null, "借书成功",
-                                        "提示信息", JOptionPane.PLAIN_MESSAGE);
-							} else
-								JOptionPane.showConfirmDialog(null, "借书失败？？？", "提示信息", JOptionPane.PLAIN_MESSAGE);
+							int power = (int)table.getValueAt(selectedRowIndex,6);
+							if(power<=userAction.user.getPower())
+								if (userAction.borrowBook(ISBN)) {
+									myTableModel.updateData(selectedRowIndex);//刷新表格
+									JOptionPane.showConfirmDialog(null, "借书成功",
+											"提示信息", JOptionPane.PLAIN_MESSAGE);
+								} else
+									JOptionPane.showConfirmDialog(null, "借书失败？？？",
+											"提示信息", JOptionPane.PLAIN_MESSAGE);
+							else{
+								JOptionPane.showConfirmDialog(null, "权限不够不能借阅此书",
+										"提示信息", JOptionPane.PLAIN_MESSAGE);
+							}
 						}
 
 					}
@@ -244,18 +251,27 @@ public class SearchResultView{
 						JOptionPane.showConfirmDialog(null, "请选择要预约的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
 						int RN = (int) table.getValueAt(selectedRowIndex, 6);
-						if (RN > 0) {
-							System.out.println("此书可直接借阅，不用预约");
-							JOptionPane.showConfirmDialog(null, "此书可直接借阅，不用预约", "提示信息", JOptionPane.PLAIN_MESSAGE);
-						} else {
-							// 预约操作
-							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
-							if (userAction.orderBook(ISBN)) {
-								JOptionPane.showConfirmDialog(null, "预约成功", "提示信息", JOptionPane.PLAIN_MESSAGE);
+						int power = (int)table.getValueAt(selectedRowIndex,6);
+						if(power<=userAction.user.getPower())
+							if (RN > 0) {
+								System.out.println("此书可直接借阅，不用预约");
+								JOptionPane.showConfirmDialog(null, "此书可直接借阅，不用预约",
+										"提示信息", JOptionPane.PLAIN_MESSAGE);
 							} else {
-								JOptionPane.showConfirmDialog(null, "预约失败？？？", "提示信息", JOptionPane.PLAIN_MESSAGE);
+								// 预约操作
+								String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
+								if (userAction.orderBook(ISBN)) {
+									JOptionPane.showConfirmDialog(null, "预约成功",
+											"提示信息", JOptionPane.PLAIN_MESSAGE);
+								} else {
+									JOptionPane.showConfirmDialog(null, "预约失败？？？",
+											"提示信息", JOptionPane.PLAIN_MESSAGE);
+								}
 							}
-						}
+						else
+							JOptionPane.showConfirmDialog(null, "权限不够不能预约？？？",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
+
 					}
 				}
 				else{//管理员更改
@@ -273,19 +289,15 @@ public class SearchResultView{
 		table.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
