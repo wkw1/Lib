@@ -12,7 +12,6 @@ import model.BookModel;
  * @author 宽伟
  *
  */
-
 public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 
 	private static final long serialVersionUID = 1L;
@@ -101,7 +100,7 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	@Override
 	public SBookTableModel get(List<BookModel> lists) {
 		// 表单数据用二维数组表示
-		Object[][] mObjects = new Object[8][8];
+		Object[][] mObjects = new Object[8][7];
 		BookModel sbm = new BookModel();
 		if (lists == null) {
 			System.out.println("传入的借书表为空");
@@ -110,18 +109,16 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 
 		for (int i = 0; i < lists.size() && i < 8; i++) {
 			sbm = lists.get(i);
-			mObjects[i][7] = i;// 序号
 			mObjects[i][0] = sbm.getISBN();
 			mObjects[i][1] = sbm.getName();
 			mObjects[i][2] = sbm.getIntroduction();
 			mObjects[i][3] = sbm.getPress();
 			mObjects[i][4] = sbm.getAuthor();
-			mObjects[i][5] = sbm.getStorageTime();
-			mObjects[i][6] = sbm.getRN();
-
+			mObjects[i][5] = sbm.getRN();
+			mObjects[i][6] = sbm.getPowerNeed();
 		}
 		// 标头数据
-		String[] strings = { "ISBN", "书名", "简介", "出版社", "作者", "入库时间", "可借数量" };
+		String[] strings = { "ISBN", "书名", "简介", "出版社", "作者", "可借数量" , "所需权限"};
 
 		SBookTableModel model = new SBookTableModel(mObjects, strings);
 
@@ -130,8 +127,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 
 	@Override
 	public boolean nextPage() {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		System.out.println("点击下一页SearchView");
 		if(rowListAll-lastLine>0){
 			if(rowListAll-lastLine>=7){
@@ -153,7 +148,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 
 	@Override
 	public boolean formerPage() {
-		// TODO Auto-generated method stub
 		System.out.println("点击上一页SearchView");
 		if (firstLine>0) {
 			if(firstLine>=8){
@@ -195,7 +189,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	
 	@Override
 	public boolean isCellEditable(int row, int column) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	public int getRowListAll() {
