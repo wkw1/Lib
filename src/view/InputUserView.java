@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import db.ArrayDB;
 import widget.InitWindow;
 import widget.LimitNumberLenght;
 
@@ -42,7 +43,8 @@ public class InputUserView {
 	private JButton cancel;
 	
 	private JComboBox<Integer> powerForBorrow ;
-	private JComboBox<Integer> numberForBorrow; 
+	private JComboBox<Integer> numberForBorrow;
+	private JComboBox<String> school;
 	
 	public static InputUserView inputUserView;
 	public static InputUserView getInstance(){
@@ -53,6 +55,7 @@ public class InputUserView {
 
 	public InputUserView() {
 		initialize();
+		ad = AdAction.getInstance();
 		action();
 	}
 	
@@ -64,13 +67,18 @@ public class InputUserView {
 				//数据输入完成，保存数据
 				if(isDataOk()){
 					if(ad.inputUser(userModel)){
-						//保存数据
-						frame.dispose();
+						int i = JOptionPane.showConfirmDialog(null, "录入成功，继续录入？？", " 提示信息!",
+								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+						// 不继续录入
+						if (i == 1 || i == -1) {
+							frame.dispose();
+						} else {
+
+						}
 					}
 				}
-				else{
+				else
 					JOptionPane.showConfirmDialog(null, "请完整输入每个信息！！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
-				}
 			}
 		});
 		//退出
@@ -119,23 +127,25 @@ public class InputUserView {
 		int ANBooksInt;
 		int balanceInt;
 		int power;
-		Date date=null;
 		nameString = name.getText();
+		IDString = ID.getText();
 		if(nameString.equals(""))
 			return false;
-		else if(nameString.equals(""))
+		else if(IDString.equals(""))
 			return false;
 		else if(money.getText().equals(""))
 			return false;
 		balanceInt =  Integer.parseInt(money.getText());
-		power = powerForBorrow.getSelectedIndex();
-		ANBooksInt = numberForBorrow.getSelectedIndex();
+		power = (int) powerForBorrow.getSelectedItem();
+		ANBooksInt = (int) numberForBorrow.getSelectedItem();
+		schoolString = (String) school.getSelectedItem();
+		userModel =  new UserModel();
 						
 		userModel.setANBooks(ANBooksInt);
 		userModel.setBalance(balanceInt);
 		userModel.setBNBooks(0);
 		userModel.setID(IDString);
-		userModel.setJoinDate(date);
+		userModel.setJoinDate(SystemEntry.date);
 		userModel.setName(nameString);
 		userModel.setPower(power);
 		userModel.setSchool(schoolString);
@@ -211,8 +221,7 @@ public class InputUserView {
 		powerForBorrow.addItem(1);
 		powerForBorrow.addItem(2);
 		powerForBorrow.addItem(3);
-		
-		
+
 		numberForBorrow = new JComboBox<Integer>();
 		numberForBorrow.setBounds(827, 429, 113, 36);
 		panel.add(numberForBorrow);
@@ -243,21 +252,9 @@ public class InputUserView {
 		cancel.setBounds(1095, 0, 87, 27);
 		panel.add(cancel);
 		
-		JComboBox<String> school = new JComboBox<String>();
+		school = new JComboBox<String>(ArrayDB.schools);
 		school.setBounds(289, 429, 151, 41);
 		panel.add(school);
-		school.addItem("计算机学院");
-		school.addItem("信息与通信工程学院");
-		school.addItem("电子工程学院");
-		school.addItem("自动化学院");
-		school.addItem("网络空间安全学院");
-		school.addItem("理学院");
-		school.addItem("经济管理学院");
-		school.addItem("人文学院");
-		school.addItem("信息科学与技术学院");
-		school.addItem("生命科学学院");
-		school.addItem("数字媒体与技术学院");
-		school.addItem("建筑学院");
 	}
 
 	public JFrame getFrame() {
@@ -267,6 +264,4 @@ public class InputUserView {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
-	
 }

@@ -13,11 +13,16 @@ import java.awt.Color;
 
 import action.RegisterLoginAction;
 import action.UserAction;
+import dao.BBHDao;
+import dao.SearchKeyDao;
+import fileOpreation.BorrowBookFormOp;
 import model.InfoModel;
 import model.UserModel;
 import widget.InitWindow;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import javax.swing.JScrollPane;
 
@@ -46,6 +51,8 @@ public class AfterUserSignInView {
 
 	private UserAction userAction;
 
+	private boolean first=true;
+
 	/**
 	 * Create the application.
 	 */
@@ -56,6 +63,7 @@ public class AfterUserSignInView {
 	}
 
 	public void updateData(){
+		UserModel.userModel.setBNBooks(userAction.getMyBN());//更新我的借书数量
 		//我的资料区信息更改
 		myInfo.setText("\n          我的资料\n\n"
 				      +"      ID:"+UserModel.userModel.getID()+"\n"
@@ -63,9 +71,13 @@ public class AfterUserSignInView {
 				      +"      学院:"+UserModel.userModel.getSchool()+"\n"
 				      +"      借书数量:"+UserModel.userModel.getBNBooks()+"\n"
 				      +"      余额信息:"+UserModel.userModel.getBalance()+"\n");
+		SearchKeyDao searchKeyDao= SearchKeyDao.getInstance();
+		String rank="";
+		for(int i=0;i<10&&i<searchKeyDao.keyWordLists.size();i++){
+			rank+="     "+i+" :"+ searchKeyDao.keyWordLists.get(i).keyWord+"\n";
+		}
 		//搜索排名资料更改
-		searchRanking.setText("\n  计算机 \n  Java\n  C++ \n  "
-				+ "Python\n  计算机网络 \n  数据库\n  操作系统");
+		searchRanking.setText("\n\n"+rank);
 	}
 
 	private void getData(){
@@ -84,7 +96,6 @@ public class AfterUserSignInView {
 		else{
 			infoString+= "    无通知消息消息";
 		}
-
 		info.setText(infoString);
 		updateData();
 	}
@@ -103,10 +114,12 @@ public class AfterUserSignInView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//生成搜搜页面 传递关键字和搜做类型,单例模式
-				SearchResultView window = SearchResultView.getInstance
-						( keyWord.getText().replaceAll("\\s", ""),
-								(String) searchType.getSelectedItem(),1);
+				//生成搜索页面 传递关键字和搜索类型,单例模式
+				String word=keyWord.getText().replaceAll("\\s", "");
+				SearchKeyDao searchKeyDao = SearchKeyDao.getInstance();
+				searchKeyDao.addOne(word);
+
+				SearchResultView window = SearchResultView.getInstance( word, (String) searchType.getSelectedItem(),1);
 				window.getFrame().setVisible(true);
 			}
 		});
@@ -134,7 +147,20 @@ public class AfterUserSignInView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MyBBHView myBBHView = new MyBBHView();
+				//从文件中读取数据
+				if(first){
+					BBHDao bbhDao = BBHDao.getInstance();
+					try {
+						bbhDao.readBookForm();
+						first=false;
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+				}
+
+				MyBBHView myBBHView = MyBBHView.getInstance();
 				myBBHView.getFrame().setVisible(true);
 
 			}

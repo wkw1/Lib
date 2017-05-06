@@ -57,12 +57,12 @@ public class MyBorrowView {
 
 	//从UserAction中得到借书数据，并先填充一部分到table里
 	public void getDate(){
-		
 		list = new ArrayList<>();
 		// 得到总的表
 		list = userAction.getBorrowBook();
 		myTableModel = new BBookTableModel(table, frame, list);
 		if(list==null){
+			list = new ArrayList<>();
 			BorrowBookModel info = new BorrowBookModel();
 			info.setName("未找到图书！");
 			list = new ArrayList<>();

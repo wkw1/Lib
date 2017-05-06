@@ -22,7 +22,6 @@ import javax.swing.JFileChooser;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.awt.Color;
 /**
  * 录入图书页面
@@ -103,20 +102,22 @@ public class InputBookView {
 			return false;
 		else if(introductionString.equals(""))
 			return false;
-		if(what==1)//录入图书时产生新的ISBN，更新时则不变
-			bookISBNString =ISBNCreate.getISBN((String)BookType.getSelectedItem());
+
 		powerForBorrowInt = (Integer)powerForBorrow.getSelectedItem();
 		bookModel = new BookModel();
 		bookModel.setAuthor(bookAuthorString);
 		bookModel.setBookType((String)BookType.getSelectedItem());
 		bookModel.setIntroduction(introductionString);
-		bookModel.setISBN(bookISBNString);
 		bookModel.setName(bookNameString);
 		bookModel.setPowerNeed(powerForBorrowInt);
 		bookModel.setPress(bookPressString);
 		bookModel.setRN(bookNumberInt);
 		bookModel.setStorageTime(SystemEntry.date);
 		bookModel.setTN(bookNumberInt);
+
+		if(what==1)//录入图书时产生新的ISBN，更新时则不变
+			bookISBNString =ISBNCreate.CreISBN(bookModel);
+		bookModel.setISBN(bookISBNString);
 		
 		return true;
 	}

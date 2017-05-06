@@ -48,12 +48,19 @@ public class MyBBHView {
 		initialize();
 		geData();
 		action();
-		
 	}
+
+	public static MyBBHView myBBHView;
+	public static MyBBHView getInstance(){
+		if(myBBHView==null){
+			myBBHView= new MyBBHView();
+		}
+		return myBBHView;
+	}
+
 	
 	public void geData() {
 		list = new ArrayList<>();
-
 		// 得到总的表
 		list = userAction.getBorrowHistory();
 		myTableModel = new RBookTableModel(table, frame, list);
@@ -67,6 +74,7 @@ public class MyBBHView {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				frame.dispose();
+				myBBHView =null;
 			}
 		});
 		

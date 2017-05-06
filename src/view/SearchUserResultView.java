@@ -65,6 +65,12 @@ public class SearchUserResultView {
 		lists = new ArrayList<>();
 		System.out.println("关键字："+keyWord+"搜索类型："+searchType);
 		lists = adAction.searchUser(keyWord, searchType);
+		if(lists==null){
+			lists = new ArrayList<>();
+			UserModel userModel = new UserModel();
+			userModel.setName("无用户");
+			lists.add(userModel);
+		}
 		myTableModel =  new SUserTableModel(table,lists);
 		myTableModel.initData();
 	}
@@ -99,13 +105,20 @@ public class SearchUserResultView {
 					int i = JOptionPane.showConfirmDialog(null, "是否删除用户？？", " 提示信息!",
 							JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(i==0){//删除
-						String ID = (String)table.getValueAt(selectedRowIndex, 0);
-						 if(adAction.delUser(ID)){
-							 myTableModel.updateDelData(selectedRowIndex);
-							 JOptionPane.showConfirmDialog(null, "删除成功！！", "提示信息", 
+						 String ID = (String)table.getValueAt(selectedRowIndex, 1);
+						 if((int)table.getValueAt(selectedRowIndex,3)>0){//借书数目不为零不能删除
+							 JOptionPane.showConfirmDialog(null, "此用户借有书籍不能删除！！", "提示信息",
 									 JOptionPane.PLAIN_MESSAGE);
-							 selectedRowIndex=-1;
 						 }
+						 else{
+							 if(adAction.delUser(ID)){
+								 myTableModel.updateDelData(selectedRowIndex);
+								 JOptionPane.showConfirmDialog(null, "删除成功！！", "提示信息",
+										 JOptionPane.PLAIN_MESSAGE);
+								 selectedRowIndex=-1;
+							 }
+						 }
+
 					}
 				}
 			}
@@ -120,11 +133,15 @@ public class SearchUserResultView {
 				else{
 					String str= JOptionPane.showInputDialog(null, "输入消息","消息框", 
 							JOptionPane.PLAIN_MESSAGE);
-					String ID = (String)table.getValueAt(selectedRowIndex, 0);
+					String ID = (String)table.getValueAt(selectedRowIndex, 1);
 					System.out.println(str);
 					if(!str.equals(null)){
-						adAction.sendMessage(str, ID);
-						JOptionPane.showConfirmDialog(null, "发送成功！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+						if(adAction.sendMessage(str, ID))
+						    JOptionPane.showConfirmDialog(null, "发送成功！",
+								  "提示信息", JOptionPane.PLAIN_MESSAGE);
+						else
+							JOptionPane.showConfirmDialog(null, "发送失败！",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
 					}
 					 
 				}
@@ -188,6 +205,7 @@ public class SearchUserResultView {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+
 		//设置类不可随数据大小改变
 	    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	    table.setRowHeight(70);

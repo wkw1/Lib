@@ -62,7 +62,6 @@ public class SearchResultView{
     private JTextField pageGo;//输入页数框
     private int pageInput;
 	/**
-	 * 
 	 * @param keyWord
 	 * @param searchType
 	 * @param who 表示用户还是管理员为1表示用户，为2表示管理员
@@ -87,6 +86,7 @@ public class SearchResultView{
 	}
 	//根据用户不同更新页面按钮名称
 	public static SearchResultView searchResultView=null;
+	private JButton detail;
 
 	// 单例模式，得到目前的此页面
 	public static SearchResultView getInstance(String keyWord,String searchType,int who) {
@@ -255,7 +255,7 @@ public class SearchResultView{
 						System.out.println("请选择要预约的图书");
 						JOptionPane.showConfirmDialog(null, "请选择要预约的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
-						int RN = (int) table.getValueAt(selectedRowIndex, 6);
+						int RN = (int) table.getValueAt(selectedRowIndex, 5);
 						int power = (int)table.getValueAt(selectedRowIndex,6);
 						if(power<=userAction.user.getPower())
 							if (RN > 0) {
@@ -287,6 +287,19 @@ public class SearchResultView{
 						InputBookView inputBookView = new InputBookView(myTableModel.getChoose(selectedRowIndex), 2);
 						inputBookView.getFrame().setVisible(true);
 					}
+				}
+			}
+		});
+		
+		detail.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
+					JOptionPane.showConfirmDialog(null, "请选择要查看的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else{
+					BookDetailView bookDetailView = new BookDetailView(myTableModel.getChoose(selectedRowIndex));
+					bookDetailView.getFrame().setVisible(true);
 				}
 			}
 		});
@@ -413,6 +426,12 @@ public class SearchResultView{
 		Gopage.setFont(new Font("华文楷体", Font.PLAIN, 20));
 		Gopage.setBounds(776, 689, 77, 31);
 		panel.add(Gopage);
+		
+		detail = new JButton("\u8BE6\u60C5");
+		detail.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		detail.setBackground(new Color(0, 128, 128));
+		detail.setBounds(1038, 584, 130, 35);
+		panel.add(detail);
 		
 	}	
 	public JFrame getFrame() {

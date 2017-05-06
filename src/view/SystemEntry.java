@@ -81,6 +81,8 @@ public class SystemEntry {
 		orderBookDao.readBookForm();
 		InfoDao infoDao = InfoDao.getInstance();
 		infoDao.readInfoForm();
+		SearchKeyDao searchKeyDao = SearchKeyDao.getInstance();
+		searchKeyDao.readUserForm();
 	}
 
 	//其它类调用 
