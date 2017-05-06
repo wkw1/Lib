@@ -1,7 +1,6 @@
 package dao;
 
 import model.InfoModel;
-import model.UserModel;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

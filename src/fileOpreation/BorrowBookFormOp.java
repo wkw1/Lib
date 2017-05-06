@@ -72,6 +72,15 @@ public class BorrowBookFormOp {
 
         return bbLists.add(borrowBookModel);
     }
+    //统计一个用户的借书数量
+    public int getNumberByID(String ID){
+        int n=0;
+        for (int i = 0; i < bbLists.size(); i++) {
+            if (bbLists.get(i).getID().equals(ID))
+                n++;
+        }
+        return n;
+    }
 
     //还书，删除一条记录
     public boolean returnOne(String ISBN, String ID) {
@@ -82,6 +91,17 @@ public class BorrowBookFormOp {
             }
         }
         return false;
+    }
+
+    //删除一个ISBN的所有 TODO 删除此图书的同时 改变借了此书用户的借书数量
+    public boolean delByISBN(String ISBN){
+        for(int i=0;i<bbLists.size();i++){
+            if(bbLists.get(i).getBookISBN().equals(ISBN)){
+                bbLists.remove(i);
+                i--;
+            }
+        }
+        return true;
     }
 
     //统计一个用户在借书表上数据产生的欠费信息

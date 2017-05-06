@@ -60,6 +60,28 @@ public class OrderBookFormOp {
         return false;
     }
 
+    //取消一个用户的所有预约
+    public boolean cancelByID(String ID){
+        for(int i=0;i<obLists.size();i++){
+            if(obLists.get(i).getID().equals(ID)){
+                obLists.remove(i);
+                i--;
+            }
+        }
+        return true;
+    }
+
+    //取消一个ISBN的所有预约，此本书被删除了！！
+    public boolean cancelByISBN(String ISBN){
+        for(int i=0;i<obLists.size();i++){
+            if(obLists.get(i).getBookISBN().equals(ISBN)){
+                obLists.remove(i);
+                i--;
+            }
+        }
+        return true;
+    }
+
     //搜索函数，搜索列表
     public List<OrderBookModel> searchBookForm(String keyWords, int keyType) {
         List<OrderBookModel> searchedList = new ArrayList<>();

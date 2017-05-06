@@ -37,7 +37,19 @@ public class InfoFormOp {
         return infoLists.add(infoModel);
     }
 
-    //用户得到消息，得到立马删除 TODO
+    //给用户发送消息提醒归还图书
+    public boolean sendOne(String str,String ID){
+        InfoModel infoModel= new InfoModel();
+        infoModel.setInformerID("管理员");
+        infoModel.setInformer("管理员");
+        infoModel.setInformThing(str);
+        infoModel.setInformDate(SystemEntry.date);
+        infoModel.setInformederID(ID);
+
+        return infoLists.add(infoModel);
+    }
+
+    //用户得到消息，得到立马删除 TODO 更高
     public List<InfoModel> getInfoList(String ID){
         List<InfoModel> lists= new ArrayList<>();
         int whetherExist = 0;
@@ -46,6 +58,8 @@ public class InfoFormOp {
             target = infoLists.get(i).getInformederID();
             if (target.equals(ID)) {
                 lists.add(infoLists.get(i));
+                infoLists.remove(i);
+                i--;
                 whetherExist = 1;
             }
         }

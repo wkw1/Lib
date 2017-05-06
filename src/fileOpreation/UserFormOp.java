@@ -5,7 +5,9 @@ import db.SearchTypeFeedback;
 import db.SignInFeedback;
 import model.Balance;
 import model.UserModel;
+import widget.Encryp;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,22 @@ public class UserFormOp {
     }
     public UserFormOp() {
         userLists = UserDao.userLists;
+    }
+
+    //管理员增加用户
+    public boolean addOne(UserModel userModel){
+        return userLists.add(userModel);
+    }
+
+    //管理员删除用户
+    public boolean delOne(String ID){
+        for(int i=0;i<userLists.size();i++){
+            if(ID.equals(userLists.get(i).getID())){
+                userLists.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     //更新所有用户的余额信息
@@ -61,11 +79,13 @@ public class UserFormOp {
         return false;
     }
 
-    //注册 TODO 判断是否注册过，未注册则新加入用户
+    //注册
     public int register(String ID,String password){
         for(UserModel user :userLists){
             if(user.getID().equals(ID)){
                 if(user.getPassword()==null||user.getPassword().equals("")){
+                    // TODO 加密函数暂时未使用
+                    //String enPassword = Encryp.Encrypt(password);
                     user.setPassword(password);
                     return SignInFeedback.SUCCESSFUL;
                 }
@@ -78,7 +98,7 @@ public class UserFormOp {
     }
 
     //登录验证 用户
-    public int signIn(String ID,String password){
+    public int signIn(String ID,String password) {
         for(UserModel user :userLists){
             if(user.getID().equals(ID)){
 
