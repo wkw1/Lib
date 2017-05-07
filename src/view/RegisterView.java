@@ -127,7 +127,7 @@ public class RegisterView {
 		frame.getContentPane().add(panel);
 		
 		register = new JButton("\u6CE8\u518C");
-		register.setBackground(new Color(153, 153, 153));
+		register.setBackground(new Color(0, 128, 128));
 		register.setFont(new Font("华文楷体", Font.PLAIN, 25));
 		register.setBounds(355, 482, 131, 52);
 		panel.add(register);
@@ -169,20 +169,21 @@ public class RegisterView {
 		panel.add(passwordOK);
 		
 		signIn = new JButton("\u5DF2\u6709\u8D26\u53F7\uFF1F\u767B\u5F55");
-		signIn.setBackground(new Color(204, 153, 153));
+		signIn.setBackground(new Color(0, 128, 128));
 		signIn.setFont(new Font("华文楷体", Font.PLAIN, 15));
 		signIn.setBounds(338, 714, 158, 27);
 		panel.add(signIn);
 		
 		cancel = new JButton("\u53D6\u6D88");
-		cancel.setBackground(new Color(51, 51, 255));
-		cancel.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		cancel.setBounds(1069, 0, 113, 38);
+		cancel.setBackground(new Color(255, 0, 0));
+		cancel.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		cancel.setBounds(1105, 0, 77, 27);
 		panel.add(cancel);
 		
 		help = new JButton("\u5E2E\u52A9");
+		help.setBackground(new Color(0, 128, 128));
 		help.setFont(new Font("华文楷体", Font.PLAIN, 15));
-		help.setBounds(955, 8, 71, 27);
+		help.setBounds(1035, 0, 71, 27);
 		panel.add(help);
 		
 		hint = new JTextPane();

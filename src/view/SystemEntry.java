@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 import dao.*;
 import fileOpreation.BorrowBookFormOp;
-import fileOpreation.UserFormOp;
-import model.Balance;
 import widget.InitWindow;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -21,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.awt.Color;
-import java.util.List;
 import javax.swing.JLabel;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -50,8 +47,8 @@ public class SystemEntry {
 	//为更新余额信息
 	//统计借书表中的所有用户系统开始时因借书产生的费用，再统计结束运行时的费用
 	//两者相减得到此次产生的费用，相减加到用户的余额信息上
-	public static List<Balance> balanceList1;
-	public static List<Balance> balanceList2;
+	//public static List<Balance> balanceList1;
+	//public static List<Balance> balanceList2;
 
 	private static Thread thread;
 	private JButton cancel;
@@ -88,8 +85,8 @@ public class SystemEntry {
 	//其它类调用 
 	public static void getInstance(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
-		balanceList1 = borrowBookFormOp.getBalanceList();
+		//BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		//balanceList1 = borrowBookFormOp.getBalanceList();
 		thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -101,7 +98,6 @@ public class SystemEntry {
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -129,9 +125,9 @@ public class SystemEntry {
 	private void updateDate(){
 		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
 		borrowBookFormOp.dateGrowth(days);//更新借书表中的数据
-		balanceList2 = borrowBookFormOp.getBalanceList();
-		UserFormOp userFormOp = UserFormOp.getInstance();
-		userFormOp.updateBalance(balanceList1,balanceList2);
+		//balanceList2 = borrowBookFormOp.getBalanceList();
+		//UserFormOp userFormOp = UserFormOp.getInstance();
+		//userFormOp.updateBalance(balanceList1,balanceList2);
 		days=0;
 	}
 	
@@ -142,8 +138,8 @@ public class SystemEntry {
 	 */
 	public void timeAdvance(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
-		balanceList1 = borrowBookFormOp.getBalanceList();
+		//BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		//balanceList1 = borrowBookFormOp.getBalanceList();
 		thread= new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -207,8 +203,8 @@ public class SystemEntry {
 		
 		in = new JButton("\u8FDB\u5165\u7CFB\u7EDF");
 		in.setBackground(new Color(0, 139, 139));
-		in.setFont(new Font("宋体", Font.PLAIN, 40));
-		in.setBounds(514, 365, 213, 88);
+		in.setFont(new Font("华文楷体", Font.PLAIN, 40));
+		in.setBounds(295, 398, 213, 88);
 		panel.add(in);
 		
 		JLabel label = new JLabel("\u5F53\u524D\u65F6\u95F4");
@@ -222,9 +218,9 @@ public class SystemEntry {
 		panel.add(time);
 		
 		cancel = new JButton("\u9000\u51FA");
-		cancel.setFont(new Font("宋体", Font.PLAIN, 25));
+		cancel.setFont(new Font("华文楷体", Font.PLAIN, 40));
 		cancel.setBackground(new Color(0, 139, 139));
-		cancel.setBounds(1012, 29, 113, 47);
+		cancel.setBounds(717, 402, 213, 80);
 		panel.add(cancel);
 	}
 	

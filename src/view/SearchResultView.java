@@ -401,8 +401,9 @@ public class SearchResultView{
 		panel.add(order);
 		
 		back = new JButton("退出");
+		back.setBackground(new Color(255, 0, 0));
 		back.setFont(new Font("华文楷体", Font.PLAIN, 15));
-		back.setBounds(1079, 17, 89, 27);
+		back.setBounds(1105, 0, 77, 27);
 		panel.add(back);
 		
 	    pages = new JLabel("第 i 页 共 n 页");

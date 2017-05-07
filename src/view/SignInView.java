@@ -212,10 +212,10 @@ public class SignInView {
 		panel.add(label);
 		
 		signIn = new MyButton("\u767B\u5F55");
-		signIn.BUTTON_COLOR2 = new Color(175, 238, 238);
-		signIn.BUTTON_COLOR1 = new Color(128, 0, 128);
+		signIn.BUTTON_COLOR2 = new Color(169, 169, 169);
+		signIn.BUTTON_COLOR1 = new Color(0, 128, 128);
 		signIn.setFont(new Font("华文楷体", Font.PLAIN, 30));
-		signIn.setBackground(new Color(128, 0, 128));
+		signIn.setBackground(new Color(0, 139, 139));
 		signIn.setForeground(new Color(0, 0, 0));
 		signIn.setBounds(460, 553, 161, 57);
 		panel.add(signIn);
@@ -245,8 +245,9 @@ public class SignInView {
 		buttonGroup.add(ad);
 		
 		register = new JButton("\u8FD8\u6CA1\u6709\u8D26\u53F7\uFF1F\u6CE8\u518C");
-		register.setFont(new Font("宋体", Font.PLAIN, 15));
-		register.setBounds(435, 717, 214, 27);
+		register.setBackground(new Color(0, 128, 128));
+		register.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		register.setBounds(435, 711, 214, 33);
 		panel.add(register);
 		
 		textField = new JTextField();
@@ -264,12 +265,15 @@ public class SignInView {
 		panel.add(password);
 		
 		help = new JButton("\u5E2E\u52A9");
-		help.setFont(new Font("宋体", Font.PLAIN, 15));
-		help.setBounds(1004, 13, 73, 27);
+		help.setBackground(new Color(0, 128, 128));
+		help.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		help.setBounds(1041, 0, 73, 27);
 		panel.add(help);
 		
 		cancel = new JButton("\u53D6\u6D88");
-		cancel.setBounds(1097, 13, 73, 27);
+		cancel.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		cancel.setBackground(new Color(255, 69, 0));
+		cancel.setBounds(1111, 0, 73, 27);
 		panel.add(cancel);
 	}
 

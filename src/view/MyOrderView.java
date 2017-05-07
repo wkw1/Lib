@@ -206,17 +206,14 @@ public class MyOrderView {
 		cancel = new JButton("\u53D6\u6D88\u9884\u7EA6");
 		cancel.setBackground(new Color(0, 206, 209));
 		cancel.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		cancel.setBounds(1020, 274, 136, 39);
+		cancel.setBounds(1019, 335, 136, 39);
 		panel.add(cancel);
 
 		close = new JButton("\u9000\u51FA");
+		close.setFont(new Font("华文楷体", Font.PLAIN, 15));
 		close.setBackground(new Color(178, 34, 34));
-		close.setBounds(1094, 32, 72, 27);
+		close.setBounds(1110, 0, 72, 27);
 		panel.add(close);
-
-		JLabel welcome = new JLabel("\u4F60\u597D\uFF01");
-		welcome.setBounds(1043, 13, 72, 18);
-		panel.add(welcome);
 	}
 
 	public JFrame getFrame() {

@@ -60,14 +60,13 @@ public class MyBorrowView {
 		list = new ArrayList<>();
 		// 得到总的表
 		list = userAction.getBorrowBook();
-		myTableModel = new BBookTableModel(table, frame, list);
 		if(list==null){
-			list = new ArrayList<>();
 			BorrowBookModel info = new BorrowBookModel();
 			info.setName("未找到图书！");
 			list = new ArrayList<>();
 			list.add(info);
 		}
+		myTableModel = new BBookTableModel(table, frame, list);
 		myTableModel.initData();
 	}
 	
@@ -102,7 +101,6 @@ public class MyBorrowView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				frame.dispose();
 				myBorrowView =null;
 			}
@@ -113,7 +111,6 @@ public class MyBorrowView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if(selectedRowIndex==-1||table.getValueAt(selectedRowIndex, 1)==null){
 					System.out.println("请选中要操作的图书");
 					JOptionPane.showConfirmDialog(null, "请选中要操作的图书",
@@ -124,6 +121,12 @@ public class MyBorrowView {
 					String ISBN = (String) table.getValueAt(selectedRowIndex, 2);
 					//归还图书操作，用户归还成功之后进行表的刷新
 					if(userAction.returnBook(ISBN)){
+						//判断此书是否差生了欠费信息
+						float money = (float)table.getValueAt(selectedRowIndex, 6);
+						if(money>0){
+							//更改用户余额
+							userAction.reduceBalance(money);
+						}
 						//刷新表格
 						JOptionPane.showConfirmDialog(null, "还书成功",
 								"提示信息", JOptionPane.PLAIN_MESSAGE);
@@ -142,41 +145,22 @@ public class MyBorrowView {
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 			}
-			
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				// 对用户选取的单行数据操作
 				int selectRows = table.getSelectedRows().length;// 取得用户所选行的行数
-				if (selectRows == 1) {
+				if (selectRows == 1)
 					selectedRowIndex = table.getSelectedRow();// 取得用户所选单行
-					// System.out.print(list.get(selectedRowIndex).get("i"));
-					System.out.print(selectedRowIndex);
-
-					String string = (String) table.getValueAt(selectedRowIndex, 1);
-
-					System.out.print(string);
-				}
 			}
 		});
 	}
@@ -230,12 +214,10 @@ public class MyBorrowView {
 		panel.add(returnBook);
 		
 		close = new JButton("\u9000\u51FA");
-		close.setBounds(1053, 44, 103, 27);
+		close.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		close.setBackground(new Color(255, 0, 0));
+		close.setBounds(1087, 0, 83, 27);
 		panel.add(close);
-		
-		JLabel welcome = new JLabel("\u4F60\u597D\uFF01");
-		welcome.setBounds(1043, 13, 72, 18);
-		panel.add(welcome);
 	}
 	
 	public JFrame getFrame() {

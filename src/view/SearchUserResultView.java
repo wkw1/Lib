@@ -59,7 +59,27 @@ public class SearchUserResultView {
 		initData(keyWord,searchType);
 		action();
 	}
-	
+	public SearchUserResultView() {
+		adAction =  AdAction.getInstance();
+		initialize();
+		initData1();
+		action();
+	}
+
+	//初始化数据
+	private void initData1(){
+		lists = new ArrayList<>();
+		lists = adAction.recentUser();
+		if(lists==null){
+			lists = new ArrayList<>();
+			UserModel userModel = new UserModel();
+			userModel.setName("无用户");
+			lists.add(userModel);
+		}
+		myTableModel =  new SUserTableModel(table,lists);
+		myTableModel.initData();
+	}
+
 	//初始化数据
 	private void initData(String keyWord,String searchType){
 		lists = new ArrayList<>();

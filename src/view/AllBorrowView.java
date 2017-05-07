@@ -193,16 +193,14 @@ public class AllBorrowView{
 		remind = new JButton("\u63D0\u9192\u5F52\u8FD8");
 		remind.setBackground(new Color(0, 139, 139));
 		remind.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		remind.setBounds(1043, 289, 113, 50);
+		remind.setBounds(1054, 328, 128, 50);
 		panel.add(remind);
 		
 		close = new JButton("\u9000\u51FA");
-		close.setBounds(1053, 44, 103, 27);
+		close.setBackground(new Color(255, 0, 0));
+		close.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		close.setBounds(1095, 0, 87, 27);
 		panel.add(close);
-		
-		JLabel welcome = new JLabel("\u4F60\u597D\uFF01");
-		welcome.setBounds(1043, 13, 72, 18);
-		panel.add(welcome);
 	}
 	
 	public JFrame getFrame() {

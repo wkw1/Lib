@@ -130,8 +130,9 @@ public class BookDetailView {
 		panel.add(ISBN);
 		
 		close = new JButton("\u5173\u95ED");
-		close.setBackground(new Color(220, 220, 220));
-		close.setBounds(1093, 13, 89, 27);
+		close.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 15));
+		close.setBackground(new Color(255, 0, 0));
+		close.setBounds(1103, 0, 79, 27);
 		panel.add(close);
 		
 		

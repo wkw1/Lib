@@ -15,7 +15,6 @@ import action.RegisterLoginAction;
 import action.UserAction;
 import dao.BBHDao;
 import dao.SearchKeyDao;
-import fileOpreation.BorrowBookFormOp;
 import model.InfoModel;
 import model.UserModel;
 import widget.InitWindow;
@@ -25,6 +24,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 /**
  * 用户登录后页面
@@ -63,10 +63,9 @@ public class AfterUserSignInView {
 	}
 
 	public void updateData(){
-		UserModel.userModel.setBNBooks(userAction.getMyBN());//更新我的借书数量
+		//UserModel.userModel.setBNBooks(userAction.getMyBN());//更新我的借书数量
 		//我的资料区信息更改
-		myInfo.setText("\n          我的资料\n\n"
-				      +"      ID:"+UserModel.userModel.getID()+"\n"
+		myInfo.setText("      ID:"+UserModel.userModel.getID()+"\n"
 		              +"      姓名:"+UserModel.userModel.getName()+"\n"
 				      +"      学院:"+UserModel.userModel.getSchool()+"\n"
 				      +"      借书数量:"+UserModel.userModel.getBNBooks()+"\n"
@@ -205,7 +204,7 @@ public class AfterUserSignInView {
 		myBorrow = new JButton("\u6211\u7684\u501F\u9605");
 		myBorrow.setBackground(new Color(0, 128, 128));
 		myBorrow.setFont(new Font("华文楷体", Font.PLAIN, 25));
-		myBorrow.setBounds(30, 52, 203, 57);
+		myBorrow.setBounds(0, 52, 268, 57);
 		panel.add(myBorrow);
 
 		myOrder = new JButton(" \u6211\u7684\u9884\u7EA6");
@@ -216,82 +215,56 @@ public class AfterUserSignInView {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		myOrder.setBounds(30, 122, 203, 57);
+		myOrder.setBounds(0, 122, 268, 57);
 		panel.add(myOrder);
 
 		myBorrowHistory = new JButton("\u501F\u4E66\u5386\u53F2");
 		myBorrowHistory.setBackground(new Color(0, 128, 128));
 		myBorrowHistory.setFont(new Font("华文楷体", Font.PLAIN, 25));
-		myBorrowHistory.setBounds(30, 192, 203, 52);
+		myBorrowHistory.setBounds(0, 192, 268, 52);
 		panel.add(myBorrowHistory);
-
-		myInfo = new JTextArea();
-		myInfo.setEditable(false);
-		myInfo.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		myInfo.setBackground(new Color(60, 179, 113));
-		myInfo.setText("\u6211\u7684\u8D44\u6599");
-		myInfo.setBounds(0, 257, 273, 498);
-		myInfo.setLineWrap(true);
-		panel.add(myInfo);
 
 
 		keyWord = new JTextField();
 		keyWord.setFont(new Font("华文宋体", Font.PLAIN, 20));
-		keyWord.setBounds(482, 102, 166, 44);
+		keyWord.setBounds(515, 131, 166, 44);
 		keyWord.setColumns(10);
 		panel.add(keyWord);
 
 		JLabel label1 = new JLabel("\u641C\u7D22\u7C7B\u578B");
 		label1.setFont(new Font("华文楷体", Font.PLAIN, 18));
-		label1.setBounds(364, 52, 104, 34);
+		label1.setBounds(387, 75, 104, 34);
 		panel.add(label1);
 
 		JLabel label2 = new JLabel("\u5173\u952E\u5B57");
 		label2.setFont(new Font("华文楷体", Font.PLAIN, 18));
-		label2.setBounds(374, 102, 104, 44);
+		label2.setBounds(397, 131, 104, 44);
 		panel.add(label2);
 
-		searchRanking= new JTextArea();
-		searchRanking.setFont(new Font("华文楷体", Font.PLAIN, 25));
-		searchRanking.setToolTipText("");
-		searchRanking.setEditable(false);
-		searchRanking.setBackground(new Color(188, 143, 143));
-		searchRanking.setText("\u641C\u7D22\u6392\u540D");
-		searchRanking.setBounds(348, 252, 377, 498);
-		panel.add(searchRanking);
-
-		JTextArea systemInfo = new JTextArea();
-		systemInfo.setFont(new Font("华文新魏", Font.PLAIN, 25));
-		systemInfo.setEditable(false);
-		systemInfo.setBackground(new Color(173, 216, 230));
-		systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
-		systemInfo.setBounds(795, 389, 385, 366);
-		panel.add(systemInfo);
-
 		signOut = new JButton("\u9000\u51FA\u767B\u5F55");
-		signOut.setBackground(new Color(189, 183, 107));
+		signOut.setBackground(new Color(255, 0, 0));
 		signOut.setFont(new Font("华文楷体", Font.PLAIN, 15));
-		signOut.setBounds(1062, 38, 104, 34);
+		signOut.setBounds(1068, 0, 112, 34);
 		panel.add(signOut);
 
 	    search = new JButton("\u641C\u7D22");
 	    search.setBackground(new Color(32, 178, 170));
 	    search.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		search.setBounds(457, 183, 125, 44);
+		search.setBounds(469, 200, 125, 44);
 		panel.add(search);
 
 		JLabel label_2 = new JLabel("\u6211\u7684\u56FE\u4E66\u9986");
 		label_2.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		label_2.setBounds(14, 6, 125, 33);
+		label_2.setBounds(31, 6, 125, 33);
 		panel.add(label_2);
 
 		welcome = new JLabel("\u6B22\u8FCE");
 		welcome.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		welcome.setBounds(979, 7, 201, 25);
+		welcome.setBounds(795, 3, 201, 31);
 		panel.add(welcome);
 
 	    searchType = new JComboBox<String>();
-		searchType.setBounds(482, 47, 166, 34);
+		searchType.setBounds(515, 75, 166, 34);
 		panel.add(searchType);
 		searchType.addItem("ISBN");
 		searchType.addItem("书名");
@@ -299,27 +272,83 @@ public class AfterUserSignInView {
 		searchType.addItem("作者");
 		searchType.addItem("书类型");
 
-		JLabel label = new JLabel("\u6D88\u606F\u901A\u77E5");
-		label.setFont(new Font("华文楷体", Font.PLAIN, 18));
-		label.setBounds(955, 39, 87, 31);
-		panel.add(label);
-
 		update = new JButton("\u5237\u65B0");
 		update.setBackground(new Color(153, 153, 204));
-		update.setFont(new Font("华文楷体", Font.PLAIN, 18));
-		update.setBounds(123, 5, 78, 34);
+		update.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		update.setBounds(149, 6, 68, 33);
 		panel.add(update);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(795, 74, 385, 312);
+		scrollPane.setBounds(795, 74, 385, 344);
 		panel.add(scrollPane);
+		
+		JLabel label = new JLabel("\u6D88\u606F\u901A\u77E5");
+		label.setBackground(new Color(0, 128, 0));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane.setColumnHeaderView(label);
+		label.setFont(new Font("华文楷体", Font.PLAIN, 18));
 		
 		info = new JTextArea();
 		scrollPane.setViewportView(info);
 		info.setFont(new Font("华文楷体", Font.PLAIN, 18));
 		info.setEditable(false);
-		info.setBackground(new Color(153, 153, 255));
+		info.setBackground(new Color(222, 184, 135));
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(795, 417, 385, 338);
+		panel.add(scrollPane_1);
+		
+				JLabel label_1 = new JLabel("\u7CFB\u7EDF\u4ECB\u7ECD");
+				scrollPane_1.setColumnHeaderView(label_1);
+				label_1.setBackground(new Color(34, 139, 34));
+				label_1.setHorizontalAlignment(SwingConstants.CENTER);
+				label_1.setFont(new Font("华文楷体", Font.PLAIN, 20));
+				
+						JTextArea systemInfo = new JTextArea();
+						scrollPane_1.setViewportView(systemInfo);
+						systemInfo.setLineWrap(true);
+						systemInfo.setFont(new Font("华文新魏", Font.PLAIN, 25));
+						systemInfo.setEditable(false);
+						systemInfo.setBackground(new Color(0, 191, 255));
+						systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
+
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(0, 282, 268, 473);
+		panel.add(scrollPane_2);
+
+		JLabel label_3 = new JLabel("\u6211\u7684\u8D44\u6599");
+		label_3.setBackground(new Color(128, 0, 0));
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setFont(new Font("华文楷体", Font.PLAIN, 20));
+		scrollPane_2.setColumnHeaderView(label_3);
+
+		myInfo = new JTextArea();
+		scrollPane_2.setViewportView(myInfo);
+		myInfo.setEditable(false);
+		myInfo.setFont(new Font("华文楷体", Font.PLAIN, 20));
+		myInfo.setBackground(new Color(0, 191, 255));
+		myInfo.setText("\u6211\u7684\u8D44\u6599");
 		myInfo.setLineWrap(true);
+		myInfo.setLineWrap(true);
+
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(394, 316, 287, 439);
+		panel.add(scrollPane_3);
+
+		searchRanking = new JTextArea();
+		searchRanking.setLineWrap(true);
+		scrollPane_3.setViewportView(searchRanking);
+		searchRanking.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		searchRanking.setToolTipText("");
+		searchRanking.setEditable(false);
+		searchRanking.setBackground(new Color(210, 180, 140));
+		searchRanking.setText("\u641C\u7D22\u6392\u540D");
+
+		JLabel label_4 = new JLabel("\u641C\u7D22\u6392\u540D");
+		label_4.setBackground(new Color(0, 0, 205));
+		label_4.setFont(new Font("华文楷体", Font.PLAIN, 20));
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_3.setColumnHeaderView(label_4);
 
 	}
 

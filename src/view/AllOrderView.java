@@ -181,13 +181,10 @@ public class AllOrderView {
 		panel.add(formerPage);
 
 		close = new JButton("\u9000\u51FA");
+		close.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 15));
 		close.setBackground(new Color(220, 20, 60));
-		close.setBounds(1079, 32, 87, 27);
+		close.setBounds(1095, 0, 87, 27);
 		panel.add(close);
-
-		JLabel welcome = new JLabel("\u4F60\u597D\uFF01");
-		welcome.setBounds(1043, 13, 72, 18);
-		panel.add(welcome);
 		
 	}
 

@@ -31,6 +31,7 @@ public class AfterAdSignInView {
 	private JButton searchBook;
 	private JButton seeOrderTable;
 	private JButton seeBorrowTable;
+	private JButton seeRecentUser;
 	private JButton inputUser ;
 	private JButton searchUser;
 	private JButton exit;//退出
@@ -106,8 +107,16 @@ public class AfterAdSignInView {
 				view.getFrame().setVisible(true);
 			}
 		});
-		
-		
+		//查看近期用户
+		seeRecentUser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SearchUserResultView view = new SearchUserResultView();
+				view.getFrame().setVisible(true);
+
+			}
+		});
+
 		exit.addActionListener(new ActionListener() {
 			
 			@Override
@@ -181,11 +190,11 @@ public class AfterAdSignInView {
 		inputUser.setBounds(645, 246, 171, 78);
 		panel.add(inputUser);
 		
-		JButton btnNewButton_4 = new JButton(" \u67E5\u770B\u8FD1\u671F\u7528\u6237");
-		btnNewButton_4.setBackground(new Color(204, 102, 153));
-		btnNewButton_4.setFont(new Font("华文行楷", Font.PLAIN, 25));
-		btnNewButton_4.setBounds(871, 244, 200, 78);
-		panel.add(btnNewButton_4);
+		seeRecentUser = new JButton(" \u67E5\u770B\u8FD1\u671F\u7528\u6237");
+		seeRecentUser.setBackground(new Color(204, 102, 153));
+		seeRecentUser.setFont(new Font("华文行楷", Font.PLAIN, 25));
+		seeRecentUser.setBounds(871, 244, 200, 78);
+		panel.add(seeRecentUser);
 		
 		
 		whichTypeForBook = new JComboBox<String>(ArrayDB.searchBookTypes);

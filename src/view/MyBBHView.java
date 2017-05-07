@@ -141,7 +141,9 @@ public class MyBBHView {
 		panel.add(nextPage);
 		
 		signOut = new JButton("\u9000\u51FA");
-		signOut.setBounds(1055, 13, 113, 27);
+		signOut.setBackground(new Color(255, 0, 0));
+		signOut.setFont(new Font("»ªÎÄ¿¬Ìå", Font.PLAIN, 15));
+		signOut.setBounds(1093, 0, 89, 27);
 		panel.add(signOut);
 	}
 	
