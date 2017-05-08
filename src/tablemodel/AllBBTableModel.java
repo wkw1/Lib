@@ -2,7 +2,6 @@ package tablemodel;
 
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -19,7 +18,6 @@ public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 	
 	private AllBBTableModel myTableModel=null;
 	private JTable table;
-	private JFrame frame;
 	private List<BorrowBookModel> list=null;
 	
 	
@@ -29,9 +27,8 @@ public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 	private int firstLine = 0;// 当前表的第一行
 	private int rowListAll = 0;// list总长度
 	
-	public AllBBTableModel(JTable table,JFrame frame,List<BorrowBookModel> list){
+	public AllBBTableModel(JTable table,List<BorrowBookModel> list){
 		this.table= table;
-		this.frame = frame;
 		this.list=list;
 	}
 	public void initData(){
@@ -62,13 +59,10 @@ public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 			mObjects[i][4] = bbm.getBorrowDate();
 			mObjects[i][5] = bbm.getBookAuthor();
 			mObjects[i][6] = bbm.getRTBook();
-
 		}
 		// 标头数据
 		String[] strings = { "借书人", "借书人ID", "书名", "ISBN", "借书日期", "书作者", "剩余借书时间"};
-
 		AllBBTableModel model = new AllBBTableModel(mObjects, strings);
-
 		return model;
 	}
 	
@@ -78,7 +72,6 @@ public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 
 	@Override
 	public boolean nextPage() {
-		// TODO Auto-generated method stub
 		System.out.println("点击下一页SearchView");
 		if(rowListAll-lastLine>0){
 			if(rowListAll-lastLine>=7){
@@ -130,10 +123,5 @@ public class AllBBTableModel extends Table<AllBBTableModel, BorrowBookModel> {
 			table.getColumnModel().getColumn(i).setMaxWidth(200);
 		}
 		table.updateUI();
-	}
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

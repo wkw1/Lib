@@ -1,7 +1,6 @@
 package tablemodel;
 
 import java.util.List;
-
 import javax.swing.JTable;
 
 import model.UserModel;
@@ -14,7 +13,7 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 	private JTable table;
 	private List<UserModel> list=null;
 	
-	private int tablewight =140;
+	private int tablewight =147;
 
 	private int lastLine = 0;// 当前表的最后一行
 	private int firstLine = 0;// 当前表的第一行
@@ -72,13 +71,15 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 
 		for (int i = 0; i < lists.size() && i < 8; i++) {
 			um = lists.get(i);
-			mObjects[i][5] = i;// 序号
 			mObjects[i][0] = um.getName();
 			mObjects[i][1] = um.getID();
-			mObjects[i][2] = um.getJoinDate();
-			mObjects[i][3] = um.getSchool();
-			mObjects[i][4] = um.getBalance();
-
+			if(um.getPower()==1)
+				mObjects[i][2] = "学生";
+			else if(um.getPower()==2)
+				mObjects[i][2] = "老师";
+			mObjects[i][3] = um.getBNBooks();
+			mObjects[i][4] = um.getJoinDate();
+			mObjects[i][5] = um.getBalance();
 		}
 		// 标头数据
 		String[] strings = {"姓名" ,"ID","职称", "借书数目", "注册时间", "欠费" };
@@ -90,7 +91,6 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 
 	@Override
 	public boolean nextPage() {
-		// TODO Auto-generated method stub
 		System.out.println("点击下一页SearchView");
 		if(rowListAll-lastLine>0){
 			if(rowListAll-lastLine>=7){
@@ -112,7 +112,6 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 
 	@Override
 	public boolean formerPage() {
-		// TODO Auto-generated method stub
 		System.out.println("点击上一页SearchView");
 		if (firstLine>0) {
 			if(firstLine>=8){
@@ -142,5 +141,6 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 		}
 		table.updateUI();
 	}
+
 
 }

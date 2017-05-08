@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public abstract class Table<T,E> extends DefaultTableModel{
 	public Table(Object[][] objects, Object[] sObjects) {
-		// TODO Auto-generated constructor stub
 		super(objects,sObjects);
 	}
 	public Table(){
@@ -24,5 +23,10 @@ public abstract class Table<T,E> extends DefaultTableModel{
 	
 	public abstract boolean nextPage();
 	public abstract boolean formerPage();
+
+	@Override
+	public boolean isCellEditable(int row, int column) {
+		return false;
+	}
 	
 }

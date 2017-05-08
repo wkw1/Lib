@@ -2,7 +2,6 @@ package tablemodel;
 
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import model.BorrowBookModel;
@@ -17,7 +16,6 @@ public class BBookTableModel extends Table<BBookTableModel, BorrowBookModel> {
 	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
-	private JFrame frame;
 	private List<BorrowBookModel> list=null;
 	
 	private int tablewight =140;
@@ -29,9 +27,8 @@ public class BBookTableModel extends Table<BBookTableModel, BorrowBookModel> {
 	
 	private BBookTableModel myTableModel;
 	
-	public BBookTableModel(JTable table,JFrame frame,List<BorrowBookModel> list){
+	public BBookTableModel(JTable table,List<BorrowBookModel> list){
 		this.table= table;
-		this.frame = frame;
 		this.list=list;
 	}
 	
@@ -142,10 +139,4 @@ public class BBookTableModel extends Table<BBookTableModel, BorrowBookModel> {
 		}
 		table.updateUI();
 	}
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

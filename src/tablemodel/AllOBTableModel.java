@@ -2,7 +2,6 @@ package tablemodel;
 
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import model.OrderBookModel;
@@ -17,10 +16,9 @@ public class AllOBTableModel extends Table<AllOBTableModel, OrderBookModel>{
 	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
-	private JFrame frame;
 	private List<OrderBookModel> list=null;
 	
-	private int tablewight =140;
+	private int tablewight =141;
 	
 
 	private int lastLine = 0;// 当前表的最后一行
@@ -29,9 +27,8 @@ public class AllOBTableModel extends Table<AllOBTableModel, OrderBookModel>{
 	
 	private AllOBTableModel myTableModel;
 	
-	public AllOBTableModel(JTable table,JFrame frame,List<OrderBookModel> list){
+	public AllOBTableModel(JTable table,List<OrderBookModel> list){
 		this.table= table;
-		this.frame = frame;
 		this.list=list;
 	}
 
@@ -81,8 +78,6 @@ public class AllOBTableModel extends Table<AllOBTableModel, OrderBookModel>{
 
 	@Override
 	public boolean nextPage() {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		System.out.println("点击下一页SearchView");
 		if(rowListAll-lastLine>0){
 			if(rowListAll-lastLine>=7){
@@ -104,7 +99,6 @@ public class AllOBTableModel extends Table<AllOBTableModel, OrderBookModel>{
 
 	@Override
 	public boolean formerPage() {
-		// TODO Auto-generated method stub
 		System.out.println("点击上一页SearchView");
 		if (firstLine>0) {
 			if(firstLine>=8){
@@ -132,13 +126,6 @@ public class AllOBTableModel extends Table<AllOBTableModel, OrderBookModel>{
 			table.getColumnModel().getColumn(i).setMaxWidth(200);
 		}
 		table.updateUI();
-	}
-	
-	
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

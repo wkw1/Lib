@@ -2,7 +2,6 @@ package tablemodel;
 
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import model.BBHModel;
@@ -16,7 +15,6 @@ public class RBookTableModel extends Table<RBookTableModel, BBHModel> {
 	
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private JFrame frame;
 	private List<BBHModel> list=null;
 	
 	private int tablewight =140;
@@ -28,9 +26,8 @@ public class RBookTableModel extends Table<RBookTableModel, BBHModel> {
 	private RBookTableModel myTableModel;
 	
 	
-	public RBookTableModel(JTable table,JFrame frame,List<BBHModel> list){
+	public RBookTableModel(JTable table,List<BBHModel> list){
 		this.table= table;
-		this.frame = frame;
 		this.list=list;
 	}
 	
@@ -100,7 +97,6 @@ public class RBookTableModel extends Table<RBookTableModel, BBHModel> {
 
 	@Override
 	public boolean formerPage() {
-		// TODO Auto-generated method stub
 		System.out.println("µã»÷ÉÏÒ»Ò³SearchView");
 		if (firstLine>0) {
 			if(firstLine>=8){
@@ -119,12 +115,7 @@ public class RBookTableModel extends Table<RBookTableModel, BBHModel> {
 			return false;
 		}
 	}
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+
 	private void updateTable(){
 		myTableModel = get(list.subList(firstLine, lastLine));
 		table.setModel(myTableModel);

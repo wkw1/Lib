@@ -2,7 +2,6 @@ package tablemodel;
 
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import model.OrderBookModel;
@@ -15,7 +14,6 @@ import model.OrderBookModel;
 public class OBookTableModel extends Table<OBookTableModel, OrderBookModel>{
 	
 	private JTable table;
-	private JFrame frame;
 	private List<OrderBookModel> list=null;
 	
 	private int tablewight =180;
@@ -29,9 +27,8 @@ public class OBookTableModel extends Table<OBookTableModel, OrderBookModel>{
 	private OBookTableModel myTableModel;
 	
 
-	public OBookTableModel(JTable table,JFrame frame,List<OrderBookModel> list){
+	public OBookTableModel(JTable table,List<OrderBookModel> list){
 		this.table= table;
-		this.frame = frame;
 		this.list=list;
 	}
 	
@@ -145,9 +142,4 @@ public class OBookTableModel extends Table<OBookTableModel, OrderBookModel>{
 		table.updateUI();
 	}
 	
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

@@ -2,7 +2,6 @@ package tablemodel;
 
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import model.BookModel;
 /**
@@ -17,10 +16,9 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 	private static final long serialVersionUID = 1L;
 	
 	private JTable table;
-	private JFrame frame;
 	private List<BookModel> list=null;
 	
-	private int tablewight =140;
+	private int tablewight =141;
 
 	private int lastLine = 0;// 当前表的最后一行
 	private int firstLine = 0;// 当前表的第一行
@@ -34,9 +32,8 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 		
 	}
 	
-	public SBookTableModel(JTable table,JFrame frame,List<BookModel> list){
+	public SBookTableModel(JTable table,List<BookModel> list){
 		this.table= table;
-		this.frame = frame;
 		this.list=list;
 	}
 
@@ -89,7 +86,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 
 		updateTable();
 	}
-	
 	
 	//得到选中行数据
 	public BookModel getChoose(int row){
@@ -187,10 +183,6 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 		table.updateUI();
 	}
 	
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		return false;
-	}
 	public int getRowListAll() {
 		return rowListAll;
 	}
