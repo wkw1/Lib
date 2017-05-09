@@ -18,7 +18,7 @@ public class BBookTableModel extends Table<BBookTableModel, BorrowBookModel> {
 	private JTable table;
 	private List<BorrowBookModel> list=null;
 	
-	private int tablewight =140;
+	private int tablewight =141;
 	
 
 	private int lastLine = 0;// 当前表的最后一行

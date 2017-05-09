@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import model.BorrowBookModel;
 /**
  * 所有用户借书表模型
- * 配合AllBrrowView使用
+ * 配合AllBorrowView使用
  * @author 宽伟
  *
  */

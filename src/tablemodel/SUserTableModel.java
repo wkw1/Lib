@@ -13,7 +13,7 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 	private JTable table;
 	private List<UserModel> list=null;
 	
-	private int tablewight =147;
+	private int tablewight =148;
 
 	private int lastLine = 0;// 当前表的最后一行
 	private int firstLine = 0;// 当前表的第一行

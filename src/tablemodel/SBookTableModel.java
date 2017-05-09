@@ -105,16 +105,16 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 
 		for (int i = 0; i < lists.size() && i < 8; i++) {
 			sbm = lists.get(i);
-			mObjects[i][0] = sbm.getISBN();
-			mObjects[i][1] = sbm.getName();
-			mObjects[i][2] = sbm.getIntroduction();
-			mObjects[i][3] = sbm.getPress();
-			mObjects[i][4] = sbm.getAuthor();
+			mObjects[i][0] = sbm.getName();
+			mObjects[i][1] = sbm.getISBN();
+			mObjects[i][2] = sbm.getAuthor();
+			mObjects[i][3] = sbm.getBookType();
+			mObjects[i][4] = sbm.getPress();
 			mObjects[i][5] = sbm.getRN();
 			mObjects[i][6] = sbm.getPowerNeed();
 		}
 		// 标头数据
-		String[] strings = { "ISBN", "书名", "简介", "出版社", "作者", "可借数量" , "所需权限"};
+		String[] strings = {"书名", "ISBN","作者","所属类型","出版社","可借数量" ,"所需权限"};
 
 		SBookTableModel model = new SBookTableModel(mObjects, strings);
 
