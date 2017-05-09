@@ -1,11 +1,9 @@
 package dao;
 
 import model.BookModel;
+import model.UserModel;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,8 +16,12 @@ import java.util.List;
  *
  */
 public class BookDao {
+    private  String filePath="file//bookform.txt";
 
-    public static List<BookModel> bookLists = new ArrayList<>();
+    public  List<BookModel> bookLists = new ArrayList<>();
+    public  boolean iSModify=false;//标志是否修改了文件
+    public  boolean iSAdd = false;//标志是否增加了条目
+    public int bookNumber=0;
 
     public static BookDao bookDao=null;
     public static BookDao getInstance(){
@@ -36,12 +38,10 @@ public class BookDao {
      * @throws ParseException
      */
     public boolean readBookForm() throws IOException, ParseException {
-        String filePath="file//bookform.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
         BookModel bookInfo;
-        int bookNum=0;
         try {
             //读取表单中所有书的信息
             while((eachLine=reader.readLine())!=null)
@@ -97,18 +97,43 @@ public class BookDao {
                     }
                 }
                 bookLists.add(bookInfo);
-                bookNum=bookNum+1;
             }
+            bookNumber = bookLists.size();
         } catch (NumberFormatException | IOException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
         read.close();
         return true;
     }
 
-     //将图书表重新写入文件
-     public boolean writeListFile(){
-         return true;
-     }
+    public void addBooks(){
+        for(int n=bookNumber;n<bookLists.size();n++){
+            addOneBook(bookLists.get(n));
+        }
+    }
+
+
+
+    public void addOneBook(BookModel BkAdded){
+        File f=new File(filePath);
+        BufferedWriter fw= null;/////可能需要改编码格式
+        try {
+            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true),"GBK"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String BkInfo="\r"+BkAdded.getISBN()+"|"+BkAdded.getName()+"|"+
+                BkAdded.getIntroduction()+"|"+BkAdded.getBookType()+"|"+BkAdded.getAuthor()+
+                "|"+BkAdded.getPress()+"|"+BkAdded.getTN()+"|"+BkAdded.getRN()+
+                "|"+BkAdded.getPowerNeed()+"|"+BkAdded.getStorageTime();
+        try {
+            fw.write(BkInfo);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

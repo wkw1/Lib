@@ -28,7 +28,9 @@ public class SearchKeyDao {
 
     }
 
-    public static List<KeyWord> keyWordLists= new ArrayList<>();
+    public List<KeyWord> keyWordLists= new ArrayList<>();
+    public  boolean iSModify=false;//标志是否修改了文件
+    public  boolean iSAdd = false;//标志是否增加了条目
 
 
     public static SearchKeyDao searchKeyDao=null;

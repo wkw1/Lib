@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class OrderBookFormOp {
     public List<OrderBookModel> obLists= new ArrayList<>();
+    public OrderBookDao orderBookDao;
 
     public static OrderBookFormOp orderBookFormOp;
 
@@ -25,7 +26,8 @@ public class OrderBookFormOp {
     }
 
     public OrderBookFormOp() {
-        obLists = OrderBookDao.obLists;
+        orderBookDao = OrderBookDao.getInstance();
+        obLists = orderBookDao.obLists;
     }
 
     //查询预约表是否有人有人预约某图书
@@ -47,6 +49,7 @@ public class OrderBookFormOp {
         orderBookModel.setBookName(bookModel.getName());
         orderBookModel.setID(userModel.getID());
         orderBookModel.setName(userModel.getName());
+        orderBookDao.iSAdd = true;
         return obLists.add(orderBookModel);
     }
     //取消预约
@@ -54,6 +57,7 @@ public class OrderBookFormOp {
         for(int i=0;i<obLists.size();i++){
             if(obLists.get(i).getBookISBN().equals(ISBN)&&obLists.get(i).getID().equals(ID)){
                 obLists.remove(i);
+                orderBookDao.iSModify=true;
                 return true;
             }
         }
@@ -65,6 +69,7 @@ public class OrderBookFormOp {
         for(int i=0;i<obLists.size();i++){
             if(obLists.get(i).getID().equals(ID)){
                 obLists.remove(i);
+                orderBookDao.iSModify=true;
                 i--;
             }
         }
@@ -76,6 +81,7 @@ public class OrderBookFormOp {
         for(int i=0;i<obLists.size();i++){
             if(obLists.get(i).getBookISBN().equals(ISBN)){
                 obLists.remove(i);
+                orderBookDao.iSModify=true;
                 i--;
             }
         }

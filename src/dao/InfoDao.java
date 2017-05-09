@@ -2,10 +2,7 @@ package dao;
 
 import model.InfoModel;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +15,12 @@ import java.util.List;
  */
 public class InfoDao {
     //存储用户信息，可实时更新
-    public static List<InfoModel> infoLists = new ArrayList<>();
+    public List<InfoModel> infoLists = new ArrayList<>();
+    public boolean iSModify=false;//标志是否修改了文件
+    public boolean iSAdd = false;//标志是否增加了条目
+    private int infoNumber=0;
+
+    private String filePath;
 
     public static InfoDao infoDao=null;
     public static InfoDao getInstance(){
@@ -29,12 +31,11 @@ public class InfoDao {
     }
 
     public boolean readInfoForm() throws IOException, ParseException {
-        String filePath="file//infoForm.txt";
+        filePath="file//infoForm.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
         InfoModel userInfo;
-        int UserNum=0;
         try {
             while((eachLine=reader.readLine())!=null)
             {
@@ -73,12 +74,48 @@ public class InfoDao {
                     }
                 }
                 infoLists.add(userInfo);
-                UserNum=UserNum+1;
             }
         } catch (NumberFormatException | IOException e) {
             e.printStackTrace();
         }
+        infoNumber = infoLists.size();
         read.close();
         return true;
     }
+
+    public void addInfos(){
+        for(int n=infoNumber;n<infoLists.size();n++){
+            addOneBook(infoLists.get(n));
+        }
+    }
+
+
+
+    public void addOneBook(InfoModel infoModel){
+        File f=new File(filePath);
+        BufferedWriter fw= null;/////可能需要改编码格式
+        try {
+            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true),"GBK"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String Info="\r"+infoModel.getInformer()+"|"+infoModel.getInformerID()+"|"+
+                infoModel.getInformeder()+"|"+infoModel.getInformederID()+"|"+infoModel.getInformThing()+
+                "|"+infoModel.getInformDate();
+        try {
+            fw.write(Info);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
+
 }

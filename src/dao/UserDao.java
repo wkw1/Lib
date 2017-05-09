@@ -20,7 +20,9 @@ import java.util.List;
 public class UserDao {
 
     //存储用户信息，可实时更新
-    public static List<UserModel> userLists = new ArrayList<>();
+    public List<UserModel> userLists = new ArrayList<>();
+    public boolean iSModify=false;//标志是否修改了文件
+    public boolean iSAdd = false;//标志是否增加了条目
 
     public static UserDao userDao=null;
     public static UserDao getInstance(){

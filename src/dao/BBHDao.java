@@ -22,7 +22,9 @@ import java.util.List;
  */
 public class BBHDao {
 
-    public static List<BBHModel> bbhLists = new ArrayList<>();
+    public List<BBHModel> bbhLists = new ArrayList<>();
+    public  boolean iSModify=false;//标志是否修改了文件
+    public  boolean iSAdd = false;//标志是否增加了条目
 
     public static BBHDao bbhDao=null;
     public static BBHDao getInstance(){

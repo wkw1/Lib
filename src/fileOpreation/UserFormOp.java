@@ -5,9 +5,7 @@ import db.SearchTypeFeedback;
 import db.SignInFeedback;
 import model.Balance;
 import model.UserModel;
-import widget.Encryp;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ import java.util.List;
 public class UserFormOp {
 
     public List<UserModel> userLists = new ArrayList<>();//用户
+    private UserDao userDao;
 
     public static UserFormOp userFormOp=null;
     public static UserFormOp getInstance(){
@@ -27,11 +26,13 @@ public class UserFormOp {
         return userFormOp;
     }
     public UserFormOp() {
-        userLists = UserDao.userLists;
+        userDao = UserDao.getInstance();
+        userLists = userDao.userLists;
     }
 
     //管理员增加用户
     public boolean addOne(UserModel userModel){
+        userDao.iSAdd = true;
         return userLists.add(userModel);
     }
 
@@ -40,6 +41,31 @@ public class UserFormOp {
         for(int i=0;i<userLists.size();i++){
             if(ID.equals(userLists.get(i).getID())){
                 userLists.remove(i);
+                userDao.iSModify = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //得到近期用户表
+    public List<UserModel> getRecentUser(){
+        List<UserModel> lists=new ArrayList<>();
+        int n=0;
+        for(int i=userLists.size()-1;i>=0&&n<30;i--){
+            if(!(userLists.get(i).getPassword()==null)&&!(userLists.get(i).getPassword().equals(""))){
+                lists.add(userLists.get(i));
+                n++;
+            }
+        }
+        return lists;
+    }
+
+    //用户还书，更改用户余额
+    public boolean reduceBalance(float money,String ID){
+        for(int i=0;i<userLists.size();i++){
+            if(ID.equals(userLists.get(i).getID())){
+                userLists.get(i).setBalance(userLists.get(i).getBalance()-money);
                 return true;
             }
         }
@@ -66,13 +92,16 @@ public class UserFormOp {
                 }
             }
         }
+        userDao.iSModify = true;
     }
+
 
     //借书或还书，n=1借书 n =-1 还书
     public boolean borrowBook(String ID,int n){
         for(int i=0;i<userLists.size();i++){
             if(userLists.get(i).getID().equals(ID)){
                 userLists.get(i).setBNBooks(userLists.get(i).getBNBooks()+n);
+                userDao.iSModify=true;
                 return true;
             }
         }
@@ -87,6 +116,7 @@ public class UserFormOp {
                     // TODO 加密函数暂时未使用
                     //String enPassword = Encryp.Encrypt(password);
                     user.setPassword(password);
+                    userDao.iSModify=true;
                     return SignInFeedback.SUCCESSFUL;
                 }
                 else{

@@ -17,7 +17,9 @@ import java.util.List;
  */
 public class BorrowBookDao {
 
-    public static List<BorrowBookModel> bblists = new ArrayList<>();
+    public List<BorrowBookModel> bblists = new ArrayList<>();
+    public  boolean iSModify=false;//标志是否修改了文件
+    public  boolean iSAdd = false;//标志是否增加了条目
 
     public static BorrowBookDao borrowBookDao=null;
     public static BorrowBookDao getInstance(){

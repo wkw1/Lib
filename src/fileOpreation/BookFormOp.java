@@ -16,6 +16,7 @@ import java.util.List;
 public class BookFormOp {
 
     public List<BookModel> bookLists = new ArrayList<>();
+    public BookDao bookDao;
 
     public static BookFormOp bookFormOp;
     public static BookFormOp getInstance(){
@@ -25,7 +26,8 @@ public class BookFormOp {
     }
 
     public BookFormOp() {
-        bookLists = BookDao.bookLists;
+        bookDao = BookDao.getInstance();
+        bookLists = bookDao.bookLists;
     }
 
 
@@ -44,6 +46,7 @@ public class BookFormOp {
         for(int i=0;i<bookLists.size();i++){
             if(ISBN.equals(bookLists.get(i).getISBN())){
                 bookLists.get(i).setRN(bookLists.get(i).getRN()-1);
+                bookDao.iSModify = true;
                 return true;
             }
         }
@@ -55,6 +58,7 @@ public class BookFormOp {
         for(int i=0;i<bookLists.size();i++){
             if(bookLists.get(i).getISBN().equals(ISBN)){
                 bookLists.get(i).setRN(bookLists.get(i).getRN()+1);
+                bookDao.iSModify = true;
                 return true;
             }
         }
@@ -66,6 +70,7 @@ public class BookFormOp {
         for(int i=0;i<bookLists.size();i++){
             if(bookLists.get(i).getISBN().equals(ISBN)){
                 bookLists.remove(i);
+                bookDao.iSModify = true;
                 return true;
             }
         }
@@ -75,6 +80,7 @@ public class BookFormOp {
     //Â¼ÈëÍ¼Êé
     public boolean inputOne(BookModel bookModel){
         System.out.println(bookModel.toString());
+        bookDao.iSAdd = true;
         return bookLists.add(bookModel);
     }
 
@@ -83,6 +89,7 @@ public class BookFormOp {
         for(int i=0;i<bookLists.size();i++){
             if(bookLists.get(i).getISBN().equals(bookModel.getISBN())){
                 bookLists.set(i,bookModel);
+                bookDao.iSModify = true;
                 return true;
             }
         }

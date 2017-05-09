@@ -1,5 +1,6 @@
 package fileOpreation;
 
+import action.SystemAction;
 import dao.BorrowBookDao;
 import db.SearchTypeFeedback;
 import model.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class BorrowBookFormOp {
 
     public List<BorrowBookModel> bbLists = new ArrayList<>();
+    public BorrowBookDao borrowBookDao;
 
     public static BorrowBookFormOp borrowBookFormOp;
 
@@ -25,7 +27,8 @@ public class BorrowBookFormOp {
     }
 
     public BorrowBookFormOp() {
-        bbLists = BorrowBookDao.bblists;
+        borrowBookDao = BorrowBookDao.getInstance();
+        bbLists = borrowBookDao.bblists;
     }
 
     /**
@@ -38,8 +41,11 @@ public class BorrowBookFormOp {
         for (int i = 0; i < bbLists.size(); i++) {
             int an = bbLists.get(i).getRTBook();
             bbLists.get(i).setRTBook(an - days);
-            if (an - days < 0)
+            if (an - days < 0){
                 bbLists.get(i).setAIBook((float) (-(an - days) * 0.2));
+                borrowBookDao.iSModify = true;
+            }
+
         }
     }
 
@@ -54,6 +60,7 @@ public class BorrowBookFormOp {
         borrowBookModel.setBookName(bookModel.getName());
         borrowBookModel.setID(userModel.getID());
         borrowBookModel.setBookISBN(bookModel.getISBN());
+        borrowBookDao.iSAdd = true;
 
         return bbLists.add(borrowBookModel);
     }
@@ -69,6 +76,7 @@ public class BorrowBookFormOp {
         borrowBookModel.setBookName(model.getBookName());
         borrowBookModel.setID(model.getID());
         borrowBookModel.setBookISBN(model.getBookISBN());
+        borrowBookDao.iSModify = true;
 
         return bbLists.add(borrowBookModel);
     }
@@ -87,17 +95,21 @@ public class BorrowBookFormOp {
         for (int i = 0; i < bbLists.size(); i++) {
             if (bbLists.get(i).getID().equals(ID) && bbLists.get(i).getBookISBN().equals(ISBN)) {
                 bbLists.remove(i);
+                borrowBookDao.iSModify = true;
                 return true;
             }
         }
         return false;
     }
 
-    //删除一个ISBN的所有 TODO 删除此图书的同时 改变借了此书用户的借书数量
+    //删除一个ISBN的所有
     public boolean delByISBN(String ISBN){
+        SystemAction systemAction = SystemAction.getInstance();
         for(int i=0;i<bbLists.size();i++){
             if(bbLists.get(i).getBookISBN().equals(ISBN)){
+                systemAction.delBorrowBook(bbLists.get(i).getID(),ISBN);// 删除此图书的同时 改变借了此书用户的借书数量
                 bbLists.remove(i);
+                borrowBookDao.iSModify = true;
                 i--;
             }
         }

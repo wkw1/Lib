@@ -17,7 +17,9 @@ import java.util.List;
  */
 public class OrderBookDao {
 
-    public static List<OrderBookModel> obLists = new ArrayList<>();
+    public List<OrderBookModel> obLists = new ArrayList<>();
+    public  boolean iSModify=false;//标志是否修改了文件
+    public  boolean iSAdd = false;//标志是否增加了条目
 
     public static OrderBookDao orderBookDao=null;
     public static OrderBookDao getInstance(){

@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class InfoFormOp {
     public List<InfoModel> infoLists = new ArrayList<>();
+    public InfoDao infoDao;
 
     public static InfoFormOp orderBookFormOp;
 
@@ -22,7 +23,8 @@ public class InfoFormOp {
     }
 
     public InfoFormOp() {
-        infoLists = InfoDao.infoLists;
+        infoDao = InfoDao.getInstance();
+        infoLists = infoDao.infoLists;
     }
 
     //给用户发送消息提醒归还图书
@@ -30,9 +32,10 @@ public class InfoFormOp {
         InfoModel infoModel= new InfoModel();
         infoModel.setInformerID("管理员");
         infoModel.setInformer("管理员");
-        infoModel.setInformThing("归还图书ISBN:"+ISBN);
+        infoModel.setInformThing("请尽快归还ISBN为"+ISBN+"的图书");
         infoModel.setInformDate(SystemEntry.date);
         infoModel.setInformederID(ID);
+        infoDao.iSAdd = true;
 
         return infoLists.add(infoModel);
     }
@@ -45,6 +48,7 @@ public class InfoFormOp {
         infoModel.setInformThing(str);
         infoModel.setInformDate(SystemEntry.date);
         infoModel.setInformederID(ID);
+        infoDao.iSAdd = true;
 
         return infoLists.add(infoModel);
     }
@@ -59,6 +63,7 @@ public class InfoFormOp {
             if (target.equals(ID)) {
                 lists.add(infoLists.get(i));
                 infoLists.remove(i);
+                infoDao.iSModify = true;
                 i--;
                 whetherExist = 1;
             }
