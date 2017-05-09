@@ -12,7 +12,6 @@ public class LogDao {
     public static File f=new File("file//Log.txt");
 
     public static void addLogSystem(String log){
-
         BufferedWriter fw= null;/////可能需要改编码格式
         try {
             fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true),"GBK"));

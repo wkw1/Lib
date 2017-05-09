@@ -16,6 +16,7 @@ import action.UserAction;
 import dao.BBHDao;
 import dao.LogDao;
 import dao.SearchKeyDao;
+import dao.SystemInfoDao;
 import model.InfoModel;
 import model.UserModel;
 import widget.InitWindow;
@@ -46,17 +47,15 @@ public class AfterUserSignInView {
 	private JButton myBorrowHistory;
 	private JButton update;//刷新按钮更新首页数据
 
-	private JTextArea myInfo ;
-	private JTextArea searchRanking;
-	private JTextArea info;
+	private JTextArea myInfo ;//我的资料显示区
+	private JTextArea searchRanking;//搜索排名显示区
+	private JTextArea info;//我的通知显示区
+	private JTextArea systemInfo;//系统介绍显示区
 
 	private UserAction userAction;
 
 	private boolean first=true;
 
-	/**
-	 * Create the application.
-	 */
 	public AfterUserSignInView() {
 		initialize();
 		getData();
@@ -66,7 +65,7 @@ public class AfterUserSignInView {
 	public void updateData(){
 		//UserModel.userModel.setBNBooks(userAction.getMyBN());//更新我的借书数量
 		//我的资料区信息更改
-		myInfo.setText("      \nID:"+UserModel.userModel.getID()+"\n"
+		myInfo.setText("\n\n      ID:"+UserModel.userModel.getID()+"\n"
 		              +"      姓名:"+UserModel.userModel.getName()+"\n"
 				      +"      学院:"+UserModel.userModel.getSchool()+"\n"
 				      +"      借书数量:"+UserModel.userModel.getBNBooks()+"\n"
@@ -78,6 +77,9 @@ public class AfterUserSignInView {
 		}
 		//搜索排名资料更改
 		searchRanking.setText("\n"+rank);
+		systemInfo.setText("\n    名称："+SystemInfoDao.SysTemIn+"\n"
+		                    +"    开发者："+SystemInfoDao.developer+"\n"
+		                    +"    版本号："+SystemInfoDao.version);
 	}
 
 	private void getData(){
@@ -292,6 +294,7 @@ public class AfterUserSignInView {
 		
 		info = new JTextArea();
 		scrollPane.setViewportView(info);
+		info.setLineWrap(true);
 		info.setFont(new Font("华文楷体", Font.PLAIN, 18));
 		info.setEditable(false);
 		info.setBackground(new Color(222, 184, 135));
@@ -299,20 +302,20 @@ public class AfterUserSignInView {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(795, 417, 385, 338);
 		panel.add(scrollPane_1);
-		
-				JLabel label_1 = new JLabel("\u7CFB\u7EDF\u4ECB\u7ECD");
-				scrollPane_1.setColumnHeaderView(label_1);
-				label_1.setBackground(new Color(34, 139, 34));
-				label_1.setHorizontalAlignment(SwingConstants.CENTER);
-				label_1.setFont(new Font("华文楷体", Font.PLAIN, 20));
-				
-						JTextArea systemInfo = new JTextArea();
-						scrollPane_1.setViewportView(systemInfo);
-						systemInfo.setLineWrap(true);
-						systemInfo.setFont(new Font("华文新魏", Font.PLAIN, 25));
-						systemInfo.setEditable(false);
-						systemInfo.setBackground(new Color(0, 191, 255));
-						systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
+
+		JLabel label_1 = new JLabel("\u7CFB\u7EDF\u4ECB\u7ECD");
+		scrollPane_1.setColumnHeaderView(label_1);
+		label_1.setBackground(new Color(34, 139, 34));
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setFont(new Font("华文楷体", Font.PLAIN, 20));
+
+		systemInfo = new JTextArea();
+		scrollPane_1.setViewportView(systemInfo);
+		systemInfo.setLineWrap(true);
+		systemInfo.setFont(new Font("华文新魏", Font.PLAIN, 25));
+		systemInfo.setEditable(false);
+		systemInfo.setBackground(new Color(0, 191, 255));
+		systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(0, 282, 268, 473);
@@ -327,10 +330,9 @@ public class AfterUserSignInView {
 		myInfo = new JTextArea();
 		scrollPane_2.setViewportView(myInfo);
 		myInfo.setEditable(false);
-		myInfo.setFont(new Font("华文楷体", Font.PLAIN, 20));
+		myInfo.setFont(new Font("华文楷体", Font.PLAIN, 25));
 		myInfo.setBackground(new Color(0, 191, 255));
 		myInfo.setText("\u6211\u7684\u8D44\u6599");
-		myInfo.setLineWrap(true);
 		myInfo.setLineWrap(true);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
