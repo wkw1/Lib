@@ -40,7 +40,7 @@ public class AdDao {
         }
     }
 
-    public static List<AdModel> adLists = new ArrayList<>();
+    public List<AdModel> adLists = new ArrayList<>();
 
     public static AdDao adDao=null;
     public static AdDao getInstance(){
