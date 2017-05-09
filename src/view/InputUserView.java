@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.LogDao;
 import db.ArrayDB;
 import widget.InitWindow;
 import widget.LimitNumberLenght;
@@ -15,7 +16,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
@@ -73,8 +73,11 @@ public class InputUserView {
 						if (i == 1 || i == -1) {
 							frame.dispose();
 						} else {
-
+							name.setText("");
+							ID.setText("");
+							money.setText("");
 						}
+						LogDao.addLogSystem("管理员成功录入一名用户");
 					}
 				}
 				else

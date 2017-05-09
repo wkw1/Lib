@@ -63,7 +63,7 @@ public class MyBBHView {
 		list = new ArrayList<>();
 		// 得到总的表
 		list = userAction.getBorrowHistory();
-		myTableModel = new RBookTableModel(table, frame, list);
+		myTableModel = new RBookTableModel(table, list);
 		myTableModel.initData();
 	}
 	
@@ -72,7 +72,6 @@ public class MyBBHView {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				frame.dispose();
 				myBBHView =null;
 			}
@@ -82,7 +81,6 @@ public class MyBBHView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				myTableModel.formerPage();
 			}
 		});
@@ -91,7 +89,6 @@ public class MyBBHView {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				myTableModel.nextPage();
 			}
 		});

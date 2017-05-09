@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import action.AdAction;
+import dao.LogDao;
 import model.BorrowBookModel;
 import tablemodel.AllBBTableModel;
 import widget.InitWindow;
@@ -72,7 +73,7 @@ public class AllBorrowView{
 			list = new ArrayList<>();
 			list.add(info);
 		}
-		myTableModel = new AllBBTableModel(table, frame, list);
+		myTableModel = new AllBBTableModel(table, list);
 		myTableModel.initData();
 	}
 	
@@ -89,9 +90,11 @@ public class AllBorrowView{
 				else{
 					String ID = (String) table.getValueAt(selectedRowIndex, 1);
 					String ISBN = (String) table.getValueAt(selectedRowIndex, 3);
-					if(adAction.remindUser(ID, ISBN))
+					if(adAction.remindUser(ID, ISBN)){
 						JOptionPane.showConfirmDialog(null, "提醒成功",
 								"提示信息", JOptionPane.PLAIN_MESSAGE);
+						LogDao.addLogSystem("管理员提醒ID为"+ID+"的用户归还图书");
+					}
 					else
 						JOptionPane.showConfirmDialog(null, "提醒失败",
 								"提示信息", JOptionPane.PLAIN_MESSAGE);

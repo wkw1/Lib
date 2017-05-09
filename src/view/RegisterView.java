@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.LogDao;
 import db.SignInFeedback;
 import widget.InitWindow;
 import javax.swing.JButton;
@@ -72,6 +73,7 @@ public class RegisterView {
 				if(result==SignInFeedback.SUCCESSFUL){
 					JOptionPane.showConfirmDialog(null, "注册成功，请登录！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					frame.dispose();
+					LogDao.addLogSystem("ID"+IDString+"的用户成功注册");
 				}
 				else if(result== SignInFeedback.NO_ID){
 					JOptionPane.showConfirmDialog(null, "请输入ID", "提示信息", JOptionPane.PLAIN_MESSAGE);

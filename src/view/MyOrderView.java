@@ -71,7 +71,7 @@ public class MyOrderView {
 			list = new ArrayList<>();
 			list.add(info);
 		}
-		myTableModel = new OBookTableModel(table, frame, list);
+		myTableModel = new OBookTableModel(table,  list);
 		myTableModel.initData();
 	}
 	

@@ -72,7 +72,7 @@ public class AllOrderView {
 			list = new ArrayList<>();
 			list.add(info);
 		}
-		myTableModel = new AllOBTableModel(table, frame, list);
+		myTableModel = new AllOBTableModel(table, list);
 		myTableModel.initData();
 	}
 	

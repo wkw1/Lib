@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.LogDao;
 import widget.InitWindow;
 import widget.LimitNumberLenght;
 
@@ -119,7 +120,7 @@ public class SearchResultView{
 			lists.add(info);
 		}
 			
-		myTableModel =  new SBookTableModel(table, frame, lists);
+		myTableModel =  new SBookTableModel(table, lists);
 		myTableModel.initData();
 		
 		pageAll = (myTableModel.getRowListAll()-1)/8+1;
@@ -211,9 +212,13 @@ public class SearchResultView{
 									myTableModel.updateData(selectedRowIndex);//刷新表格
 									JOptionPane.showConfirmDialog(null, "借书成功",
 											"提示信息", JOptionPane.PLAIN_MESSAGE);
-								} else
+									LogDao.addLogSystem("用户成功借阅ISBN为："+ISBN+"的图书");
+								} else{
 									JOptionPane.showConfirmDialog(null, "借书失败？？？",
 											"提示信息", JOptionPane.PLAIN_MESSAGE);
+									LogDao.addLogSystem("用户借阅ISBN为："+ISBN+"的图书失败");
+								}
+
 							else{
 								JOptionPane.showConfirmDialog(null, "权限不够不能借阅此书",
 										"提示信息", JOptionPane.PLAIN_MESSAGE);
@@ -228,14 +233,15 @@ public class SearchResultView{
 					} else {
 						String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
 						if (adAction.delBook(ISBN)) {
-							// TODO 删除成功
 							myTableModel.updateDelData(selectedRowIndex);
 							//无选中行
 							selectedRowIndex=-1;
 							//重新计算当前页数
 							pageAll = myTableModel.getRowListAll()/8+1;
 							pages.setText("第"+ pageNow +"页 共"+  pageAll +"页");
-							JOptionPane.showConfirmDialog(null, "删除成功", "提示信息", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showConfirmDialog(null, "删除成功",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
+							LogDao.addLogSystem("管理员删除ISBN为："+ISBN+"的图书");
 						} else {
 							JOptionPane.showConfirmDialog(null, "删除失败？？？", "提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
@@ -268,6 +274,7 @@ public class SearchResultView{
 								if (userAction.orderBook(ISBN)) {
 									JOptionPane.showConfirmDialog(null, "预约成功",
 											"提示信息", JOptionPane.PLAIN_MESSAGE);
+									LogDao.addLogSystem("用户成功预约ISBN为："+ISBN+"的图书");
 								} else {
 									JOptionPane.showConfirmDialog(null, "预约失败？？？",
 											"提示信息", JOptionPane.PLAIN_MESSAGE);
@@ -286,6 +293,7 @@ public class SearchResultView{
 					} else {
 						InputBookView inputBookView = new InputBookView(myTableModel.getChoose(selectedRowIndex), 2);
 						inputBookView.getFrame().setVisible(true);
+						selectedRowIndex = -1;
 					}
 				}
 			}

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.*;
 
 import action.UserAction;
+import dao.LogDao;
 import model.BorrowBookModel;
 import tablemodel.BBookTableModel;
 import widget.InitWindow;
@@ -66,7 +67,7 @@ public class MyBorrowView {
 			list = new ArrayList<>();
 			list.add(info);
 		}
-		myTableModel = new BBookTableModel(table, frame, list);
+		myTableModel = new BBookTableModel(table, list);
 		myTableModel.initData();
 	}
 	
@@ -132,10 +133,12 @@ public class MyBorrowView {
 								"提示信息", JOptionPane.PLAIN_MESSAGE);
 						myTableModel.updateData(selectedRowIndex);
 						selectedRowIndex =-1;
+						LogDao.addLogSystem("用户成功归还ISBN为"+ISBN+"的图书");
 					}
 					else{
 						JOptionPane.showConfirmDialog(null, "还书失败",
 								"提示信息", JOptionPane.PLAIN_MESSAGE);
+						LogDao.addLogSystem("用户未成功归还ISBN为"+ISBN+"的图书");
 					}
 				}
 			}

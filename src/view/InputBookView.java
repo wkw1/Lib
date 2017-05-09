@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
 import action.AdAction;
+import dao.LogDao;
 import db.ArrayDB;
 import model.BookModel;
 import widget.ISBNCreate;
@@ -156,10 +157,12 @@ public class InputBookView {
 								introduction.setText("");
 								bookNumber.setText("");
 							}
+							LogDao.addLogSystem("管理员成功录入一本图书");
 						}
 						else{
 							JOptionPane.showConfirmDialog(null, "录入失败？", 
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
+							LogDao.addLogSystem("管理员录入图书失败");
 						}
 						
 					}
@@ -169,6 +172,7 @@ public class InputBookView {
 							SearchResultView view = SearchResultView.getInstance("", "", 2);
 							view.updateData(bookModel);//更新表格
 							frame.dispose();
+							LogDao.addLogSystem("管理员成功更改图书");
 						}
 						else{
 							JOptionPane.showConfirmDialog(null, "更新信息失败？", 

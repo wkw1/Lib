@@ -14,6 +14,7 @@ import java.awt.Color;
 import action.RegisterLoginAction;
 import action.UserAction;
 import dao.BBHDao;
+import dao.LogDao;
 import dao.SearchKeyDao;
 import model.InfoModel;
 import model.UserModel;
@@ -65,7 +66,7 @@ public class AfterUserSignInView {
 	public void updateData(){
 		//UserModel.userModel.setBNBooks(userAction.getMyBN());//更新我的借书数量
 		//我的资料区信息更改
-		myInfo.setText("      ID:"+UserModel.userModel.getID()+"\n"
+		myInfo.setText("      \nID:"+UserModel.userModel.getID()+"\n"
 		              +"      姓名:"+UserModel.userModel.getName()+"\n"
 				      +"      学院:"+UserModel.userModel.getSchool()+"\n"
 				      +"      借书数量:"+UserModel.userModel.getBNBooks()+"\n"
@@ -76,7 +77,7 @@ public class AfterUserSignInView {
 			rank+="     "+i+" :"+ searchKeyDao.keyWordLists.get(i).keyWord+"\n";
 		}
 		//搜索排名资料更改
-		searchRanking.setText("\n\n"+rank);
+		searchRanking.setText("\n"+rank);
 	}
 
 	private void getData(){
@@ -101,7 +102,7 @@ public class AfterUserSignInView {
 
 	private void action(){
 
-		welcome.setText("欢迎:  "+UserModel.userModel.getID()+" !");
+		welcome.setText("欢迎:  "+UserModel.userModel.getName()+" !");
 		/**
 		 * 点击搜索按钮，跳转到搜索结果页面
 		 * 需执行操作
@@ -174,6 +175,7 @@ public class AfterUserSignInView {
 				RegisterLoginAction.signOut();
 				SignInView signInView = new SignInView();
 				signInView.getFrame().setVisible(true);
+				LogDao.addLogSystem("用户退出登录");
 			}
 		});
 

@@ -118,7 +118,7 @@ public class SearchUserResultView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(selectedRowIndex==-1)
+				if(selectedRowIndex==-1||table.getValueAt(selectedRowIndex, 1)==null)
 					JOptionPane.showConfirmDialog(null, "请选择用户！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				else{
 					//删除此用户
@@ -148,7 +148,7 @@ public class SearchUserResultView {
 		sendMessage.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(selectedRowIndex==-1)
+				if(selectedRowIndex==-1||table.getValueAt(selectedRowIndex, 1)==null)
 					JOptionPane.showConfirmDialog(null, "请选择用户！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				else{
 					String str= JOptionPane.showInputDialog(null, "输入消息","消息框", 

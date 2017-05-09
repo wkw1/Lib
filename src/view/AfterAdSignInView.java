@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.LogDao;
 import db.ArrayDB;
 import widget.InitWindow;
 import javax.swing.JButton;
@@ -125,6 +126,7 @@ public class AfterAdSignInView {
 				signInView.getFrame().setVisible(true);
 				frame.dispose();
 				afterAdSignInView=null;
+				LogDao.addLogSystem("管理员退出登录");
 			}
 		});
 	}
@@ -144,18 +146,19 @@ public class AfterAdSignInView {
 		InputBook = new JButton("\u5F55\u5165\u56FE\u4E66");
 		InputBook.setBackground(new Color(175, 238, 238));
 		InputBook.setFont(new Font("华文行楷", Font.PLAIN, 30));
-		InputBook.setBounds(205, 244, 183, 78);
+		InputBook.setBounds(192, 223, 183, 78);
 		panel.add(InputBook);
 		
 		seeOrderTable = new JButton("\u67E5\u770B\u9884\u7EA6\u8868");
 		seeOrderTable.setBackground(new Color(135, 206, 250));
 		seeOrderTable.setFont(new Font("华文行楷", Font.PLAIN, 30));
-		seeOrderTable.setBounds(59, 374, 200, 78);
+		seeOrderTable.setBounds(56, 363, 200, 78);
 		panel.add(seeOrderTable);
 		
 		searchBook = new JButton("\u641C\u7D22");
-		searchBook.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		searchBook.setBounds(224, 664, 113, 52);
+		searchBook.setBackground(new Color(0, 128, 128));
+		searchBook.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		searchBook.setBounds(224, 668, 113, 48);
 		panel.add(searchBook);
 		
 		keyWordForBook = new JTextField();
@@ -181,7 +184,7 @@ public class AfterAdSignInView {
 		
 		JLabel label_4 = new JLabel("\u7528\u6237\u7BA1\u7406");
 		label_4.setFont(new Font("华文楷体", Font.PLAIN, 40));
-		label_4.setBounds(720, 87, 215, 51);
+		label_4.setBounds(762, 84, 215, 51);
 		panel.add(label_4);
 		
 		inputUser = new JButton("\u5F55\u5165\u7528\u6237");
@@ -202,13 +205,16 @@ public class AfterAdSignInView {
 		panel.add(whichTypeForBook);
 		
 		JLabel label_5 = new JLabel("\u641C\u7D22\u56FE\u4E66\u8868");
-		label_5.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		label_5.setBounds(216, 492, 121, 27);
+		label_5.setBackground(new Color(112, 128, 144));
+		label_5.setForeground(new Color(0, 0, 0));
+		label_5.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		label_5.setBounds(211, 467, 159, 42);
 		panel.add(label_5);
 		
 		JLabel label_6 = new JLabel("\u641C\u7D22\u7528\u6237");
-		label_6.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		label_6.setBounds(807, 402, 85, 24);
+		label_6.setForeground(new Color(0, 0, 0));
+		label_6.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		label_6.setBounds(776, 429, 136, 35);
 		panel.add(label_6);
 		
 		JLabel lblNewLabel_1 = new JLabel("\u641C\u7D22\u7C7B\u578B");
@@ -218,7 +224,7 @@ public class AfterAdSignInView {
 		
 		JLabel lblNewLabel_2 = new JLabel("\u5173\u952E\u5B57");
 		lblNewLabel_2.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(711, 572, 91, 25);
+		lblNewLabel_2.setBounds(711, 565, 91, 25);
 		panel.add(lblNewLabel_2);
 		
 		KeyWordForUser = new JTextField();
@@ -227,6 +233,7 @@ public class AfterAdSignInView {
 		KeyWordForUser.setColumns(10);
 		
 		searchUser = new JButton("\u641C\u7D22");
+		searchUser.setBackground(new Color(0, 128, 128));
 		searchUser.setFont(new Font("华文楷体", Font.PLAIN, 25));
 		searchUser.setBounds(799, 668, 113, 48);
 		panel.add(searchUser);
@@ -238,13 +245,13 @@ public class AfterAdSignInView {
 		seeBorrowTable = new JButton("\u67E5\u770B\u501F\u4E66\u8868");
 		seeBorrowTable.setFont(new Font("华文行楷", Font.PLAIN, 30));
 		seeBorrowTable.setBackground(new Color(135, 206, 250));
-		seeBorrowTable.setBounds(334, 374, 200, 78);
+		seeBorrowTable.setBounds(330, 363, 200, 78);
 		panel.add(seeBorrowTable);
 		
 		exit = new JButton("\u9000\u51FA\u767B\u5F55");
 		exit.setBackground(new Color(255, 0, 0));
-		exit.setFont(new Font("宋体", Font.PLAIN, 15));
-		exit.setBounds(1063, 13, 105, 35);
+		exit.setFont(new Font("华文楷体", Font.PLAIN, 15));
+		exit.setBounds(1077, 0, 105, 35);
 		panel.add(exit);
 
 	}

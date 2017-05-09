@@ -115,6 +115,7 @@ public class SystemEntry {
 		//获取时间
 		date = new Date(System.currentTimeMillis());
 		initialize();
+		LogDao.addLogSystem("系统启动");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		timeAdvance();//模拟时间推进
@@ -125,6 +126,7 @@ public class SystemEntry {
 	private void updateDate(){
 		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
 		borrowBookFormOp.dateGrowth(days);//更新借书表中的数据
+		LogDao.addLogSystem("退出系统");
 		//balanceList2 = borrowBookFormOp.getBalanceList();
 		//UserFormOp userFormOp = UserFormOp.getInstance();
 		//userFormOp.updateBalance(balanceList1,balanceList2);
@@ -168,9 +170,9 @@ public class SystemEntry {
 			public void actionPerformed(ActionEvent e) {
 				SignInView signInView =  SignInView.getInstance();
 				signInView.getFrame().setVisible(true);
+				LogDao.addLogSystem("进入启动，计时停止");
 				frame.setVisible(false);
 				thread.stop();
-				// TODO 将信息重新写入文件,更新借书表的信息，和用户的余额信息
 				updateDate();
 			}
 		});
