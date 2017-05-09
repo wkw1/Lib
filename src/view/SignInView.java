@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.LogDao;
 import db.SignInFeedback;
 import widget.InitWindow;
 import widget.MyButton;
@@ -97,10 +98,12 @@ public class SignInView {
 					if(userType==3){
 						AfterAdSignInView window =AfterAdSignInView.getInstance();
 						window.getFrame().setVisible(true);
+						LogDao.addLogSystem("ID为"+IDString+"的管理员登录");
 					}
 					else{
 						AfterUserSignInView window = new AfterUserSignInView();
 					    window.getFrame().setVisible(true);
+						LogDao.addLogSystem("ID为"+IDString+"的用户登录");
 					}
 					//得到选择的登录种类
 					frame.dispose();
@@ -135,7 +138,6 @@ public class SignInView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				RegisterView registerView = new RegisterView();
 				registerView.getFrame().setVisible(true);
 			}
@@ -145,7 +147,6 @@ public class SignInView {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				JOptionPane.showConfirmDialog(null, "此系统仅限北邮学生和教师使用\n"
 						+ "若你已经在此平台注册可直接登录，未注册可以注册后登录", "帮助", JOptionPane.PLAIN_MESSAGE);
 			}
