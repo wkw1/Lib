@@ -1,11 +1,9 @@
 package dao;
 
+import model.BorrowBookModel;
 import model.OrderBookModel;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,9 +15,13 @@ import java.util.List;
  */
 public class OrderBookDao {
 
+    private  String filePath="file//orderForm.txt";
+
     public List<OrderBookModel> obLists = new ArrayList<>();
     public  boolean iSModify=false;//标志是否修改了文件
     public  boolean iSAdd = false;//标志是否增加了条目
+
+    private int orderNumber;
 
     public static OrderBookDao orderBookDao=null;
     public static OrderBookDao getInstance(){
@@ -34,12 +36,10 @@ public class OrderBookDao {
      * @return
      */
     public boolean readBookForm() throws IOException, ParseException {
-        String filePath="file//orderForm.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
         OrderBookModel bookInfo;
-        int bookNum=0;
         try {
             //读取表单中所有书的信息
             while((eachLine=reader.readLine())!=null)
@@ -79,13 +79,50 @@ public class OrderBookDao {
                     }
                 }
                 obLists.add(bookInfo);
-                bookNum=bookNum+1;
             }
         } catch (NumberFormatException | IOException e) {
             // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
+        orderNumber= obLists.size();
         read.close();
         return true;
+    }
+
+    //只增加图书写入文件
+    public void addOBooks() throws IOException {
+        for(int n=orderNumber;n<obLists.size();n++){
+            addOneOBook(obLists.get(n));
+        }
+    }
+
+    public void addOneOBook(OrderBookModel orderBookModel) throws IOException {
+        File f=new File(filePath);
+        BufferedWriter fw = null;/////可能需要改编码格式
+
+        fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
+        String BkInfo = "\r" + orderBookModel.getName() + "|" + orderBookModel.getID() + "|" +
+                orderBookModel.getBookName() + "|" + orderBookModel.getBookISBN() + "|" + orderBookModel.getBookAuthor()
+                + "|" + orderBookModel.getOrderDate();
+        fw.write(BkInfo);
+        fw.close();
+    }
+
+    public void writeFile() throws IOException{
+        File f=new File(filePath);
+        BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
+        if(obLists.size()==0)
+            return;
+        fw.write(obLists.get(0).getName()+"|"+obLists.get(0).getID()+"|"+
+                obLists.get(0).getBookName()+"|"+obLists.get(0).getBookISBN()+"|"+obLists.get(0).getBookAuthor()
+                +"|"+obLists.get(0).getOrderDate());
+        for(int i=1;i<obLists.size();i++)
+        {
+            String BkInfo="\r\n"+obLists.get(i).getName()+"|"+obLists.get(i).getID()+"|"+
+                    obLists.get(i).getBookName()+"|"+obLists.get(i).getBookISBN()+"|"+obLists.get(i).getBookAuthor()
+                    +"|"+obLists.get(i).getOrderDate();
+            fw.write(BkInfo);
+        }
+        fw.close();
     }
 }

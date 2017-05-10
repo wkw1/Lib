@@ -1,11 +1,9 @@
 package dao;
 
+import model.BookModel;
 import model.BorrowBookModel;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,9 +15,13 @@ import java.util.List;
  */
 public class BorrowBookDao {
 
+    private  String filePath="file//borrowbookform.txt";
+
     public List<BorrowBookModel> bblists = new ArrayList<>();
     public  boolean iSModify=false;//标志是否修改了文件
     public  boolean iSAdd = false;//标志是否增加了条目
+
+    private int bbNumber;
 
     public static BorrowBookDao borrowBookDao=null;
     public static BorrowBookDao getInstance(){
@@ -34,12 +36,10 @@ public class BorrowBookDao {
      * @return
      */
     public boolean readBookForm() throws IOException, ParseException {
-        String filePath="file//borrowbookform.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
         BorrowBookModel bookInfo;
-        int bookNum=0;
         try {
             //读取表单中所有书的信息
             while((eachLine=reader.readLine())!=null)
@@ -87,13 +87,51 @@ public class BorrowBookDao {
                     }
                 }
                 bblists.add(bookInfo);
-                bookNum=bookNum+1;
             }
         } catch (NumberFormatException | IOException e) {
             // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
+        bbNumber = bblists.size();
         read.close();
         return true;
     }
+
+    //只增加图书写入文件
+    public void addBBooks() throws IOException {
+        for(int n=bbNumber;n<bblists.size();n++){
+            addOneBBook(bblists.get(n));
+        }
+    }
+
+    public void addOneBBook(BorrowBookModel bbModel) throws IOException {
+        File f=new File(filePath);
+        BufferedWriter fw = null;/////可能需要改编码格式
+
+        fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
+        String BkInfo = "\r" + bbModel.getName() + "|" + bbModel.getID() + "|" +
+                bbModel.getBookName() + "|" + bbModel.getBookISBN() + "|" + bbModel.getBookAuthor() +
+                "|" + bbModel.getBorrowDate() + "|" + bbModel.getRTBook() + "|" + bbModel.getAIBook() ;
+        fw.write(BkInfo);
+        fw.close();
+    }
+
+    public void writeFile() throws IOException{
+        File f=new File(filePath);
+        BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
+        if(bblists.size()==0)
+            return;
+        fw.write(bblists.get(0).getName()+"|"+bblists.get(0).getID()+"|"+
+                bblists.get(0).getBookName()+"|"+bblists.get(0).getBookISBN()+"|"+bblists.get(0).getBookAuthor()+
+                "|"+bblists.get(0).getBorrowDate()+"|"+bblists.get(0).getRTBook()+"|"+bblists.get(0).getAIBook());
+        for(int i=1;i<bblists.size();i++)
+        {
+            String BkInfo="\r\n"+bblists.get(i).getName()+"|"+bblists.get(i).getID()+"|"+
+                    bblists.get(i).getBookName()+"|"+bblists.get(i).getBookISBN()+"|"+bblists.get(i).getBookAuthor()+
+                    "|"+bblists.get(i).getBorrowDate()+"|"+bblists.get(i).getRTBook()+"|"+bblists.get(i).getAIBook();
+            fw.write(BkInfo);
+        }
+        fw.close();
+    }
+
 }

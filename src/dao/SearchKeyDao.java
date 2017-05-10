@@ -1,9 +1,6 @@
 package dao;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +25,13 @@ public class SearchKeyDao {
 
     }
 
+    private String filePath="file//searchKeyWord.txt";;
+
     public List<KeyWord> keyWordLists= new ArrayList<>();
-    public  boolean iSModify=false;//标志是否修改了文件
-    public  boolean iSAdd = false;//标志是否增加了条目
+    public boolean iSModify=false;//标志是否修改了文件
+    public boolean iSAdd = false;//标志是否增加了条目
+
+    public int keyNumber;
 
 
     public static SearchKeyDao searchKeyDao=null;
@@ -43,6 +44,7 @@ public class SearchKeyDao {
 
     public boolean addOne(String keyWord){
         int i;
+        iSModify = true;
         for( i=0;i<keyWordLists.size();i++){
             if(keyWord.equals(keyWordLists.get(i).keyWord)){
                 int n=++keyWordLists.get(i).number;
@@ -57,20 +59,17 @@ public class SearchKeyDao {
             }
         }
         if(i==keyWordLists.size()){
+            iSAdd = true;
             return keyWordLists.add(new KeyWord(keyWord,1));
         }
         return false;
     }
 
-
-
     public boolean readUserForm() throws IOException, ParseException {
-        String filePath="file//searchKeyWord.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
         KeyWord keyWord;
-        int UserNum=0;
         try {
             while((eachLine=reader.readLine())!=null)
             {
@@ -90,13 +89,43 @@ public class SearchKeyDao {
                     }
                 }
                 keyWordLists.add(keyWord);
-                UserNum=UserNum+1;
             }
         } catch (NumberFormatException | IOException e) {
             e.printStackTrace();
         }
+        keyNumber = keyWordLists.size();
         read.close();
         return true;
+    }
+
+    public void addKeywords() throws IOException {
+        for(int n=keyNumber;n<keyWordLists.size();n++){
+            addOneKeyWord(keyWordLists.get(n));
+        }
+    }
+
+    public void addOneKeyWord(KeyWord keyWord) throws IOException {
+        File f=new File(filePath);
+        BufferedWriter fw = null;/////可能需要改编码格式
+
+        fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
+        String BkInfo = "\r" + keyWord.keyWord + "|" + keyWord.number ;
+        fw.write(BkInfo);
+        fw.close();
+    }
+
+    public void writeFile() throws IOException{
+        File f=new File(filePath);
+        BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
+        if(keyWordLists.size()==0)
+            return;
+        fw.write(keyWordLists.get(0).keyWord+"|"+keyWordLists.get(0).number);
+        for(int i=1;i<keyWordLists.size();i++)
+        {
+            String BkInfo="\r\n"+keyWordLists.get(i).keyWord+"|"+keyWordLists.get(i).number;
+            fw.write(BkInfo);
+        }
+        fw.close();
     }
 
 }

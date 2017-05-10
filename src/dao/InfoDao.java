@@ -89,8 +89,6 @@ public class InfoDao {
         }
     }
 
-
-
     public void addOneBook(InfoModel infoModel){
         File f=new File(filePath);
         BufferedWriter fw= null;/////可能需要改编码格式
@@ -110,12 +108,24 @@ public class InfoDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-
-
-
-
+    public void writeFile() throws IOException{
+        File f=new File(filePath);
+        BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
+        if(infoLists.size()==0)
+            return;
+        fw.write(infoLists.get(0).getInformer()+"|"+infoLists.get(0).getInformerID()+"|"+
+                infoLists.get(0).getInformeder()+"|"+infoLists.get(0).getInformederID()+"|"+infoLists.get(0).getInformThing()+
+                "|"+infoLists.get(0).getInformDate());
+        for(int i=1;i<infoLists.size();i++)
+        {
+            String BkInfo="\r\n"+infoLists.get(i).getInformer()+"|"+infoLists.get(i).getInformerID()+"|"+
+                    infoLists.get(i).getInformeder()+"|"+infoLists.get(i).getInformederID()+"|"+infoLists.get(i).getInformThing()+
+                    "|"+infoLists.get(i).getInformDate();
+            fw.write(BkInfo);
+        }
+        fw.close();
+    }
 
 }

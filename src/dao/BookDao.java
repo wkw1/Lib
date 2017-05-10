@@ -106,34 +106,43 @@ public class BookDao {
         return true;
     }
 
-    public void addBooks(){
+    //只增加图书写入文件
+    public void addBooks() throws IOException {
         for(int n=bookNumber;n<bookLists.size();n++){
             addOneBook(bookLists.get(n));
         }
     }
 
-
-
-    public void addOneBook(BookModel BkAdded){
+    public void addOneBook(BookModel BkAdded) throws IOException {
         File f=new File(filePath);
-        BufferedWriter fw= null;/////可能需要改编码格式
-        try {
-            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true),"GBK"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String BkInfo="\r"+BkAdded.getISBN()+"|"+BkAdded.getName()+"|"+
-                BkAdded.getIntroduction()+"|"+BkAdded.getBookType()+"|"+BkAdded.getAuthor()+
-                "|"+BkAdded.getPress()+"|"+BkAdded.getTN()+"|"+BkAdded.getRN()+
-                "|"+BkAdded.getPowerNeed()+"|"+BkAdded.getStorageTime();
-        try {
-            fw.write(BkInfo);
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BufferedWriter fw = null;/////可能需要改编码格式
 
+        fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
+        String BkInfo = "\r" + BkAdded.getISBN() + "|" + BkAdded.getName() + "|" +
+                BkAdded.getIntroduction() + "|" + BkAdded.getBookType() + "|" + BkAdded.getAuthor() +
+                "|" + BkAdded.getPress() + "|" + BkAdded.getTN() + "|" + BkAdded.getRN() +
+                "|" + BkAdded.getPowerNeed() + "|" + BkAdded.getStorageTime();
+        fw.write(BkInfo);
+        fw.close();
+    }
+
+    public void writeFile() throws IOException{
+        File f=new File(filePath);
+        BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
+        if(bookLists.size()==0)
+            return;
+        fw.write(bookLists.get(0).getISBN()+"|"+bookLists.get(0).getName()+"|"+
+                bookLists.get(0).getIntroduction()+"|"+bookLists.get(0).getBookType()+"|"+bookLists.get(0).getAuthor()+
+                "|"+bookLists.get(0).getPress()+"|"+bookLists.get(0).getTN()+"|"+bookLists.get(0).getRN()+
+                "|"+bookLists.get(0).getPowerNeed()+"|"+bookLists.get(0).getStorageTime());
+        for(int i=1;i<bookLists.size();i++)
+        {
+            String BkInfo="\r\n"+bookLists.get(i).getISBN()+"|"+bookLists.get(i).getName()+"|"+
+                    bookLists.get(i).getIntroduction()+"|"+bookLists.get(i).getBookType()+"|"+bookLists.get(i).getAuthor()+
+                    "|"+bookLists.get(i).getPress()+"|"+bookLists.get(i).getTN()+"|"+bookLists.get(i).getRN()+
+                    "|"+bookLists.get(i).getPowerNeed()+"|"+bookLists.get(i).getStorageTime();
+            fw.write(BkInfo);
+        }
+        fw.close();
     }
 }

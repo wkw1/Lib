@@ -5,10 +5,7 @@ import model.BookModel;
 import model.UserModel;
 import view.SystemEntry;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,9 +19,13 @@ import java.util.List;
  */
 public class BBHDao {
 
+    private String filePath="file//bbhForm.txt";
+
     public List<BBHModel> bbhLists = new ArrayList<>();
-    public  boolean iSModify=false;//标志是否修改了文件
+    public  boolean iSModify=false;//标志是否修改了文件,暂时未使用
     public  boolean iSAdd = false;//标志是否增加了条目
+
+    private int number;
 
     public static BBHDao bbhDao=null;
     public static BBHDao getInstance(){
@@ -37,6 +38,7 @@ public class BBHDao {
     public boolean addOne(BookModel model, UserModel user){
         BBHModel bbhModel = new BBHModel(user.getName(),user.getID(),model.getName(),model.getISBN(),
                 model.getAuthor(),model.getStorageTime(), SystemEntry.date);
+        iSAdd = true;
         return bbhLists.add(bbhModel);
     }
 
@@ -63,12 +65,10 @@ public class BBHDao {
      * @return
      */
     public boolean readBookForm() throws IOException, ParseException {
-        String filePath="file//bbhForm.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
         BBHModel bookInfo;
-        int bookNum=0;
         try {
             //读取表单中所有书的信息
             while((eachLine=reader.readLine())!=null)
@@ -115,13 +115,32 @@ public class BBHDao {
                     }
                 }
                 bbhLists.add(bookInfo);
-                bookNum=bookNum+1;
             }
         } catch (NumberFormatException | IOException e) {
             // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
+        number = bbhLists.size();
         read.close();
         return true;
+    }
+
+    //只增加图书写入文件
+    public void addRecords() throws IOException {
+        for(int n=number;n<bbhLists.size();n++){
+            addOneRecord(bbhLists.get(n));
+        }
+    }
+
+    public void addOneRecord(BBHModel bbhModel) throws IOException {
+        File f=new File(filePath);
+        BufferedWriter fw = null;/////可能需要改编码格式
+
+        fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
+        String BkInfo = "\r" + bbhModel.getName() + "|" + bbhModel.getID() + "|" +
+                bbhModel.getBookName() + "|" + bbhModel.getBookISBN() + "|" + bbhModel.getBookAuthor() +
+                "|" + bbhModel.getBorrowDate() + "|" + bbhModel.getReturnDate();
+        fw.write(BkInfo);
+        fw.close();
     }
 }
