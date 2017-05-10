@@ -115,7 +115,7 @@ public class SearchResultView{
 		//未搜索到数据时给lists添加提示信息
 		if(lists==null){
 			BookModel info = new BookModel();
-			info.setISBN("未找到图书！");
+			info.setName("未找到图书！");
 			lists = new ArrayList<>();
 			lists.add(info);
 		}
@@ -192,7 +192,7 @@ public class SearchResultView{
 			public void actionPerformed(ActionEvent e) {
 				//用户 借阅
 				if(who==1){
-					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
+					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 1) == null) {
 						System.out.println("请选择要借阅的图书");
 						JOptionPane.showConfirmDialog(null, "请选择要借阅的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
@@ -203,9 +203,13 @@ public class SearchResultView{
 							JOptionPane.showConfirmDialog(null, "此书无库存。。",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
+						else if(userAction.user.getBNBooks()>=userAction.user.getANBooks()){
+							JOptionPane.showConfirmDialog(null, "借书数量达到上限，暂时不能借书。。",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
+						}
 						// 借书操作,判断借书权限
 						else{
-							String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
+							String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
 							int power = (int)table.getValueAt(selectedRowIndex,6);
 							if(power<=userAction.user.getPower())
 								if (userAction.borrowBook(ISBN)) {
@@ -228,10 +232,10 @@ public class SearchResultView{
 					}
 				}
 				else{//管理员删除
-					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
+					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 1) == null) {
 						JOptionPane.showConfirmDialog(null, "请选择要删除的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
-						String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
+						String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
 						if (adAction.delBook(ISBN)) {
 							myTableModel.updateDelData(selectedRowIndex);
 							//无选中行
@@ -257,7 +261,7 @@ public class SearchResultView{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (who == 1) {//用户预约
-					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
+					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 1) == null) {
 						System.out.println("请选择要预约的图书");
 						JOptionPane.showConfirmDialog(null, "请选择要预约的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
@@ -270,7 +274,7 @@ public class SearchResultView{
 										"提示信息", JOptionPane.PLAIN_MESSAGE);
 							} else {
 								// 预约操作
-								String ISBN = (String) table.getValueAt(selectedRowIndex, 0);
+								String ISBN = (String) table.getValueAt(selectedRowIndex, 1);
 								if (userAction.orderBook(ISBN)) {
 									JOptionPane.showConfirmDialog(null, "预约成功",
 											"提示信息", JOptionPane.PLAIN_MESSAGE);
@@ -283,11 +287,10 @@ public class SearchResultView{
 						else
 							JOptionPane.showConfirmDialog(null, "权限不够不能预约？？？",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
-
 					}
 				}
 				else{//管理员更改
-					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
+					if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 1) == null) {
 						JOptionPane.showConfirmDialog(null, "请选择要更改的图书",
 								"提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
@@ -302,7 +305,7 @@ public class SearchResultView{
 		detail.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 6) == null) {
+				if (selectedRowIndex == -1 || table.getValueAt(selectedRowIndex, 1) == null) {
 					JOptionPane.showConfirmDialog(null, "请选择要查看的图书", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
@@ -334,9 +337,7 @@ public class SearchResultView{
 					selectedRowIndex = table.getSelectedRow();// 取得用户所选单行
 					// System.out.print(list.get(selectedRowIndex).get("i"));
 					System.out.print(selectedRowIndex);
-
 					String string = (String) table.getValueAt(selectedRowIndex, 1);
-
 					System.out.print(string);
 				}
 			}
@@ -382,8 +383,7 @@ public class SearchResultView{
 	    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	    table.setRowHeight(70);
 		scrollPane.setViewportView(table);
-		
-		
+
 	    nextPage = new JButton("下一页");
 	    nextPage.setFont(new Font("华文楷体", Font.PLAIN, 25));
 	    nextPage.setBackground(new Color(102, 204, 204));

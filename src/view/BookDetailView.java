@@ -99,9 +99,10 @@ public class BookDetailView {
 		panel.add(lblNewLabel_5);
 		
 		introduction = new JTextArea();
+		introduction.setLineWrap(true);
 		introduction.setText("\u4E66\u7684\u7B80\u4ECB");
-		introduction.setFont(new Font("华文新魏", Font.PLAIN, 15));
-		introduction.setBackground(new Color(222, 184, 135));
+		introduction.setFont(new Font("华文新魏", Font.PLAIN, 20));
+		introduction.setBackground(new Color(60, 179, 113));
 		introduction.setEditable(false);
 		introduction.setEnabled(false);
 		introduction.setBounds(639, 245, 420, 383);

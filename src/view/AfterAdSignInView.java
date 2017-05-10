@@ -56,7 +56,6 @@ public class AfterAdSignInView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				InputBookView inputBookView = new InputBookView(null,1);
 				inputBookView.getFrame().setVisible(true);
 			}
@@ -76,7 +75,6 @@ public class AfterAdSignInView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				AllOrderView allOrderView = AllOrderView.getInstance();
 				allOrderView.getFrame().setVisible(true);
 			}

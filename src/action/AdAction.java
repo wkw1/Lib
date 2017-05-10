@@ -32,6 +32,10 @@ public class AdAction {
 	//删除图书
 	public boolean delBook(String ISBN){
 		BookFormOp bookFormOp = BookFormOp.getInstance();
+		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		borrowBookFormOp.delByISBN(ISBN);//删除借书表此ISBN的记录
+		OrderBookFormOp orderBookFormOp = OrderBookFormOp.getInstance();
+		orderBookFormOp.cancelByISBN(ISBN);//删除借书表此图书的预约记录
 		return bookFormOp.delOne(ISBN);
 	}
 	
@@ -79,7 +83,7 @@ public class AdAction {
 		return borrowBookFormOp.bbLists;
 	}
 	
-	//提醒用户归还图书 TODO
+	//提醒用户归还图书
 	public boolean remindUser(String ID,String ISBN){
 		InfoFormOp infoFormOp = InfoFormOp.getInstance();
 		return infoFormOp.addReturnInfo(ID,ISBN);
@@ -87,7 +91,8 @@ public class AdAction {
 	
 	//录入用户
 	public boolean inputUser(UserModel userModel){
-		return true;
+		UserFormOp userFormOp = UserFormOp.getInstance();
+		return userFormOp.addOne(userModel);
 	}
 	//搜索用户
 	public List<UserModel> searchUser(String keyWord, String searchType){
@@ -112,15 +117,20 @@ public class AdAction {
 	
 	//查看近期用户
 	public List<UserModel> recentUser(){
-		return null;
+		UserFormOp userFormOp = UserFormOp.getInstance();
+		return userFormOp.getRecentUser();
 	}
 	
-	//删除用户
+	//删除用户 预约记录取消预约
 	public boolean delUser(String ID){
-		return true;
+		OrderBookFormOp orderBookFormOp=OrderBookFormOp.getInstance();
+		orderBookFormOp.cancelByID(ID);
+		UserFormOp userFormOp =  UserFormOp.getInstance();
+		return userFormOp.delOne(ID);
 	}
 	//发送消息提醒
 	public boolean sendMessage(String message,String ID){
-		return true;
+		InfoFormOp infoFormOp = InfoFormOp.getInstance();
+		return infoFormOp.sendOne(message,ID);
 	}
 }

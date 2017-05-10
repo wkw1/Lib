@@ -2,6 +2,7 @@ package action;
 
 import java.util.List;
 
+import dao.BBHDao;
 import db.SearchTypeFeedback;
 import fileOpreation.*;
 import model.BBHModel;
@@ -93,9 +94,23 @@ public class UserAction {
 			return false;
 		if(!userFormOp.borrowBook(user.getID(),-1))//用户的借书数量-1
 			return false;
+		//增加借书历史
+		BookModel bookModel = bookFormOp.getOneBook(bookISBN);
+		if(bookModel==null){//归还的书图书表中没有,不再增加借书记录 TODO
+			return true;
+		}
+		else{
+			BBHDao bbhDao = BBHDao.getInstance();
+			bbhDao.addOne(bookModel,user);
+		}
 		return true;
 	}
 
+	//用户还书，此书欠费信息更新到用户的额余额中
+	public boolean reduceBalance(float money){
+		UserFormOp userFormOp = UserFormOp.getInstance();
+		return userFormOp.reduceBalance(money,user.getID());
+	}
 
 	//得到借书表
 	public List<BorrowBookModel> getBorrowBook(){
@@ -108,10 +123,17 @@ public class UserAction {
 		OrderBookFormOp orderBookFormOp = OrderBookFormOp.getInstance();
 		return orderBookFormOp.searchBookForm(user.getID(),SearchTypeFeedback.USER_ID);
 	}
+	//得到我的借书数量
+	public int getMyBN(){
+		BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
+		return borrowBookFormOp.getNumberByID(user.getID());
+	}
 	
 	//得到借书历史表
 	public List<BBHModel> getBorrowHistory(){
-		return FileTest.getListBBH();
+		//从文件中读取数据
+		BBHDao bbhDao = BBHDao.getInstance();
+		return bbhDao.getBbhLists(user.getID());
 	}
 	
 	//得到消息通知

@@ -53,7 +53,7 @@ public class InfoFormOp {
         return infoLists.add(infoModel);
     }
 
-    //用户得到消息，得到立马删除 TODO 更高
+    //用户得到消息，得到立马删除 TODO 更高级
     public List<InfoModel> getInfoList(String ID){
         List<InfoModel> lists= new ArrayList<>();
         int whetherExist = 0;

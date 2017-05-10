@@ -15,6 +15,19 @@ public class BBHModel {
 	private String bookAuthor;
 	private Date borrowDate;//借书时间
 	private Date returnDate;//还书时间
+
+	public BBHModel(){}
+
+	public BBHModel(String name, String ID, String bookName, String bookISBN, String bookAuthor, Date borrowDate, Date returnDate) {
+		this.name = name;
+		this.ID = ID;
+		this.bookName = bookName;
+		this.bookISBN = bookISBN;
+		this.bookAuthor = bookAuthor;
+		this.borrowDate = borrowDate;
+		this.returnDate = returnDate;
+	}
+
 	public String getName() {
 		return name;
 	}

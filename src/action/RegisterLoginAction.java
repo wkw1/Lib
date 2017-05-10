@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class RegisterLoginAction {
-	@SuppressWarnings("unused")
 
 	public int SignIn(String ID,String password,int userType) throws IOException, ParseException {
 		if(ID.equals("")){

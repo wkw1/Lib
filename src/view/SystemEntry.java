@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import dao.*;
 import fileOpreation.BorrowBookFormOp;
+import model.BBHModel;
 import widget.InitWindow;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -113,7 +114,8 @@ public class SystemEntry {
 	 */
 	public SystemEntry() {
 		//获取时间
-		date = new Date(System.currentTimeMillis());
+		SystemInfoDao.readUserForm();
+		date =SystemInfoDao.SysTemDate;
 		initialize();
 		LogDao.addLogSystem("系统启动");
 		frame.setVisible(true);
@@ -183,12 +185,60 @@ public class SystemEntry {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO 将信息重新写入文件
 				frame.dispose();
 				thread.stop();
 				updateDate();
+				try {
+					restoreData();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
+	}
+	//将数据写入文件
+	public void restoreData() throws IOException {
+		// TODO 将信息重新写入文件
+		//图书表
+		BookDao bookDao = BookDao.getInstance();//图书表数据
+		if(bookDao.iSModify)
+			bookDao.writeFile();//重写整个列表
+		else if(bookDao.iSAdd)
+			bookDao.addBooks();
+		//消息表
+		InfoDao info = InfoDao.getInstance();//消息数据
+		if(info.iSModify)
+			info.writeFile();
+		else if(info.iSAdd)
+			info.addInfos();
+		//用户表
+		UserDao userDao = UserDao.getInstance();
+		if(userDao.iSModify)
+			userDao.writeFile();//重写整个列表
+		else if(userDao.iSAdd)
+			userDao.addUsers();
+		//借书历史表
+		BBHDao bbhDao = BBHDao.getInstance();
+		if(bbhDao.iSAdd)
+			bbhDao.addRecords();
+		//借书表
+		BorrowBookDao borrowBookDao = BorrowBookDao.getInstance();
+		if(borrowBookDao.iSModify)
+			borrowBookDao.writeFile();
+		else if(borrowBookDao.iSAdd)
+			borrowBookDao.addBBooks();
+		//预约表
+		OrderBookDao orderBookDao = OrderBookDao.getInstance();
+		if(orderBookDao.iSModify)
+			orderBookDao.writeFile();
+		else if(orderBookDao.iSAdd)
+			orderBookDao.addOBooks();
+		//搜索表
+		SearchKeyDao searchKeyDao = SearchKeyDao.getInstance();
+		if(searchKeyDao.iSModify)
+			searchKeyDao.writeFile();
+		else if(searchKeyDao.iSAdd)
+			searchKeyDao.addKeywords();
 	}
 
 	private void initialize() {

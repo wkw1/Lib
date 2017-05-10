@@ -9,4 +9,7 @@ public class ArrayDB {
     public static final String[] searchBookTypes={"ISBN","书名","作者","出版社","书类型"};
     public static final String[] searchUserTypes={"ID","姓名","学院"};
     public static final Integer[] powerTypes={1,2,3};
+    public static final String[] schools={"计算机学院","信息与通信工程学院","电子工程学院","自动化学院",
+            "网络空间安全学院","理学院","经济管理学院","人文学院","信息科学与技术学院",
+            "数字媒体与技术学院","生命科学学院","建筑学院"};
 }

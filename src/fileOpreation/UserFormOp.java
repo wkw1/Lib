@@ -5,6 +5,7 @@ import db.SearchTypeFeedback;
 import db.SignInFeedback;
 import model.Balance;
 import model.UserModel;
+import widget.Encryp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,9 +114,8 @@ public class UserFormOp {
         for(UserModel user :userLists){
             if(user.getID().equals(ID)){
                 if(user.getPassword()==null||user.getPassword().equals("")){
-                    // TODO 加密函数暂时未使用
-                    //String enPassword = Encryp.Encrypt(password);
-                    user.setPassword(password);
+                    String enPassword = Encryp.Encrypt(password);//解码
+                    user.setPassword(enPassword);
                     userDao.iSModify=true;
                     return SignInFeedback.SUCCESSFUL;
                 }
@@ -136,7 +136,7 @@ public class UserFormOp {
                     //未注册情况
                     return SignInFeedback.NOT_REGISTER;
                 }
-                else if(!user.getPassword().equals(password)){
+                else if(!user.getPassword().equals(Encryp.Encrypt(password))){
                     //密码错误
                     return SignInFeedback.WRONG_PASSWORD;
                 }

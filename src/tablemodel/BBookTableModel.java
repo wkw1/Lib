@@ -77,7 +77,6 @@ public class BBookTableModel extends Table<BBookTableModel, BorrowBookModel> {
 			mObjects[i][4] = bbm.getBorrowDate();
 			mObjects[i][5] = bbm.getRTBook();
 			mObjects[i][6] = bbm.getAIBook();
-
 		}
 		// 标头数据
 		String[] strings = { "序号", "书名", "ISBN", "作者", "借书时间", "剩余借书时间", "产生费用" };

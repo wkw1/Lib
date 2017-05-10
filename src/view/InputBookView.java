@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 /**
- * 录入图书页面
+ * 录入图书页面，管理员更改图书信息页面
  * @author 宽伟
  *
  */
@@ -48,6 +48,7 @@ public class InputBookView {
 	private JButton input;
 	
 	private BookModel bookModel=null;
+	private BookModel bookModel1=null;
 
 	private AdAction ad=null;
 	
@@ -59,6 +60,8 @@ public class InputBookView {
 	private int bookNumberInt=0;
 	private int powerForBorrowInt=1;
 	private JButton close;
+
+	private int outNumber;//图书借出量
 	
 	public static InputBookView inputBookView;
 	public static InputBookView getInstance(BookModel bookModel,int what){
@@ -74,7 +77,6 @@ public class InputBookView {
 		if (what == 2) {
 			input.setText("保存");
 			inputFromFile.setVisible(false);
-			// this.bookModel = bookModel;
 			bookAuthor.setText(bookModel.getAuthor());
 			bookName.setText(bookModel.getName());
 			bookPress.setText(bookModel.getPress());
@@ -83,6 +85,8 @@ public class InputBookView {
 			bookNumber.setText(String.valueOf(bookModel.getTN()));
 			bookISBNString = bookModel.getISBN();
 			powerForBorrow.setSelectedItem(bookModel.getPowerNeed());
+			outNumber = bookModel.getTN()-bookModel.getRN();
+			bookModel1 = bookModel;
 		}
 		action();
 	}
@@ -112,14 +116,20 @@ public class InputBookView {
 		bookModel.setName(bookNameString);
 		bookModel.setPowerNeed(powerForBorrowInt);
 		bookModel.setPress(bookPressString);
-		bookModel.setRN(bookNumberInt);
-		bookModel.setStorageTime(SystemEntry.date);
+
 		bookModel.setTN(bookNumberInt);
 
-		if(what==1)//录入图书时产生新的ISBN，更新时则不变
+		if(what==1){//录入图书时产生新的ISBN，更新时则不变
 			bookISBNString =ISBNCreate.CreISBN(bookModel);
+			bookModel.setRN(bookNumberInt);
+			bookModel.setStorageTime(SystemEntry.date);
+		}
+
+		else{
+			bookModel.setRN(bookModel1.getTN()-outNumber);
+			bookModel.setStorageTime(bookModel1.getStorageTime());
+		}
 		bookModel.setISBN(bookISBNString);
-		
 		return true;
 	}
 	
@@ -168,14 +178,17 @@ public class InputBookView {
 					}
 					//更改图书
 					else{//更新成功失败？？？
-						if(ad.updateBook(bookModel)){
+						if(outNumber>bookModel.getTN()){
+							JOptionPane.showConfirmDialog(null, "更改后的图书数量小于借出数量，更改失败？",
+									"提示信息", JOptionPane.PLAIN_MESSAGE);
+						}
+						else if (ad.updateBook(bookModel)) {
 							SearchResultView view = SearchResultView.getInstance("", "", 2);
 							view.updateData(bookModel);//更新表格
 							frame.dispose();
 							LogDao.addLogSystem("管理员成功更改图书");
-						}
-						else{
-							JOptionPane.showConfirmDialog(null, "更新信息失败？", 
+						} else {
+							JOptionPane.showConfirmDialog(null, "更新信息失败？",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
 							frame.dispose();
 						}
@@ -207,6 +220,9 @@ public class InputBookView {
 					path = fileChooser.getSelectedFile().getPath();
 					System.out.println("path: " + path);
 				}
+
+
+
 			}
 		});
 	}

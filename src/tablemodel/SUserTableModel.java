@@ -141,6 +141,4 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 		}
 		table.updateUI();
 	}
-
-
 }

@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import action.UserAction;
+import dao.BBHDao;
 import model.BBHModel;
 import tablemodel.RBookTableModel;
 import widget.InitWindow;
@@ -63,6 +64,12 @@ public class MyBBHView {
 		list = new ArrayList<>();
 		// 得到总的表
 		list = userAction.getBorrowHistory();
+		if(list==null){
+			list = new ArrayList<>();
+			BBHModel bbhModel= new BBHModel();
+			bbhModel.setBookName("无借书历史");
+			list.add(bbhModel);
+		}
 		myTableModel = new RBookTableModel(table, list);
 		myTableModel.initData();
 	}
