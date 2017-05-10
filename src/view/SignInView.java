@@ -36,7 +36,7 @@ import javax.swing.JPasswordField;
 
 public class SignInView {
 	
-	private RegisterLoginAction signInAciton=null;
+	private RegisterLoginAction signInAction = null;
 
 	private JFrame frame;
 	private JTextField ID;
@@ -78,7 +78,7 @@ public class SignInView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				signInAciton= new RegisterLoginAction();
+				signInAction = new RegisterLoginAction();
 				// TODO Auto-generated method stub
 				setUserType();
 				//使用正则表达式去除空格
@@ -88,7 +88,7 @@ public class SignInView {
 
 				int result= 0;
 				try {
-					result = signInAciton.SignIn(IDString, passwordString, userType);
+					result = signInAction.SignIn(IDString, passwordString, userType);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				} catch (ParseException e1) {
