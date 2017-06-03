@@ -62,7 +62,7 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 	public SUserTableModel get(List<UserModel> lists) {
 
 		// 表单数据用二维数组表示
-		Object[][] mObjects = new Object[8][6];
+		Object[][] mObjects = new Object[8][7];
 		UserModel um = new UserModel();
 		if (lists == null) {
 			System.out.println("传入的借书表为空");
@@ -77,12 +77,13 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 				mObjects[i][2] = "学生";
 			else if(um.getPower()==2)
 				mObjects[i][2] = "老师";
-			mObjects[i][3] = um.getBNBooks();
-			mObjects[i][4] = um.getJoinDate();
-			mObjects[i][5] = um.getBalance();
+			mObjects[i][3] = um.getSchool();
+			mObjects[i][4] = um.getBNBooks();
+			mObjects[i][5] = um.getJoinDate();
+			mObjects[i][6] = um.getBalance();
 		}
 		// 标头数据
-		String[] strings = {"姓名" ,"ID","职称", "借书数目", "注册时间", "欠费" };
+		String[] strings = {"姓名" ,"ID","职称", "学院","借书数目", "注册时间", "余额" };
 
 		SUserTableModel model = new SUserTableModel(mObjects, strings);
 

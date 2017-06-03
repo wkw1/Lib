@@ -31,9 +31,6 @@ import javax.swing.JPasswordField;
  * µÇÂ¼Ò³Ãæ
  * @author ¿íÎ°
  */
-
-
-
 public class SignInView {
 	
 	private RegisterLoginAction signInAction = null;

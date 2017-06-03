@@ -2,6 +2,7 @@ package fileOpreation;
 
 import dao.InfoDao;
 import model.InfoModel;
+import model.UserModel;
 import view.SystemEntry;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class InfoFormOp {
     //给用户发送消息提醒归还图书
     public boolean addReturnInfo(String ID,String ISBN){
         InfoModel infoModel= new InfoModel();
-        infoModel.setInformerID("管理员");
+        infoModel.setInformerID("admin");
         infoModel.setInformer("管理员");
         infoModel.setInformThing("请尽快归还ISBN为"+ISBN+"的图书");
         infoModel.setInformDate(SystemEntry.date);
@@ -43,7 +44,7 @@ public class InfoFormOp {
     //给用户发送消息提醒归还图书
     public boolean sendOne(String str,String ID){
         InfoModel infoModel= new InfoModel();
-        infoModel.setInformerID("管理员");
+        infoModel.setInformerID("admin");
         infoModel.setInformer("管理员");
         infoModel.setInformThing(str);
         infoModel.setInformDate(SystemEntry.date);
@@ -72,5 +73,49 @@ public class InfoFormOp {
             return null;
         else
             return lists;
+    }
+    
+    //用户给管理员发送消息，希望充值
+    public boolean recharge(float money,UserModel userModel){
+    	InfoModel infoModel= new InfoModel();
+        infoModel.setInformerID(userModel.getID());
+        infoModel.setInformer(userModel.getName());
+        infoModel.setInformThing("充值"+money+"元");
+        infoModel.setInformDate(SystemEntry.date);
+        infoModel.setInformederID("admin");
+        infoModel.setInformeder("管理员");
+        infoDao.iSAdd = true;
+
+        return infoLists.add(infoModel);
+    }
+    
+    //管理员得到用户发送给管理员的消息
+    public List<InfoModel> AdgetInfoList(){
+        List<InfoModel> lists= new ArrayList<>();
+        for (int i = 0; i < infoLists.size(); i++) {
+            String target;
+            target = infoLists.get(i).getInformederID();
+            if (target!=null&&target.equals("admin")) {
+                lists.add(infoLists.get(i));
+            }
+        }
+        return lists;
+    }
+
+    //删除一条消息
+    public boolean delOneInfo(InfoModel infoModel){
+        infoDao.iSModify = true;
+        return infoLists.remove(infoModel);
+    }
+    //删除所有发给用户的消息
+    public boolean delAllUserInfo(){
+       for(int i=0;i<infoLists.size();i++){
+           if(infoLists.get(i).getInformederID().equals("admin")){
+               infoLists.remove(i);
+               infoDao.iSModify = true;
+               i--;
+           }
+       }
+       return true;
     }
 }

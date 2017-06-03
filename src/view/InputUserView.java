@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.BatchImportUser;
 import dao.LogDao;
 import db.ArrayDB;
 import widget.InitWindow;
@@ -115,6 +116,14 @@ public class InputUserView {
 						if (JFileChooser.APPROVE_OPTION == result) {
 							path = fileChooser.getSelectedFile().getPath();
 							System.out.println("path: " + path);
+
+							BatchImportUser batchImportUser = new BatchImportUser();
+							if(batchImportUser.importUser(path))
+								JOptionPane.showConfirmDialog(null, "导入成功！！！",
+										"提示信息", JOptionPane.PLAIN_MESSAGE);
+							else
+								JOptionPane.showConfirmDialog(null, "导入失败？？？",
+										"提示信息", JOptionPane.PLAIN_MESSAGE);
 						}
 					}
 				});

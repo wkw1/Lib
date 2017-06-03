@@ -6,6 +6,7 @@ import db.SearchTypeFeedback;
 import fileOpreation.*;
 import model.BookModel;
 import model.BorrowBookModel;
+import model.InfoModel;
 import model.OrderBookModel;
 import model.UserModel;
 
@@ -115,10 +116,22 @@ public class AdAction {
 		return lists;
 	}
 	
+	//得到用户的消息
+	public List<InfoModel> getUserInfo(){
+		InfoFormOp infoFormOp = InfoFormOp.getInstance();
+		return infoFormOp.AdgetInfoList();
+	}
+	
 	//查看近期用户
 	public List<UserModel> recentUser(){
 		UserFormOp userFormOp = UserFormOp.getInstance();
 		return userFormOp.getRecentUser();
+	}
+	
+	//给用户充值
+	public boolean recharge(float money,String ID){
+		UserFormOp userFormOp = UserFormOp.getInstance();
+		return userFormOp.recharge(money, ID);
 	}
 	
 	//删除用户 预约记录取消预约
@@ -132,5 +145,16 @@ public class AdAction {
 	public boolean sendMessage(String message,String ID){
 		InfoFormOp infoFormOp = InfoFormOp.getInstance();
 		return infoFormOp.sendOne(message,ID);
+	}
+
+	//删除一条消息，根据消息本身
+	public boolean delOneInfo(InfoModel infoModel){
+		InfoFormOp infoFormOp = InfoFormOp.getInstance();
+		return infoFormOp.delOneInfo(infoModel);
+	}
+	//删除所有发送给管理员的消息
+	public boolean delAllUserInfo(){
+		InfoFormOp infoFormOp = InfoFormOp.getInstance();
+		return infoFormOp.delAllUserInfo();
 	}
 }

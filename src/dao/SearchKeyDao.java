@@ -25,7 +25,7 @@ public class SearchKeyDao {
 
     }
 
-    private String filePath="file//searchKeyWord.txt";;
+    private String filePath=FilePath.rootFilePath+ "\\searchKeyWord.txt";
 
     public List<KeyWord> keyWordLists= new ArrayList<>();
     public boolean iSModify=false;//标志是否修改了文件
@@ -109,7 +109,7 @@ public class SearchKeyDao {
         BufferedWriter fw = null;/////可能需要改编码格式
 
         fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
-        String BkInfo = "\r" + keyWord.keyWord + "|" + keyWord.number ;
+        String BkInfo =  keyWord.keyWord + "|" + keyWord.number+"\r\n" ;
         fw.write(BkInfo);
         fw.close();
     }
@@ -119,10 +119,10 @@ public class SearchKeyDao {
         BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
         if(keyWordLists.size()==0)
             return;
-        fw.write(keyWordLists.get(0).keyWord+"|"+keyWordLists.get(0).number);
+        fw.write(keyWordLists.get(0).keyWord+"|"+keyWordLists.get(0).number+"\r\n");
         for(int i=1;i<keyWordLists.size();i++)
         {
-            String BkInfo="\r\n"+keyWordLists.get(i).keyWord+"|"+keyWordLists.get(i).number;
+            String BkInfo=keyWordLists.get(i).keyWord+"|"+keyWordLists.get(i).number+"\r\n";
             fw.write(BkInfo);
         }
         fw.close();

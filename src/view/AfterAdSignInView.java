@@ -34,6 +34,7 @@ public class AfterAdSignInView {
 	private JButton seeBorrowTable;
 	private JButton seeRecentUser;
 	private JButton inputUser ;
+	private JButton seeUserInfo;
 	private JButton searchUser;
 	private JButton exit;//退出
 
@@ -115,6 +116,16 @@ public class AfterAdSignInView {
 
 			}
 		});
+		//查看最近用户消息
+		seeUserInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				UserInfoView userInfoView = new UserInfoView();
+				userInfoView.getFrame().setVisible(true);
+				
+			}
+		});
 
 		exit.addActionListener(new ActionListener() {
 			
@@ -188,13 +199,13 @@ public class AfterAdSignInView {
 		inputUser = new JButton("\u5F55\u5165\u7528\u6237");
 		inputUser.setBackground(new Color(255, 0, 204));
 		inputUser.setFont(new Font("华文行楷", Font.PLAIN, 25));
-		inputUser.setBounds(645, 246, 171, 78);
+		inputUser.setBounds(653, 200, 171, 78);
 		panel.add(inputUser);
 		
 		seeRecentUser = new JButton(" \u67E5\u770B\u8FD1\u671F\u7528\u6237");
 		seeRecentUser.setBackground(new Color(204, 102, 153));
 		seeRecentUser.setFont(new Font("华文行楷", Font.PLAIN, 25));
-		seeRecentUser.setBounds(871, 244, 200, 78);
+		seeRecentUser.setBounds(872, 200, 200, 78);
 		panel.add(seeRecentUser);
 		
 		
@@ -212,21 +223,21 @@ public class AfterAdSignInView {
 		JLabel label_6 = new JLabel("\u641C\u7D22\u7528\u6237");
 		label_6.setForeground(new Color(0, 0, 0));
 		label_6.setFont(new Font("华文楷体", Font.PLAIN, 25));
-		label_6.setBounds(776, 429, 136, 35);
+		label_6.setBounds(776, 452, 136, 35);
 		panel.add(label_6);
 		
 		JLabel lblNewLabel_1 = new JLabel("\u641C\u7D22\u7C7B\u578B");
 		lblNewLabel_1.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(711, 500, 98, 35);
+		lblNewLabel_1.setBounds(711, 516, 98, 35);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("\u5173\u952E\u5B57");
 		lblNewLabel_2.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(711, 565, 91, 25);
+		lblNewLabel_2.setBounds(711, 595, 91, 25);
 		panel.add(lblNewLabel_2);
 		
 		KeyWordForUser = new JTextField();
-		KeyWordForUser.setBounds(823, 562, 112, 35);
+		KeyWordForUser.setBounds(816, 592, 112, 35);
 		panel.add(KeyWordForUser);
 		KeyWordForUser.setColumns(10);
 		
@@ -251,6 +262,12 @@ public class AfterAdSignInView {
 		exit.setFont(new Font("华文楷体", Font.PLAIN, 15));
 		exit.setBounds(1077, 0, 105, 35);
 		panel.add(exit);
+		
+	    seeUserInfo = new JButton("\u67E5\u770B\u7528\u6237\u6D88\u606F");
+		seeUserInfo.setFont(new Font("华文行楷", Font.PLAIN, 25));
+		seeUserInfo.setBackground(new Color(176, 196, 222));
+		seeUserInfo.setBounds(762, 326, 215, 64);
+		panel.add(seeUserInfo);
 
 	}
 

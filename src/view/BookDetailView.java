@@ -135,8 +135,6 @@ public class BookDetailView {
 		close.setBackground(new Color(255, 0, 0));
 		close.setBounds(1103, 0, 79, 27);
 		panel.add(close);
-		
-		
 	}
 
 	public JFrame getFrame() {

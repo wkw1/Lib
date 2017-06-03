@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by 宽伟 on 2017/5/5.
- * 密码编码函数，暂时未使用
+ * 密码编码函数
  */
 public class Encryp {
     public static String Encrypt(String Pres) {
@@ -14,14 +14,12 @@ public class Encryp {
         try {
             md5=MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
         MessageDigest sha=null;
         try {
             sha=MessageDigest.getInstance("SHA");
         } catch (NoSuchAlgorithmException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
         byte[] bta= new byte[0];
@@ -41,5 +39,4 @@ public class Encryp {
         }
         return hexValue.toString();
     }
-
 }

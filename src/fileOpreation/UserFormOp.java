@@ -61,15 +61,29 @@ public class UserFormOp {
         }
         return lists;
     }
+    
+    //管理员给用户充值
+    public boolean recharge(float money,String ID){
+    	for(int i=0;i<userLists.size();i++){
+            if(ID.equals(userLists.get(i).getID())){
+                userLists.get(i).setBalance(userLists.get(i).getBalance()+money);
+                userDao.iSModify = true;
+                return true;
+            }
+        }
+        return false;
+    }
 
     //用户还书，更改用户余额
     public boolean reduceBalance(float money,String ID){
         for(int i=0;i<userLists.size();i++){
             if(ID.equals(userLists.get(i).getID())){
                 userLists.get(i).setBalance(userLists.get(i).getBalance()-money);
+                userDao.iSModify = true;
                 return true;
             }
         }
+        
         return false;
     }
 

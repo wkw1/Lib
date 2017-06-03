@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -55,6 +56,7 @@ public class AfterUserSignInView {
 	private UserAction userAction;
 
 	private boolean first=true;
+	private JButton recharge;
 
 	public AfterUserSignInView() {
 		initialize();
@@ -164,7 +166,27 @@ public class AfterUserSignInView {
 
 				MyBBHView myBBHView = MyBBHView.getInstance();
 				myBBHView.getFrame().setVisible(true);
-
+			}
+		});
+		
+		//联系管理员充值
+		recharge.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String str= JOptionPane.showInputDialog(null, "输入充值金额","消息框", 
+						JOptionPane.PLAIN_MESSAGE);
+				if(str!=null){
+					float money = Float.valueOf(str);
+					if(userAction.recharge(money))
+						JOptionPane.showConfirmDialog(null, "给管理员发送消息成功",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
+					else
+						JOptionPane.showConfirmDialog(null,"给管理员发送消息失败！",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
+				}
+				else{
+					
+				}
 			}
 		});
 
@@ -318,7 +340,7 @@ public class AfterUserSignInView {
 		systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 282, 268, 473);
+		scrollPane_2.setBounds(0, 282, 268, 416);
 		panel.add(scrollPane_2);
 
 		JLabel label_3 = new JLabel("\u6211\u7684\u8D44\u6599");
@@ -353,6 +375,12 @@ public class AfterUserSignInView {
 		label_4.setFont(new Font("华文楷体", Font.PLAIN, 20));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_3.setColumnHeaderView(label_4);
+		
+		recharge = new JButton("\u8054\u7CFB\u7BA1\u7406\u5458\u5145\u503C");
+		recharge.setBackground(new Color(0, 128, 128));
+		recharge.setFont(new Font("华文楷体", Font.PLAIN, 20));
+		recharge.setBounds(0, 711, 268, 44);
+		panel.add(recharge);
 
 	}
 

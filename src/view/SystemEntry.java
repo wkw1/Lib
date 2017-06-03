@@ -142,8 +142,6 @@ public class SystemEntry {
 	 */
 	public void timeAdvance(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		//BorrowBookFormOp borrowBookFormOp = BorrowBookFormOp.getInstance();
-		//balanceList1 = borrowBookFormOp.getBalanceList();
 		thread= new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -152,7 +150,6 @@ public class SystemEntry {
 					days++;
 					date = getPreDoneScore(date);
 					time.setText(sdf.format(date));
-					// TODO 更改借书表数据
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
@@ -175,6 +172,7 @@ public class SystemEntry {
 				LogDao.addLogSystem("进入启动，计时停止");
 				frame.setVisible(false);
 				thread.stop();
+				SystemInfoDao.SysTemDate=date;
 				updateDate();
 			}
 		});
@@ -187,6 +185,7 @@ public class SystemEntry {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				thread.stop();
+				SystemInfoDao.SysTemDate=date;
 				updateDate();
 				try {
 					restoreData();
@@ -198,7 +197,8 @@ public class SystemEntry {
 	}
 	//将数据写入文件
 	public void restoreData() throws IOException {
-		// TODO 将信息重新写入文件
+		//系统信息
+		SystemInfoDao.writeFile();
 		//图书表
 		BookDao bookDao = BookDao.getInstance();//图书表数据
 		if(bookDao.iSModify)

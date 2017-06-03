@@ -13,7 +13,7 @@ public class SystemInfoDao {
     public static String SysTemIn;
     public static String developer;
     public static String version;
-    private static String filePath="file//systemInfo.txt";
+    private static String filePath=FilePath.rootFilePath+ "\\systemInfo.txt";
     public static boolean readUserForm(){
 
         InputStreamReader read = null;
@@ -59,5 +59,12 @@ public class SystemInfoDao {
         }
 
         return true;
+    }
+
+    public static void writeFile() throws IOException {
+        File f = new File(filePath);
+        BufferedWriter fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, false)));
+        fw.write(SysTemDate+"|"+SysTemIn+"|"+developer+"|"+version);
+        fw.close();
     }
 }

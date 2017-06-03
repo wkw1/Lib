@@ -65,7 +65,7 @@ public class BorrowBookFormOp {
         return bbLists.add(borrowBookModel);
     }
 
-    //预约借书，借书表增加一条记录
+    //预约借书到，借书表增加一条记录
     public boolean borrowForOrder(OrderBookModel model) {
         BorrowBookModel borrowBookModel = new BorrowBookModel();
         borrowBookModel.setAIBook(0);

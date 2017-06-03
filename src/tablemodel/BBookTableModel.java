@@ -53,7 +53,7 @@ public class BBookTableModel extends Table<BBookTableModel, BorrowBookModel> {
 		if (lastLine - firstLine != 8 || lastLine == rowListAll) {
 			lastLine--;
 		}
-		list.remove(firstLine + row);
+		//list.remove(firstLine + row);
 		rowListAll--;
 		updateTable();
 	}

@@ -9,7 +9,7 @@ import java.io.*;
  * 日志文件
  */
 public class LogDao {
-    public static File f=new File("file//Log.txt");
+    public static File f=new File(FilePath.rootFilePath+ "\\Log.txt");
 
     public static void addLogSystem(String log){
         BufferedWriter fw= null;/////可能需要改编码格式
@@ -27,6 +27,5 @@ public class LogDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

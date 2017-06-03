@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class BBHDao {
 
-    private String filePath="file//bbhForm.txt";
+    private String filePath=FilePath.rootFilePath+ "\\bbhForm.txt";
 
     public List<BBHModel> bbhLists = new ArrayList<>();
     public  boolean iSModify=false;//标志是否修改了文件,暂时未使用
@@ -117,7 +117,6 @@ public class BBHDao {
                 bbhLists.add(bookInfo);
             }
         } catch (NumberFormatException | IOException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
         number = bbhLists.size();
@@ -137,9 +136,9 @@ public class BBHDao {
         BufferedWriter fw = null;/////可能需要改编码格式
 
         fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
-        String BkInfo = "\r" + bbhModel.getName() + "|" + bbhModel.getID() + "|" +
+        String BkInfo =  bbhModel.getName() + "|" + bbhModel.getID() + "|" +
                 bbhModel.getBookName() + "|" + bbhModel.getBookISBN() + "|" + bbhModel.getBookAuthor() +
-                "|" + bbhModel.getBorrowDate() + "|" + bbhModel.getReturnDate();
+                "|" + bbhModel.getBorrowDate() + "|" + bbhModel.getReturnDate()+"\r";
         fw.write(BkInfo);
         fw.close();
     }

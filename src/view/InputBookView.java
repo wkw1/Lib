@@ -8,8 +8,10 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
 import action.AdAction;
+import dao.BatchImportBook;
 import dao.LogDao;
 import db.ArrayDB;
+import fileOpreation.BookFormOp;
 import model.BookModel;
 import widget.ISBNCreate;
 import widget.InitWindow;
@@ -120,16 +122,18 @@ public class InputBookView {
 		bookModel.setTN(bookNumberInt);
 
 		if(what==1){//录入图书时产生新的ISBN，更新时则不变
-			bookISBNString =ISBNCreate.CreISBN(bookModel);
 			bookModel.setRN(bookNumberInt);
 			bookModel.setStorageTime(SystemEntry.date);
-		}
 
+			bookISBNString =ISBNCreate.CreISBN(bookModel);//生成ISBN
+		}
 		else{
-			bookModel.setRN(bookModel1.getTN()-outNumber);
+			bookModel.setRN(bookNumberInt-outNumber);
 			bookModel.setStorageTime(bookModel1.getStorageTime());
 		}
 		bookModel.setISBN(bookISBNString);
+		System.out.println("bookNumberInt:"+bookNumberInt);
+		System.out.println("bookModel.getTN():"+bookModel.getTN());
 		return true;
 	}
 	
@@ -137,10 +141,10 @@ public class InputBookView {
 		
 		//关闭此窗口
 		close.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				inputBookView = null;
 			}
 		});
 		
@@ -155,7 +159,8 @@ public class InputBookView {
 					if(what==1){
 						// 将图书信息存入文件
 						if(ad.inputBook(bookModel)){
-							int i = JOptionPane.showConfirmDialog(null, "录入成功，继续录入？？", " 提示信息!",
+							int i = JOptionPane.showConfirmDialog(null,
+									"录入成功，继续录入？？", " 提示信息!",
 									JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 							// 不继续录入
 							if (i == 1 || i == -1) {
@@ -167,6 +172,7 @@ public class InputBookView {
 								introduction.setText("");
 								bookNumber.setText("");
 							}
+							inputBookView = null;
 							LogDao.addLogSystem("管理员成功录入一本图书");
 						}
 						else{
@@ -174,7 +180,6 @@ public class InputBookView {
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
 							LogDao.addLogSystem("管理员录入图书失败");
 						}
-						
 					}
 					//更改图书
 					else{//更新成功失败？？？
@@ -185,11 +190,13 @@ public class InputBookView {
 						else if (ad.updateBook(bookModel)) {
 							SearchResultView view = SearchResultView.getInstance("", "", 2);
 							view.updateData(bookModel);//更新表格
+							inputBookView = null;
 							frame.dispose();
 							LogDao.addLogSystem("管理员成功更改图书");
 						} else {
 							JOptionPane.showConfirmDialog(null, "更新信息失败？",
 									"提示信息", JOptionPane.PLAIN_MESSAGE);
+							inputBookView = null;
 							frame.dispose();
 						}
 					}
@@ -219,10 +226,15 @@ public class InputBookView {
 				if (JFileChooser.APPROVE_OPTION == result) {
 					path = fileChooser.getSelectedFile().getPath();
 					System.out.println("path: " + path);
+
+					BatchImportBook batchImportBook = new BatchImportBook();
+					if(batchImportBook.importBook(path))
+						JOptionPane.showConfirmDialog(null, "导入成功！！！",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
+					else
+						JOptionPane.showConfirmDialog(null, "导入失败？？？",
+								"提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
-
-
-
 			}
 		});
 	}

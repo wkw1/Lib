@@ -42,6 +42,7 @@ public class BookFormOp {
         return null;
     }
 
+    //借书，修改此本图书的信息
     public boolean borrowBook(String ISBN){
         for(int i=0;i<bookLists.size();i++){
             if(ISBN.equals(bookLists.get(i).getISBN())){
@@ -77,11 +78,26 @@ public class BookFormOp {
         return false;
     }
 
-    //录入图书
+    //录入图书,此书已存在，直接增加数量
     public boolean inputOne(BookModel bookModel){
         System.out.println(bookModel.toString());
         bookDao.iSAdd = true;
+        BookModel b = findISBN(bookModel.getISBN());
+        if(b!=null){//已存在此图书，单纯的数量增加
+            b.setTN(b.getTN()+bookModel.getTN());
+            b.setRN(b.getRN()+bookModel.getTN());
+        }
         return bookLists.add(bookModel);
+    }
+
+    //查询ISBN是否存在
+    public BookModel findISBN(String ISBN){
+        for(int i=0;i<bookLists.size();i++){
+            if(bookLists.get(i).getISBN().equals(ISBN)){
+                return bookLists.get(i);
+            }
+        }
+        return null;
     }
 
     //更新一本图书

@@ -30,7 +30,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 /**
  * 搜搜结果页面
- * 包括管理员和用户的搜搜结果
+ * 包括管理员和用户的搜索结果
  * 根据传入的值的不同判断点击操作和控件名字
  * @author 宽伟
  *
@@ -294,7 +294,7 @@ public class SearchResultView{
 						JOptionPane.showConfirmDialog(null, "请选择要更改的图书",
 								"提示信息", JOptionPane.PLAIN_MESSAGE);
 					} else {
-						InputBookView inputBookView = new InputBookView(myTableModel.getChoose(selectedRowIndex), 2);
+						InputBookView inputBookView =InputBookView.getInstance(myTableModel.getChoose(selectedRowIndex), 2);
 						inputBookView.getFrame().setVisible(true);
 						selectedRowIndex = -1;
 					}

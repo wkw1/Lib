@@ -69,7 +69,7 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 		if(lastLine-firstLine!=8||lastLine==rowListAll){
 			lastLine--;
 		}
-		list.remove(index+firstLine);
+		//list.remove(index+firstLine);
 		rowListAll--;
 		updateTable();
 		return true;
@@ -80,7 +80,7 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 		list.get(chooseLine).setAuthor(bm.getAuthor());
 		list.get(chooseLine).setName(bm.getName());
 		list.get(chooseLine).setBookType(bm.getBookType());
-		//更改总数量之后要更爱可借数量
+		//更改总数量之后要更改可借数量
 		list.get(chooseLine).setRN(bm.getTN()-list.get(chooseLine).getTN()+list.get(chooseLine).getRN());
 		list.get(chooseLine).setPowerNeed(bm.getPowerNeed());
 

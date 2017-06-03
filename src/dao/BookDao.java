@@ -16,7 +16,7 @@ import java.util.List;
  *
  */
 public class BookDao {
-    private  String filePath="file//bookform.txt";
+    private  String filePath=FilePath.rootFilePath+ "\\bookform.txt";
 
     public  List<BookModel> bookLists = new ArrayList<>();
     public  boolean iSModify=false;//标志是否修改了文件
@@ -118,10 +118,10 @@ public class BookDao {
         BufferedWriter fw = null;/////可能需要改编码格式
 
         fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
-        String BkInfo = "\r" + BkAdded.getISBN() + "|" + BkAdded.getName() + "|" +
+        String BkInfo = BkAdded.getISBN() + "|" + BkAdded.getName() + "|" +
                 BkAdded.getIntroduction() + "|" + BkAdded.getBookType() + "|" + BkAdded.getAuthor() +
                 "|" + BkAdded.getPress() + "|" + BkAdded.getTN() + "|" + BkAdded.getRN() +
-                "|" + BkAdded.getPowerNeed() + "|" + BkAdded.getStorageTime();
+                "|" + BkAdded.getPowerNeed() + "|" + BkAdded.getStorageTime()+"\r\n";
         fw.write(BkInfo);
         fw.close();
     }
@@ -134,13 +134,13 @@ public class BookDao {
         fw.write(bookLists.get(0).getISBN()+"|"+bookLists.get(0).getName()+"|"+
                 bookLists.get(0).getIntroduction()+"|"+bookLists.get(0).getBookType()+"|"+bookLists.get(0).getAuthor()+
                 "|"+bookLists.get(0).getPress()+"|"+bookLists.get(0).getTN()+"|"+bookLists.get(0).getRN()+
-                "|"+bookLists.get(0).getPowerNeed()+"|"+bookLists.get(0).getStorageTime());
+                "|"+bookLists.get(0).getPowerNeed()+"|"+bookLists.get(0).getStorageTime()+"\r\n");
         for(int i=1;i<bookLists.size();i++)
         {
-            String BkInfo="\r\n"+bookLists.get(i).getISBN()+"|"+bookLists.get(i).getName()+"|"+
+            String BkInfo=bookLists.get(i).getISBN()+"|"+bookLists.get(i).getName()+"|"+
                     bookLists.get(i).getIntroduction()+"|"+bookLists.get(i).getBookType()+"|"+bookLists.get(i).getAuthor()+
                     "|"+bookLists.get(i).getPress()+"|"+bookLists.get(i).getTN()+"|"+bookLists.get(i).getRN()+
-                    "|"+bookLists.get(i).getPowerNeed()+"|"+bookLists.get(i).getStorageTime();
+                    "|"+bookLists.get(i).getPowerNeed()+"|"+bookLists.get(i).getStorageTime()+"\r\n";
             fw.write(BkInfo);
         }
         fw.close();

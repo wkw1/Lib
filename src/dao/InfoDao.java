@@ -31,7 +31,7 @@ public class InfoDao {
     }
 
     public boolean readInfoForm() throws IOException, ParseException {
-        filePath="file//infoForm.txt";
+        filePath=FilePath.rootFilePath+ "\\infoForm.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
@@ -99,9 +99,9 @@ public class InfoDao {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String Info="\r"+infoModel.getInformer()+"|"+infoModel.getInformerID()+"|"+
+        String Info=infoModel.getInformer()+"|"+infoModel.getInformerID()+"|"+
                 infoModel.getInformeder()+"|"+infoModel.getInformederID()+"|"+infoModel.getInformThing()+
-                "|"+infoModel.getInformDate();
+                "|"+infoModel.getInformDate()+"\r\n";
         try {
             fw.write(Info);
             fw.close();
@@ -117,12 +117,12 @@ public class InfoDao {
             return;
         fw.write(infoLists.get(0).getInformer()+"|"+infoLists.get(0).getInformerID()+"|"+
                 infoLists.get(0).getInformeder()+"|"+infoLists.get(0).getInformederID()+"|"+infoLists.get(0).getInformThing()+
-                "|"+infoLists.get(0).getInformDate());
+                "|"+infoLists.get(0).getInformDate()+"\r\n");
         for(int i=1;i<infoLists.size();i++)
         {
-            String BkInfo="\r\n"+infoLists.get(i).getInformer()+"|"+infoLists.get(i).getInformerID()+"|"+
+            String BkInfo=infoLists.get(i).getInformer()+"|"+infoLists.get(i).getInformerID()+"|"+
                     infoLists.get(i).getInformeder()+"|"+infoLists.get(i).getInformederID()+"|"+infoLists.get(i).getInformThing()+
-                    "|"+infoLists.get(i).getInformDate();
+                    "|"+infoLists.get(i).getInformDate()+"\r\n";
             fw.write(BkInfo);
         }
         fw.close();

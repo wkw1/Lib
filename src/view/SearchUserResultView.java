@@ -59,6 +59,7 @@ public class SearchUserResultView {
 		initData(keyWord,searchType);
 		action();
 	}
+	
 	public SearchUserResultView() {
 		adAction =  AdAction.getInstance();
 		initialize();
@@ -221,7 +222,7 @@ public class SearchUserResultView {
 		frame.getContentPane().add(panel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(92, 61, 900, 600);
+		scrollPane.setBounds(54, 61, 974, 600);
 		panel.add(scrollPane);
 		
 		table = new JTable();

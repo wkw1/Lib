@@ -168,4 +168,10 @@ public class UserAction {
 			System.out.println("未找到图书");
 		return lists;
 	}
+	
+	//给管理员发送消息充值
+	public boolean recharge(float money){
+		InfoFormOp infoFormOp = InfoFormOp.getInstance();
+		return infoFormOp.recharge(money, user);
+	}
 }

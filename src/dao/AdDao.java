@@ -59,7 +59,6 @@ public class AdDao {
                 }
                 else{
                     //成功登录 TODO 标志管理员
-
                     return SignInFeedback.SUCCESSFUL;
                 }
             }
@@ -67,11 +66,8 @@ public class AdDao {
         return SignInFeedback.NO_INFO;//不存在此管理员
     }
 
-
-
-
     public boolean readUserForm() throws IOException, ParseException {
-        String filePath="file//adForm.txt";
+        String filePath= FilePath.rootFilePath+ "\\adForm.txt";
         InputStreamReader read = new InputStreamReader(new FileInputStream(filePath),"GBK");
         BufferedReader reader = new BufferedReader(read);
         String eachLine;
@@ -104,6 +100,4 @@ public class AdDao {
         read.close();
         return true;
     }
-
-
 }

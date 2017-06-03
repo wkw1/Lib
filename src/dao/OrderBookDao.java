@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class OrderBookDao {
 
-    private  String filePath="file//orderForm.txt";
+    private  String filePath=FilePath.rootFilePath+ "\\orderForm.txt";
 
     public List<OrderBookModel> obLists = new ArrayList<>();
     public  boolean iSModify=false;//标志是否修改了文件
@@ -101,9 +101,9 @@ public class OrderBookDao {
         BufferedWriter fw = null;/////可能需要改编码格式
 
         fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
-        String BkInfo = "\r" + orderBookModel.getName() + "|" + orderBookModel.getID() + "|" +
+        String BkInfo =  orderBookModel.getName() + "|" + orderBookModel.getID() + "|" +
                 orderBookModel.getBookName() + "|" + orderBookModel.getBookISBN() + "|" + orderBookModel.getBookAuthor()
-                + "|" + orderBookModel.getOrderDate();
+                + "|" + orderBookModel.getOrderDate()+"\r\n";
         fw.write(BkInfo);
         fw.close();
     }
@@ -115,12 +115,12 @@ public class OrderBookDao {
             return;
         fw.write(obLists.get(0).getName()+"|"+obLists.get(0).getID()+"|"+
                 obLists.get(0).getBookName()+"|"+obLists.get(0).getBookISBN()+"|"+obLists.get(0).getBookAuthor()
-                +"|"+obLists.get(0).getOrderDate());
+                +"|"+obLists.get(0).getOrderDate()+"\r\n");
         for(int i=1;i<obLists.size();i++)
         {
-            String BkInfo="\r\n"+obLists.get(i).getName()+"|"+obLists.get(i).getID()+"|"+
+            String BkInfo=obLists.get(i).getName()+"|"+obLists.get(i).getID()+"|"+
                     obLists.get(i).getBookName()+"|"+obLists.get(i).getBookISBN()+"|"+obLists.get(i).getBookAuthor()
-                    +"|"+obLists.get(i).getOrderDate();
+                    +"|"+obLists.get(i).getOrderDate()+"\r\n";
             fw.write(BkInfo);
         }
         fw.close();

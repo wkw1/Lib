@@ -59,7 +59,6 @@ public class MyBBHView {
 		return myBBHView;
 	}
 
-	
 	public void geData() {
 		list = new ArrayList<>();
 		// 得到总的表

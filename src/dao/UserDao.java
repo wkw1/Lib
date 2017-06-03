@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class UserDao {
 
-    private String filePath="file//userform.txt";
+    private String filePath=FilePath.rootFilePath+ "\\userform.txt";
 
     //存储用户信息，可实时更新
     public List<UserModel> userLists = new ArrayList<>();
@@ -106,9 +106,10 @@ public class UserDao {
     public void addOneUser(UserModel UAdded) throws IOException{
         File f=new File(filePath);
         BufferedWriter fw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true)));/////可能需要改编码格式
-        String UInfo="\r\n"+UAdded.getName()+"|"+UAdded.getID()+"|"+
+        String UInfo=UAdded.getName()+"|"+UAdded.getID()+"|"+
                 UAdded.getSchool()+"|"+UAdded.getPower()+"|"+UAdded.getANBooks()+
-                "|"+UAdded.getBNBooks()+"|"+UAdded.getBalance()+"|"+UAdded.getJoinDate();
+                "|"+UAdded.getBNBooks()+"|"+UAdded.getBalance()+"|"+UAdded.getJoinDate()
+                +"|"+(userLists.get(0).getPassword()==null?"":userLists.get(0).getPassword())+"\r\n";
         fw.write(UInfo);
         fw.close();
     }
@@ -122,13 +123,13 @@ public class UserDao {
         fw.write(userLists.get(0).getName()+"|"+userLists.get(0).getID()+"|"+
                 userLists.get(0).getSchool()+"|"+userLists.get(0).getPower()+"|"+userLists.get(0).getANBooks()+
                 "|"+userLists.get(0).getBNBooks()+"|"+userLists.get(0).getBalance()+"|"+userLists.get(0).getJoinDate()
-                +"|"+(userLists.get(0).getPassword()==null?"":userLists.get(0).getPassword()));
+                +"|"+(userLists.get(0).getPassword()==null?"":userLists.get(0).getPassword())+"\r\n");
         for(int i=1;i<userLists.size();i++)
         {
-            String UInfo="\r\n"+userLists.get(i).getName()+"|"+userLists.get(i).getID()+"|"+
+            String UInfo=userLists.get(i).getName()+"|"+userLists.get(i).getID()+"|"+
                     userLists.get(i).getSchool()+"|"+userLists.get(i).getPower()+"|"+userLists.get(i).getANBooks()+
                     "|"+userLists.get(i).getBNBooks()+"|"+userLists.get(i).getBalance()+"|"+userLists.get(i).getJoinDate()
-                    +"|";
+                    +"|"+(userLists.get(0).getPassword()==null?"":userLists.get(0).getPassword())+"\r\n";
             if(userLists.get(i).getPassword()!=null)
                 UInfo+=userLists.get(i).getPassword();
             fw.write(UInfo);
