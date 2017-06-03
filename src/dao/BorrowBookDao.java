@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class BorrowBookDao {
 
-    private  String filePath="file//borrowbookform.txt";
+    private  String filePath=FilePath.rootFilePath+ "\\borrowbookform.txt";
 
     public List<BorrowBookModel> bblists = new ArrayList<>();
     public  boolean iSModify=false;//标志是否修改了文件
@@ -89,7 +89,6 @@ public class BorrowBookDao {
                 bblists.add(bookInfo);
             }
         } catch (NumberFormatException | IOException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
         bbNumber = bblists.size();
@@ -109,9 +108,9 @@ public class BorrowBookDao {
         BufferedWriter fw = null;/////可能需要改编码格式
 
         fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
-        String BkInfo = "\r" + bbModel.getName() + "|" + bbModel.getID() + "|" +
+        String BkInfo = bbModel.getName() + "|" + bbModel.getID() + "|" +
                 bbModel.getBookName() + "|" + bbModel.getBookISBN() + "|" + bbModel.getBookAuthor() +
-                "|" + bbModel.getBorrowDate() + "|" + bbModel.getRTBook() + "|" + bbModel.getAIBook() ;
+                "|" + bbModel.getBorrowDate() + "|" + bbModel.getRTBook() + "|" + bbModel.getAIBook() +"\r\n" ;
         fw.write(BkInfo);
         fw.close();
     }
