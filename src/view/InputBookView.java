@@ -11,7 +11,6 @@ import action.AdAction;
 import dao.BatchImportBook;
 import dao.LogDao;
 import db.ArrayDB;
-import fileOpreation.BookFormOp;
 import model.BookModel;
 import widget.ISBNCreate;
 import widget.InitWindow;
@@ -314,8 +313,8 @@ public class InputBookView {
 		
 		input = new JButton("\u5F55\u5165");
 		input.setBackground(new Color(0, 128, 128));
-		input.setFont(new Font("宋体", Font.PLAIN, 25));
-		input.setBounds(480, 665, 113, 44);
+		input.setFont(new Font("华文楷体", Font.PLAIN, 25));
+		input.setBounds(476, 663, 113, 44);
 		panel.add(input);
 		
 		JLabel label_5 = new JLabel("\u4E66\u7684\u79CD\u7C7B");
@@ -339,7 +338,7 @@ public class InputBookView {
 		inputFromFile = new JButton("\u6279\u91CF\u5BFC\u5165");
 		inputFromFile.setBackground(new Color(0, 139, 139));
 		inputFromFile.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		inputFromFile.setBounds(773, 665, 113, 44);
+		inputFromFile.setBounds(915, 712, 132, 44);
 		panel.add(inputFromFile);
 		
 		close = new JButton("\u5173\u95ED");

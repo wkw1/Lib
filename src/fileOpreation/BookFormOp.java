@@ -122,7 +122,7 @@ public class BookFormOp {
             switch(keyType){
                 case SearchTypeFeedback.BOOK_ISBN:
                     target=bookLists.get(i).getISBN();
-                    if(target.equals(keyWords))
+                    if(target!=null&&target.equals(keyWords))
                     {
                         searchedList.add(bookLists.get(i));
                         whetherExist=1;
@@ -130,7 +130,7 @@ public class BookFormOp {
                     break;
                 case SearchTypeFeedback.BOOK_NAME:
                     target=bookLists.get(i).getName();
-                    if(target.matches("(.*)"+keyWords+"(.*)"))
+                    if(target!=null&&target.matches("(.*)"+keyWords+"(.*)"))
                     {
                         searchedList.add(bookLists.get(i));
                         whetherExist=1;
@@ -138,7 +138,7 @@ public class BookFormOp {
                     break;
                 case SearchTypeFeedback.BOOK_TYPE:
                     target=bookLists.get(i).getBookType();
-                    if(target.equals(keyWords))
+                    if(target!=null&&target.equals(keyWords))
                     {
                         searchedList.add(bookLists.get(i));
                         whetherExist=1;
@@ -146,7 +146,7 @@ public class BookFormOp {
                     break;
                 case SearchTypeFeedback.BOOK_AUTHOR:
                     target=bookLists.get(i).getAuthor();
-                    if(target.equals(keyWords))
+                    if(target!=null&&target.equals(keyWords))
                     {
                         searchedList.add(bookLists.get(i));
                         whetherExist=1;
@@ -154,7 +154,7 @@ public class BookFormOp {
                     break;
                 case SearchTypeFeedback.BOOK_PRESS:
                     target=bookLists.get(i).getPress();
-                    if(target.matches("(.*)"+keyWords+"(.*)"))
+                    if(target!=null&&target.matches("(.*)"+keyWords+"(.*)"))
                     {
                         searchedList.add(bookLists.get(i));
                         whetherExist=1;

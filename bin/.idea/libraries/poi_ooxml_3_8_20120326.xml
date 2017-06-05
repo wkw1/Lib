@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="poi-ooxml-3.8-20120326">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../jarforjava/读取xls、xlsx文件所需jar包/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jarforjava/读取xls、xlsx文件所需jar包/poi-3.8-20120326.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jarforjava/读取xls、xlsx文件所需jar包/poi-ooxml-3.8-20120326.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jarforjava/读取xls、xlsx文件所需jar包/poi-ooxml-schemas-3.8-20120326.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jarforjava/读取xls、xlsx文件所需jar包/xmlbeans-2.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

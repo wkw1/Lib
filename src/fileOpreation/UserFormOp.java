@@ -33,6 +33,12 @@ public class UserFormOp {
 
     //管理员增加用户
     public boolean addOne(UserModel userModel){
+        for(int i=0;i<userLists.size();i++){
+            if(userModel.getID().equals(userLists.get(i).getID())){
+                return false;
+            }
+        }
+        userModel.setPassword("");//调试
         userDao.iSAdd = true;
         return userLists.add(userModel);
     }
@@ -139,6 +145,18 @@ public class UserFormOp {
             }
         }
         return SignInFeedback.NO_INFO;//不是本校成员
+    }
+
+    //更改密码
+    public boolean alterPassword(String ID,String newPassword){
+        for(int i=0;i<userLists.size();i++){
+            if(userLists.get(i).getID().equals(ID)){
+                userLists.get(i).setPassword(newPassword);
+                userDao.iSModify=true;
+                return true;
+            }
+        }
+        return false;
     }
 
     //登录验证 用户

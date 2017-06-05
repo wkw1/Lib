@@ -7,18 +7,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 
 import action.UserAction;
 import dao.BBHDao;
 import model.BBHModel;
 import tablemodel.RBookTableModel;
 import widget.InitWindow;
-import javax.swing.JButton;
+
 /**
  * 
  * 借阅历史页面
@@ -87,7 +83,9 @@ public class MyBBHView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				myTableModel.formerPage();
+				if(!myTableModel.formerPage())
+				    JOptionPane.showConfirmDialog(null, "已经是第一页了！",
+						"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		
@@ -95,7 +93,9 @@ public class MyBBHView {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				myTableModel.nextPage();
+				if(!myTableModel.nextPage())
+					JOptionPane.showConfirmDialog(null, "已经是最后一页了！",
+							"提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 	}

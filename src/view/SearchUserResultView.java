@@ -127,7 +127,7 @@ public class SearchUserResultView {
 							JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(i==0){//删除
 						 String ID = (String)table.getValueAt(selectedRowIndex, 1);
-						 if((int)table.getValueAt(selectedRowIndex,3)>0){//借书数目不为零不能删除
+						 if((int)table.getValueAt(selectedRowIndex,4)>0){//借书数目不为零不能删除
 							 JOptionPane.showConfirmDialog(null, "此用户借有书籍不能删除！！", "提示信息",
 									 JOptionPane.PLAIN_MESSAGE);
 						 }

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="Lib:jar">
+    <output-path>$PROJECT_DIR$</output-path>
+    <root id="root">
+      <element id="archive" name="Lib.jar">
+        <element id="module-output" name="Lib" />
+        <element id="dir-copy" path="$PROJECT_DIR$" />
+      </element>
+    </root>
+  </artifact>
+</component>

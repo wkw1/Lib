@@ -42,6 +42,7 @@ public class SearchKeyDao {
         return searchKeyDao;
     }
 
+    //Ôö¼ÓËÑË÷¹Ø¼ü×Ö
     public boolean addOne(String keyWord){
         int i;
         iSModify = true;

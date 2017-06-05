@@ -122,12 +122,12 @@ public class BorrowBookDao {
             return;
         fw.write(bblists.get(0).getName()+"|"+bblists.get(0).getID()+"|"+
                 bblists.get(0).getBookName()+"|"+bblists.get(0).getBookISBN()+"|"+bblists.get(0).getBookAuthor()+
-                "|"+bblists.get(0).getBorrowDate()+"|"+bblists.get(0).getRTBook()+"|"+bblists.get(0).getAIBook());
+                "|"+bblists.get(0).getBorrowDate()+"|"+bblists.get(0).getRTBook()+"|"+bblists.get(0).getAIBook()+"\r\n");
         for(int i=1;i<bblists.size();i++)
         {
-            String BkInfo="\r\n"+bblists.get(i).getName()+"|"+bblists.get(i).getID()+"|"+
+            String BkInfo=bblists.get(i).getName()+"|"+bblists.get(i).getID()+"|"+
                     bblists.get(i).getBookName()+"|"+bblists.get(i).getBookISBN()+"|"+bblists.get(i).getBookAuthor()+
-                    "|"+bblists.get(i).getBorrowDate()+"|"+bblists.get(i).getRTBook()+"|"+bblists.get(i).getAIBook();
+                    "|"+bblists.get(i).getBorrowDate()+"|"+bblists.get(i).getRTBook()+"|"+bblists.get(i).getAIBook()+"\r\n";
             fw.write(BkInfo);
         }
         fw.close();

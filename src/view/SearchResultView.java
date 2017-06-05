@@ -416,7 +416,7 @@ public class SearchResultView{
 		
 	    pages = new JLabel("第 i 页 共 n 页");
 		pages.setFont(new Font("华文楷体", Font.PLAIN, 20));
-		pages.setBounds(897, 683, 119, 35);
+		pages.setBounds(897, 683, 196, 35);
 		panel.add(pages);
 		
 		JLabel label_1 = new JLabel("第          页");

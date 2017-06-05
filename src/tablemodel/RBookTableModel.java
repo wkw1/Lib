@@ -84,7 +84,7 @@ public class RBookTableModel extends Table<RBookTableModel, BBHModel> {
 			}
 			else{
 				firstLine = lastLine;
-				lastLine =rowListAll;
+				lastLine = rowListAll;
 			}
 			updateTable();
 			return true;

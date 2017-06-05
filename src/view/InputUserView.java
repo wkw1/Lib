@@ -80,9 +80,13 @@ public class InputUserView {
 						}
 						LogDao.addLogSystem("管理员成功录入一名用户");
 					}
+					else
+						JOptionPane.showConfirmDialog(null,
+								"录入失败，此用户已录入！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 				}
 				else
-					JOptionPane.showConfirmDialog(null, "请完整输入每个信息！！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showConfirmDialog(null,
+							"请完整输入每个信息！！！", "提示信息", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		//退出

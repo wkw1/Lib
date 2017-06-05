@@ -79,7 +79,10 @@ public class SUserTableModel extends Table<SUserTableModel, UserModel> {
 				mObjects[i][2] = "老师";
 			mObjects[i][3] = um.getSchool();
 			mObjects[i][4] = um.getBNBooks();
-			mObjects[i][5] = um.getJoinDate();
+			if(um.getPassword()!=null&&!um.getPassword().equals(""))
+			     mObjects[i][5] = um.getJoinDate();
+			else
+				mObjects[i][5]="未注册!";
 			mObjects[i][6] = um.getBalance();
 		}
 		// 标头数据

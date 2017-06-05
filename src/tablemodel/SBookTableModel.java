@@ -69,7 +69,7 @@ public class SBookTableModel extends Table<SBookTableModel, BookModel> {
 		if(lastLine-firstLine!=8||lastLine==rowListAll){
 			lastLine--;
 		}
-		//list.remove(index+firstLine);
+		list.remove(index+firstLine);
 		rowListAll--;
 		updateTable();
 		return true;

@@ -47,6 +47,7 @@ public class AfterUserSignInView {
 	private JButton signOut;
 	private JButton myBorrowHistory;
 	private JButton update;//刷新按钮更新首页数据
+	private JButton alterInfo;
 
 	private JTextArea myInfo ;//我的资料显示区
 	private JTextArea searchRanking;//搜索排名显示区
@@ -121,8 +122,8 @@ public class AfterUserSignInView {
 				//生成搜索页面 传递关键字和搜索类型,单例模式
 				String word=keyWord.getText().replaceAll("\\s", "");
 				SearchKeyDao searchKeyDao = SearchKeyDao.getInstance();
-				searchKeyDao.addOne(word);
-
+				if(word!=null&&!word.equals(""))
+				     searchKeyDao.addOne(word);
 				SearchResultView window = SearchResultView.getInstance( word, (String) searchType.getSelectedItem(),1);
 				window.getFrame().setVisible(true);
 			}
@@ -166,6 +167,16 @@ public class AfterUserSignInView {
 
 				MyBBHView myBBHView = MyBBHView.getInstance();
 				myBBHView.getFrame().setVisible(true);
+			}
+		});
+		
+		//更改个人信息
+		alterInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AlterInfo alterInfo = AlterInfo.getInstance();
+				alterInfo.getFrame().setVisible(true);
 			}
 		});
 		
@@ -340,7 +351,7 @@ public class AfterUserSignInView {
 		systemInfo.setText("\u7CFB\u7EDF\u4ECB\u7ECD");
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 282, 268, 416);
+		scrollPane_2.setBounds(0, 282, 268, 358);
 		panel.add(scrollPane_2);
 
 		JLabel label_3 = new JLabel("\u6211\u7684\u8D44\u6599");
@@ -381,6 +392,12 @@ public class AfterUserSignInView {
 		recharge.setFont(new Font("华文楷体", Font.PLAIN, 20));
 		recharge.setBounds(0, 711, 268, 44);
 		panel.add(recharge);
+		
+		alterInfo = new JButton("\u66F4\u6539\u4FE1\u606F");
+		alterInfo.setBackground(new Color(0, 128, 128));
+		alterInfo.setFont(new Font("华文楷体", Font.PLAIN, 20));
+		alterInfo.setBounds(0, 654, 268, 44);
+		panel.add(alterInfo);
 
 	}
 

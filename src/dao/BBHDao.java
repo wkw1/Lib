@@ -49,7 +49,7 @@ public class BBHDao {
         for (int i = 0; i < bbhLists.size(); i++) {
             String target;
             target = bbhLists.get(i).getID();
-            if (target.equals(ID)) {
+            if (target!=null&&target.equals(ID)) {
                 lists.add(bbhLists.get(i));
                 whetherExist = 1;
             }
@@ -138,7 +138,7 @@ public class BBHDao {
         fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true), "GBK"));
         String BkInfo =  bbhModel.getName() + "|" + bbhModel.getID() + "|" +
                 bbhModel.getBookName() + "|" + bbhModel.getBookISBN() + "|" + bbhModel.getBookAuthor() +
-                "|" + bbhModel.getBorrowDate() + "|" + bbhModel.getReturnDate()+"\r";
+                "|" + bbhModel.getBorrowDate() + "|" + bbhModel.getReturnDate()+"\r\n";
         fw.write(BkInfo);
         fw.close();
     }

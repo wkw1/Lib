@@ -109,7 +109,7 @@ public class UserDao {
         String UInfo=UAdded.getName()+"|"+UAdded.getID()+"|"+
                 UAdded.getSchool()+"|"+UAdded.getPower()+"|"+UAdded.getANBooks()+
                 "|"+UAdded.getBNBooks()+"|"+UAdded.getBalance()+"|"+UAdded.getJoinDate()
-                +"|"+(userLists.get(0).getPassword()==null?"":userLists.get(0).getPassword())+"\r\n";
+                +"|"+(UAdded.getPassword()==null?"":UAdded.getPassword())+"\r\n";
         fw.write(UInfo);
         fw.close();
     }
@@ -129,9 +129,7 @@ public class UserDao {
             String UInfo=userLists.get(i).getName()+"|"+userLists.get(i).getID()+"|"+
                     userLists.get(i).getSchool()+"|"+userLists.get(i).getPower()+"|"+userLists.get(i).getANBooks()+
                     "|"+userLists.get(i).getBNBooks()+"|"+userLists.get(i).getBalance()+"|"+userLists.get(i).getJoinDate()
-                    +"|"+(userLists.get(0).getPassword()==null?"":userLists.get(0).getPassword())+"\r\n";
-            if(userLists.get(i).getPassword()!=null)
-                UInfo+=userLists.get(i).getPassword();
+                    +"|"+(userLists.get(i).getPassword()==null?"":userLists.get(i).getPassword())+"\r\n";
             fw.write(UInfo);
         }
         fw.close();

@@ -6,7 +6,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Sheet;;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -100,7 +100,7 @@ public class BatchImportBook {
 
             HSSFCell author = hssfrow.getCell(3);
             author.setCellType(Cell.CELL_TYPE_STRING);
-            bookModel.setBookType(author.getStringCellValue());
+            bookModel.setAuthor(author.getStringCellValue());
 
             HSSFCell press = hssfrow.getCell(4);
             press.setCellType(Cell.CELL_TYPE_STRING);
@@ -112,7 +112,7 @@ public class BatchImportBook {
 
             HSSFCell power = hssfrow.getCell(6);
             power.setCellType(Cell.CELL_TYPE_STRING);
-            bookModel.setTN(Integer.valueOf(power.getStringCellValue()));
+            bookModel.setPowerNeed(Integer.valueOf(power.getStringCellValue()));
 
             bookModel.setRN(bookModel.getTN());
             bookModel.setStorageTime(SystemEntry.date);

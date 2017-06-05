@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class BookDetailView {
 
@@ -109,9 +110,10 @@ public class BookDetailView {
 		panel.add(introduction);
 		
 		bookName = new JLabel("\u4E66\u540D");
+		bookName.setVerticalAlignment(SwingConstants.TOP);
 		bookName.setForeground(new Color(0, 0, 128));
 		bookName.setFont(new Font("ËÎÌו", Font.PLAIN, 20));
-		bookName.setBounds(251, 166, 266, 30);
+		bookName.setBounds(251, 169, 315, 66);
 		panel.add(bookName);
 		
 		author = new JLabel("\u4F5C\u8005");
@@ -122,7 +124,7 @@ public class BookDetailView {
 		press = new JLabel("\u51FA\u7248\u793E");
 		press.setForeground(new Color(0, 0, 139));
 		press.setFont(new Font("ËÎÌו", Font.PLAIN, 20));
-		press.setBounds(251, 423, 266, 30);
+		press.setBounds(251, 423, 315, 30);
 		panel.add(press);
 		
 		ISBN = new JLabel("ISBN");

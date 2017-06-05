@@ -9,12 +9,12 @@ import widget.InitWindow;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
-import java.awt.Color;
+
 /**
  * 管理员登录后页面
  * @author 宽伟
@@ -248,7 +248,7 @@ public class AfterAdSignInView {
 		panel.add(searchUser);
 		
 		whichTypeForUser = new JComboBox<String>(ArrayDB.searchUserTypes);
-		whichTypeForUser.setBounds(823, 492, 112, 35);
+		whichTypeForUser.setBounds(823, 516, 112, 35);
 		panel.add(whichTypeForUser);
 		
 		seeBorrowTable = new JButton("\u67E5\u770B\u501F\u4E66\u8868");

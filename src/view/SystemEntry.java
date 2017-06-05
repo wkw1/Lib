@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 
 import dao.*;
 import fileOpreation.BorrowBookFormOp;
-import model.BBHModel;
 import widget.InitWindow;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -68,6 +67,7 @@ public class SystemEntry {
 		readFile();
 	}
 
+	//读文件
 	private static void readFile() throws IOException, ParseException {
 		BookDao bookDao = BookDao.getInstance();
 		bookDao.readBookForm();
@@ -97,7 +97,7 @@ public class SystemEntry {
 					days++;
 					time.setText(sdf.format(date));
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -145,13 +145,13 @@ public class SystemEntry {
 		thread= new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < 1000; i++) {
+				for (int i = 0; i < 10000; i++) {
 					//日期增加一天
 					days++;
 					date = getPreDoneScore(date);
 					time.setText(sdf.format(date));
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

@@ -168,6 +168,12 @@ public class UserAction {
 			System.out.println("未找到图书");
 		return lists;
 	}
+
+	//更改密码
+	public boolean alterPassword(String newPassword){
+		UserFormOp userFormOp = UserFormOp.getInstance();
+		return userFormOp.alterPassword(user.getID(),newPassword);
+	}
 	
 	//给管理员发送消息充值
 	public boolean recharge(float money){

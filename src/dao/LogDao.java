@@ -20,7 +20,7 @@ public class LogDao {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String BkInfo="\r事件："+log+" 时间："+ SystemEntry.date;
+        String BkInfo="事件："+log+" 时间："+ SystemEntry.date+"\r\n";
         try {
             fw.write(BkInfo);
             fw.close();
